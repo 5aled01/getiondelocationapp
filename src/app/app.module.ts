@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SingupComponent } from './auth/singup/singup.component';
  import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,7 +14,6 @@ import { MenuComponent } from './menu/menu.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SingupComponent,
     SigninComponent,
     MenuComponent
   ],
