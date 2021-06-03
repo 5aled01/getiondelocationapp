@@ -93,9 +93,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modeles/bootstrap/dist/css/bootstrap.css"
+              
+              
             ],
-            "scripts": []
+            "scripts": [ "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/app/param/custom.js"]
           }
         },
         "lint": {
@@ -126,5 +131,6 @@
       }
     }
   },
-  "defaultProject": "getiondelocationapp"
+  "defaultProject": "getiondelocationapp" 
+
 }
