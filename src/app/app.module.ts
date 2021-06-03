@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import {SigninComponent} from './auth/signin/signin.component';
 import { MenuComponent } from './menu/menu.component';
+ 
 
 
 @NgModule({
@@ -26,8 +27,7 @@ import { MenuComponent } from './menu/menu.component';
   ],
   providers: [
    AuthGuardService,
-    AuthService,
-   
+    AuthService
     
   ],
   bootstrap: [AppComponent]

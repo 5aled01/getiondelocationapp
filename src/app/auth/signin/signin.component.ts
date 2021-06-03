@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router ,ActivatedRoute  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -16,13 +17,13 @@ export class SigninComponent implements OnInit {
   
   signInForm: FormGroup;
   errorMessage: string | undefined;
-
+  Userconncte : User ;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) {
 
-                if (this.authService.isAuth === true) {
+                if (this.authService.isAuth) {
                   this.router.navigate(['/menu']);
               }
                }
@@ -51,8 +52,7 @@ export class SigninComponent implements OnInit {
  
     this.authService.signInUser(username, password).then(
       () => {
-        this.authService.isAuth= true;
-        this.router.navigate(['/menu']);
+        this.authService.isAuth = true;
       },
       (error) => {
         this.errorMessage = error;

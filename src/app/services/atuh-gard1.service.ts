@@ -5,7 +5,7 @@ import { promise } from 'selenium-webdriver';
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class AuthGuardService1 implements CanActivate {
 
   
   constructor(
@@ -16,10 +16,10 @@ export class AuthGuardService implements CanActivate {
 canActivate(route: ActivatedRouteSnapshot,
    state: RouterStateSnapshot): Observable <boolean> | Promise<boolean> | boolean {
 
-    if (this.authService.isAuth) {
-        return true;
+    if (this.authService.isAuth==false) {
+          return true;
     }else{
-      this.router.navigate(['/auth','signin']);
+     this.router.navigate(['/menu']) ;
       return false;
     }
 

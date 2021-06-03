@@ -1,30 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './user';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { User } from '../models/user';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
     private apiServerUrl = environment.apiBaseUrl ;
-  currentUserValue: any;
+  
 
   isAuth :boolean = false;
-
-  constructor(private http: HttpClient) { }
+  userconncte : User | undefined;
+  constructor(private http: HttpClient,private router :Router) { }
 
   signInUser(username: string, password: string) {
-      return new Promise<void>((resolve, reject) => {
+      return new Promise <void>((response, reject) => {
         this.http.get<User>(`${this.apiServerUrl}/user/find/${username}&${password}`)
           .toPromise()
           .then(
-            res => {  
-              resolve();
+            (response: User) => {  
+              this.userconncte =  response;
+              this.isAuth= true;
+              this.router.navigate(['/menu']);
             },
-            (error) => {
-              reject(error);
+            (error: HttpErrorResponse) => {
+              reject(error.message);
             }
           );
       });
@@ -33,7 +37,7 @@ export class AuthService {
 
   
 
-  public getUser(username: string,password: string){
+  public getUser(username: string,password: string) :Observable<User> {
     return this.http.get<User>(`${this.apiServerUrl}/user/find/${username}&${password}`);
   }
   
