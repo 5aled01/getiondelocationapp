@@ -9,6 +9,8 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import {SigninComponent} from './auth/signin/signin.component';
 import { MenuComponent } from './menu/menu.component';
+import { UsersComponent } from './menu/users/users.component';
+import { HomeComponent } from './menu/home/home.component';
  
 
 
@@ -16,7 +18,9 @@ import { MenuComponent } from './menu/menu.component';
   declarations: [
     AppComponent,
     SigninComponent,
-    MenuComponent
+    MenuComponent,
+    UsersComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,6 @@ import { MenuComponent } from './menu/menu.component';
   providers: [
    AuthGuardService,
     AuthService
-    
   ],
   bootstrap: [AppComponent]
 })

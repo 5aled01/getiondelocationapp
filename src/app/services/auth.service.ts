@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { Cookie } from 'ng2-cookies';
 
 
 @Injectable({
@@ -11,11 +12,20 @@ import { User } from '../models/user';
 })
 export class AuthService {
     private apiServerUrl = environment.apiBaseUrl ;
-  
+    isAuth: boolean = false;
 
-  isAuth :boolean = false;
+  
   userconncte : User | undefined;
-  constructor(private http: HttpClient,private router :Router) { }
+ 
+  constructor(private http: HttpClient,private router :Router) {
+    if(Cookie.get('islogin')=='true')
+    this.isAuth = true;
+   }
+
+  ngOnInit() {
+    
+}
+
 
   signInUser(username: string, password: string) {
       return new Promise <void>((response, reject) => {
@@ -23,8 +33,9 @@ export class AuthService {
           .toPromise()
           .then(
             (response: User) => {  
+              Cookie.set('islogin', 'true');
+              this.isAuth = true;
               this.userconncte =  response;
-              this.isAuth= true;
               this.router.navigate(['/menu']);
             },
             (error: HttpErrorResponse) => {
@@ -34,6 +45,13 @@ export class AuthService {
       });
       
     }
+
+    signOutUser() {
+      Cookie.set('islogin', 'false');
+      console.log(this.isAuth);
+      this.isAuth=false;
+    this.router.navigate(['/auth','signin']);
+  }
 
   
 

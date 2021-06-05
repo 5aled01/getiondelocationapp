@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Cookie } from 'ng2-cookies';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
 
@@ -14,23 +15,21 @@ export class MenuComponent implements OnInit {
    
   constructor(public authservice : AuthService,private sanitizer: DomSanitizer) { 
     this.UserConnect = authservice.userconncte;
+
     
   }
 
-  
-  ngOnInit(): void {
+  ngOnInit() {
   
   }
-  geturl(){
-    let TYPED_ARRAY = new Uint8Array(this.UserConnect?.image);
-    const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
 
-    let base64String = btoa(STRING_CHAR);
+  onSignOut() {
+   
+   
+   this.authservice.signOutUser();
 
-    this.imageurl = this..domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
+   console.log(this.authservice.isAuth);
   }
-  
-  
 
 
 }

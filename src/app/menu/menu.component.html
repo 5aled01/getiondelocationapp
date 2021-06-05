@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    <title>Document</title>
-    
-</head>
-<body>
+
     
     <input type="checkbox" id="sidebar-toggle">
     <div class="sidebar">
         <div class="sidebar-header">
           <div class="profile">
-            <img src="data:image/png;base64,{{UserConnect.userimage}}" alt=""  id="ItemPreview" class="img-fluid rounded-circle">
+         <!--   <img src="data:image/png;base64,{{UserConnect.userimage}}" alt=""  id="ItemPreview" class="img-fluid rounded-circle">
             <h1 class="text-light"><a href="index.html">{{UserConnect.username}}</a></h1>
-         
-          </div>
+         -->
+          </div> 
             <label  for="sidebar-toggle" class="ti-menu-alt"> </label>
         </div>
         
@@ -28,9 +20,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a routerLink="users" routerLinkActive="active">
                         <span class="ti-face-smile"></span>
-                        <span>Contrat</span>
+                        <span>Getion Users</span>
                     </a>
                 </li>
                 <li>
@@ -70,9 +62,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="auth/authentification">
+                    <a (click)="onSignOut()"
+                   >
                         <span class="ti-sing"></span>
-                        <span>SingUp</span>
+                        <span>Deconnection</span>
                     </a>
                 </li>
             </ul>
@@ -82,8 +75,7 @@
     
     <div class="main-content">
         
-       
+       <router-outlet></router-outlet>
+      
     </div>
      
-</body>
-</html>

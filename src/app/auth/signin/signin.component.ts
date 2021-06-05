@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router ,ActivatedRoute  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { User } from 'src/app/models/user';
 
 
@@ -18,21 +19,23 @@ export class SigninComponent implements OnInit {
   signInForm: FormGroup;
   errorMessage: string | undefined;
   Userconncte : User ;
+  
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) {
 
-                if (this.authService.isAuth) {
+                if (Cookie.get('islogin') === 'true') {
                   this.router.navigate(['/menu']);
-              }
+                }
+                
                }
 
   ngOnInit() {
-    
     this.initForm();
-    
   }
+
+
 
   initForm() {
     this.signInForm = this.formBuilder.group({
@@ -52,7 +55,7 @@ export class SigninComponent implements OnInit {
  
     this.authService.signInUser(username, password).then(
       () => {
-        this.authService.isAuth = true;
+       
       },
       (error) => {
         this.errorMessage = error;
