@@ -19,37 +19,6 @@ body {
 	margin: -20px 0 50px;
 }
 
-.ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid #42A948; /* green */
-}
-
-.ng-invalid[isValide]  {
-  border-left: 5px solid #a5b3b6; /* red */
-}
-
-.alert-div{
-  background-color: #fed3d3;
-  color: #820000;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: .5rem;
-}
-
-select {
-  width: 100%;
-  padding: .5rem;
-}
-
-
-
 h1 {
 	font-weight: bold;
 	margin: 0;

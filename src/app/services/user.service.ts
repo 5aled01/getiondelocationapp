@@ -14,18 +14,15 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiServerUrl}/user/all`);
   }
 
-  
-  public addUser( formdata :any): Observable<User> {
-    return this.http.post<User>(`${this.apiServerUrl}/user/add`,formdata);
+  public addUser(user: User,uploadImageData :FormData): Observable<User> {
+      user.image = uploadImageData;
+    return this.http.post<User>(`${this.apiServerUrl}/user/add`,user);
   }
 
-  public updateUserWithimg(data : any): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/user/updatewithimg`, data);
+  public updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiServerUrl}/user/update`, user);
   }
-  public updateUser(data : any): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/user/update`, data);
-  }
-   
+
   public deleteUser(userId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/user/delete/${userId}`);
   }

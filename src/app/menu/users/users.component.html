@@ -20,8 +20,9 @@
     <div *ngFor="let user of users" class="col-md-6 col-xl-3">
        <div class="card m-b-30">
           <div class="card-body row">
-            <div class="col-6" >
-                <a href=""><img [src]="getImage(user?.image)"alt="" class="img-fluid rounded-circle w-60"></a>
+            <div class="col-6" *ngIf=retrievedImage>
+
+                <a href=""><img [src]="retrievedImage"alt="" class="img-fluid rounded-circle w-60"></a>
             </div>
              <div class="col-6 card-title align-self-center mb-0">
                 <h5>{{user?.username}}</h5>
@@ -102,8 +103,8 @@
                 </div>
                 <input type="hidden" ngModel="{{editUser?.id}}" name="id" class="form-control" id="id" placeholder="Email">
                    <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="text" ngModel name="password" class="form-control" id="password" name="password" placeholder="password" required>
+                    <label for="password">Passzord</label>
+                    <input type="text" ngModel="{{editUser?.password}}" name="password" class="form-control" id="password" name="password" placeholder="password">
                  </div>
                 <div class="form-group">
                    <label for="role">Role utilisateur</label>
@@ -116,11 +117,11 @@
                 </div>
               
                 <div class="form-group">
-                  <label for="phone">Image </label>
-                  <input type="file" (change)="onFileChanged($event)" ngModel name="image" class="form-control" id="image" placeholder="Image URL" >
-               </div>
+                   <label for="phone">Image File</label>
+                   <input type="text" name="image" class="form-control" id="image" placeholder="image">
+                </div>
                 <div class="modal-footer">
-                   <button type="button"  id="update-user-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
                    <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
                 </div>
              </form>

@@ -6,14 +6,5 @@ export class User {
 
     }
 
-    public getImage(){
-    
-        const base64Data = this.image
-        const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
-        console.log(retrievedImage);
-        return retrievedImage;
-    
-      }
-
 
 }

@@ -20,21 +20,15 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.UserConnect = this.authservice.userconncte;
-  }
-
-  public getImage(image:any){
-    
-    const base64Data = image
-    const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
-    console.log(retrievedImage);
-    return retrievedImage;
+  
   }
 
   onSignOut() {
    
    
    this.authservice.signOutUser();
+
+   console.log(this.authservice.isAuth);
   }
 
 
