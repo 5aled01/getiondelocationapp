@@ -11,8 +11,12 @@ import { Cookie } from 'ng2-cookies';
   providedIn: 'root'
 })
 export class AuthService {
+  
+
+  
     private apiServerUrl = environment.apiBaseUrl ;
     isAuth: boolean = false;
+    
 
   
   userconncte : User | undefined;
@@ -40,6 +44,7 @@ export class AuthService {
             },
             (error: HttpErrorResponse) => {
               reject(error.message);
+              
             }
           );
       });
