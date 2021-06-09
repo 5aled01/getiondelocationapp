@@ -16,9 +16,12 @@ import { User } from 'src/app/models/user';
 
 export class SigninComponent implements OnInit {
   
-  signInForm: FormGroup;
-  errorMessage: string | undefined;
-  Userconncte : User ;
+  signInForm: FormGroup | undefined;
+  errorMessage: string | undefined  ;
+  Userconncte : User | undefined ;
+  public username : any;
+  public password : any;
+  isValide : boolean = false;
   
 
   constructor(private formBuilder: FormBuilder,
@@ -33,13 +36,14 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+   
   }
 
-
+  get f() { return this.signInForm.controls; }
 
   initForm() {
     this.signInForm = this.formBuilder.group({
-      username: ['',Validators.required],
+      username: ['',[Validators.required] ],
       password: ['', [Validators.required]]
     });
 
@@ -58,8 +62,8 @@ export class SigninComponent implements OnInit {
        
       },
       (error) => {
-        this.errorMessage = error;
-
+        this.errorMessage = "mot de pass ou user nom incorrect";
+        this.isValide = false;
       }
     );
   }

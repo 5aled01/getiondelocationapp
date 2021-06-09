@@ -4,34 +4,22 @@
 <body style="background-image: url('bg2.jpg');">
 <p></p><br>
 <div class="container" id="container">
-	<div class="form-container sign-up-container">
-		<form role="form" >
-			
-			
-			
-		</form>
-	</div>
+		
 	<div class="form-container sign-in-container" >
-		<form  [formGroup]="signInForm" (ngSubmit)="onSubmit()" >
+		<form  [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="form-group" >
 			<h1>Connection</h1>
 			<div class="social-container">
 			</div>
 			<span>remplire les chaaamps</span>
-			<input type="text" placeholder="username" formControlName="username" />
-		
-			<input type="password" formControlName="password"  placeholder="password" required/>
-			
-		
+			<input type="text" placeholder="username" formControlName="username"  required/>	
+			<input type="password" formControlName="password" placeholder="password" required/>
 
-			<a href="#">mot de pass oublier?</a>
-			
-			<p class="text-danger">{{errorMessage}}</p>
-			
-  
-			<button   type="submit"  [disabled]="signInForm.invalid">
-				
+			<p class="text-danger"  ng-if="errorMessage" >{{errorMessage}}</p>
+			<button   type="submit"  [disabled]="signInForm.invalid" >
 				connection</button>
+				<a href="#">mot de pass oublier?</a>
 		</form>
+		
 	</div>
 	<div class="overlay-container">
 		<div class="overlay">

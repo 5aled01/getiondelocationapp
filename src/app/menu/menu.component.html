@@ -4,9 +4,10 @@
     <div class="sidebar">
         <div class="sidebar-header">
           <div class="profile">
-         <!--   <img src="data:image/png;base64,{{UserConnect.userimage}}" alt=""  id="ItemPreview" class="img-fluid rounded-circle">
-            <h1 class="text-light"><a href="index.html">{{UserConnect.username}}</a></h1>
-         -->
+            
+            <img [src]="getImage(UserConnect?.image)" alt=""  id="ItemPreview" class="img-fluid rounded-circle" />
+            <h1 class="text-light"><a href="index.html">{{UserConnect?.username}}</a></h1>
+         
           </div> 
             <label  for="sidebar-toggle" class="ti-menu-alt"> </label>
         </div>
