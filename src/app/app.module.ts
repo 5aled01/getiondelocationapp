@@ -11,6 +11,7 @@ import {SigninComponent} from './auth/signin/signin.component';
 import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
+import { ProprietairesComponent } from './menu/proprietaires/proprietaires.component';
  
 
 
@@ -20,7 +21,8 @@ import { HomeComponent } from './menu/home/home.component';
     SigninComponent,
     MenuComponent,
     UsersComponent,
-    HomeComponent
+    HomeComponent,
+    ProprietairesComponent
   ],
   imports: [
     BrowserModule,
