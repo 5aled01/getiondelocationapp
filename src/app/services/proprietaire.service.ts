@@ -7,6 +7,8 @@ import { environment } from "src/environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class ProrietaireService {
+  nom :any | undefined;
+  
   private apiServerUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient){}
@@ -18,6 +20,10 @@ export class ProrietaireService {
   
   public addProC1( formdata :any): Observable<ProC1> {
     return this.http.post<ProC1>(`${this.apiServerUrl}/proc1/add`,formdata);
+  }
+
+  public getNomProprietaire(id :number) {
+    return this.http.get<String>(`${this.apiServerUrl}/proc1/findnom/${id}`);
   }
 
   public updateProC1Withimg(data : any): Observable<ProC1> {

@@ -4,15 +4,19 @@ import { ImmobilierBati } from 'src/app/models/ImmobilierBati';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Point } from 'src/app/models/Point';
+import { ProC1 } from 'src/app/models/proc1';
+import { ProrietaireService } from 'src/app/services/proprietaire.service';
+import { ProprietairesComponent } from '../proprietaires/proprietaires.component';
 
 @Component({
   selector: 'app-immobilier',
-  templateUrl: './immobilier.component.html',
-  styleUrls: ['./immobilier.component.css']
+  templateUrl: './immobilierBati.component.html',
+  styleUrls: ['./immobilierBati.component.css']
 })
 export class ImmobilierBatiComponent implements OnInit {
 
   public immobilierBatis: ImmobilierBati[];
+  public Proprietaires: ProC1[];
   public editImmobilierBati: ImmobilierBati;
   public deleteImmobilierBati: ImmobilierBati;
 
@@ -23,17 +27,31 @@ export class ImmobilierBatiComponent implements OnInit {
     message: string;
     imageName: any;
 
-  constructor(private immobilierBatiService: ImmobilierBatiService) { }
+  constructor(private immobilierBatiService: ImmobilierBatiService
+    ,private proprietaireService: ProrietaireService) { }
 
   ngOnInit(): void {
     this.getImmobilierBatis();
+    this.getProC1s();
   }
 
   getNomProprietaire(id :number){
-
+  return this.proprietaireService.getNomProprietaire(id);
   }
 
+  public getProC1s(): void {
+    this.proprietaireService.getProC1s().subscribe(
+      (response: ProC1[]) => {
+        this.Proprietaires = response;
+     
+      },
+      (error: HttpErrorResponse) => {
+      alert(error.message);
+      }
+    );
+  }
   
+
   public getImmobilierBatis(): void {
     this.immobilierBatiService.getImmobilierBatis().subscribe(
       (response: ImmobilierBati[]) => {
@@ -63,10 +81,11 @@ export class ImmobilierBatiComponent implements OnInit {
       
 
   public onAddImmobilierBati(addForm: NgForm): void {
-    document.getElementById('add-ImmobilieBati-form').click();
+    document.getElementById('add-immobilierBati-form').click();
     const formvalue =addForm.value ;
     const p = new Point(formvalue['x'],formvalue['y']);
     const newimmobilierBati = new ImmobilierBati(0,
+      formvalue['nom'],
       formvalue['idProprietaire'],
       formvalue['adresse'],
       p,
@@ -93,7 +112,7 @@ export class ImmobilierBatiComponent implements OnInit {
   }
 
   public onUpdateImmobilierBati(immobilierBati: ImmobilierBati): void {
-    
+
     document.getElementById('update-immobilierBati-form').click();
    
 
@@ -120,10 +139,9 @@ export class ImmobilierBatiComponent implements OnInit {
     );
   }
 
-  /*
-
-  public searchUsers(key: string): void {
-    console.log(key);
+  
+  public searchImmobilierBatis(key: string): void {
+  /*  console.log(key);
     const results: ImmobilierBati[] = [];
     for (const user of this.immobilierBatis) {
       if (user.username.toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -136,9 +154,9 @@ export class ImmobilierBatiComponent implements OnInit {
     this.users = results;
     if (results.length === 0 || !key) {
       this.getUsers();
-    }
-  }
-*/
+    */    }
+  
+
 
   public onOpenModal(immobilierBati: ImmobilierBati, mode: string): void {
     const container = document.getElementById('main-container');

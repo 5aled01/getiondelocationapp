@@ -30,6 +30,7 @@ export class ProprietairesComponent implements OnInit {
     retrieveResonse: any;
     message: string;
     imageName: any;
+  static getProC1s: any;
 
   constructor(private prorietaireService :ProrietaireService) { }
 

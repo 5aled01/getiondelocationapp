@@ -11,20 +11,20 @@ export class ImmobilierBatiService {
   constructor(private http: HttpClient){}
 
   public getImmobilierBatis(): Observable<ImmobilierBati[]> {
-    return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/ImmobilierBati/all`);
+    return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/immobilierbati/all`);
   }
 
   
   public addImmobilierBati(newimmobilierBati :ImmobilierBati): Observable<ImmobilierBati> {
-    return this.http.post<ImmobilierBati>(`${this.apiServerUrl}/ImmobilierBati/add`,newimmobilierBati);
+    return this.http.post<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/add`,newimmobilierBati);
   }
   
   public updateImmobilierBati(data : any): Observable<ImmobilierBati> {
-    return this.http.put<ImmobilierBati>(`${this.apiServerUrl}/ImmobilierBati/update`, data);
+    return this.http.put<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/update`, data);
   }
    
   public deleteImmobilierBati(ImmobilierBatiId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/ImmobilierBati/delete/${ImmobilierBatiId}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/immobilierbati/delete/${ImmobilierBatiId}`);
   }
 
 
