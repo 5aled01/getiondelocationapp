@@ -12,6 +12,7 @@ import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
 import { ProprietairesComponent } from './menu/proprietaires/proprietaires.component';
+import { ImmobilierComponent } from './immobilier/immobilier.component';
  
 
 
@@ -22,7 +23,8 @@ import { ProprietairesComponent } from './menu/proprietaires/proprietaires.compo
     MenuComponent,
     UsersComponent,
     HomeComponent,
-    ProprietairesComponent
+    ProprietairesComponent,
+    ImmobilierComponent
   ],
   imports: [
     BrowserModule,
