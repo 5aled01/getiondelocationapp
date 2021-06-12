@@ -15,8 +15,9 @@ import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
 import { ProprietairesComponent } from './menu/proprietaires/proprietaires.component';
-import { ImmobilierComponent } from './immobilier/immobilier.component';
+
 import { ProrietaireService } from './services/proprietaire.service';
+import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { ProrietaireService } from './services/proprietaire.service';
     UsersComponent,
     HomeComponent,
     ProprietairesComponent,
-    ImmobilierComponent
+    ImmobilierBatiComponent
 
   ],
   imports: [
