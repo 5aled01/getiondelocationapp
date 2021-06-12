@@ -1,3 +1,6 @@
+ 
+
+import { UserService } from './services/user.service';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,8 +16,7 @@ import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
 import { ProprietairesComponent } from './menu/proprietaires/proprietaires.component';
 import { ImmobilierComponent } from './immobilier/immobilier.component';
- 
-
+import { ProrietaireService } from './services/proprietaire.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { ImmobilierComponent } from './immobilier/immobilier.component';
     HomeComponent,
     ProprietairesComponent,
     ImmobilierComponent
+
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,10 @@ import { ImmobilierComponent } from './immobilier/immobilier.component';
   ],
   providers: [
    AuthGuardService,
-    AuthService
+    AuthService,
+    UserService,
+    ProrietaireService,
+  
   ],
   bootstrap: [AppComponent]
 })
