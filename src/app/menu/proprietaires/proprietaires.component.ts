@@ -2,9 +2,11 @@ import { ProrietaireService } from './../../services/proprietaire.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
  
-import { ProC2 } from 'src/app/models/proc2';
+ 
 import { NgForm } from '@angular/forms';
 import { ProC1 } from 'src/app/models/proc1';
+import { ProC2 } from 'src/app/models/proc2';
+ 
 
 @Component({
   selector: 'app-proprietaires',
@@ -14,7 +16,7 @@ import { ProC1 } from 'src/app/models/proc1';
 export class ProprietairesComponent implements OnInit {
 
   public proC1s: ProC1[];
-  public editeProC1: ProC1;
+  public editeProC1: ProC1
   public deleteProC1: ProC1;
 
   
@@ -70,8 +72,8 @@ export class ProprietairesComponent implements OnInit {
     document.getElementById('add-ProC1-form').click();
     const formvalue =addForm.value ;
  
-    const newProC1 = new ProC1(0,formvalue['nom'],formvalue['prenom'],
-    formvalue['NNI'],formvalue['numcomp'],formvalue['pronom'],formvalue['password'],formvalue['phone'],[0]);
+    const newProC1 = new ProC1(0,formvalue['telephone'],[0],formvalue['nom'],
+    formvalue['prenom'],formvalue['nni'],formvalue['numcomp'],formvalue['pronom'],formvalue['password']);
 
     newProC1.img= null;
 
@@ -104,7 +106,7 @@ console.log(this.selectedFile);
     if(this.selectedFile){
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
       proC1.img=null;
-    uploadImage.append('proc2', JSON.stringify(proC1));
+    uploadImage.append('proC1', JSON.stringify(proC1));
     this.prorietaireService.updateProC1Withimg(uploadImage).subscribe(
       (response: ProC1) => {
         console.log(response);
@@ -118,7 +120,7 @@ console.log(this.selectedFile);
   else{
     
     proC1.img=null;
-  uploadImage.append('user', JSON.stringify(proC1));
+  uploadImage.append('proC1', JSON.stringify(proC1));
   this.prorietaireService.updateProC1(uploadImage).subscribe(
     (response: ProC1) => {
       console.log(response);
@@ -165,8 +167,8 @@ console.log(this.selectedFile);
     document.getElementById('add-ProC2-form').click();
     const formvalue =addForm.value ;
  
-    const newProC2 = new ProC1(0,formvalue['nom'],formvalue['prenom'],
-    formvalue['NNI'],formvalue['numcomp'],formvalue['pronom'],formvalue['password'],formvalue['phone'],[0]);
+    const newProC2 = new ProC2(0,formvalue['telephone'],[0],formvalue['nom'],
+    formvalue['prenom'],formvalue['nni'],formvalue['numcomp'],formvalue['pronom'],formvalue['password']);
 
     newProC2.img= null;
 
@@ -194,12 +196,12 @@ console.log(this.selectedFile);
   }
 
   public onUpdateProC2(proC2: ProC2): void {
-    document.getElementById('update-user-form').click();
+    document.getElementById('update-ProC2-form').click();
     const uploadImage = new FormData()
     if(this.selectedFile){
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
       proC2.img=null;
-    uploadImage.append('proc2', JSON.stringify(proC2));
+    uploadImage.append('proC2', JSON.stringify(proC2));
     this.prorietaireService.updateProC2Withimg(uploadImage).subscribe(
       (response: ProC2) => {
         console.log(response);
@@ -271,6 +273,7 @@ console.log(this.selectedFile);
     }
     if (mode === 'edit') {
       this.editeProC1 = proC1;
+      this.editeProC1.img=null;
       button.setAttribute('data-target', '#updateProC1Modal');
     }
     if (mode === 'delete') {
