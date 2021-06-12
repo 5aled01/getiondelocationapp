@@ -13,7 +13,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 const routes : Routes= [
   
   {path :'auth/signin'  ,component: SigninComponent},
-  {path :'menu' ,canActivate: [AuthGuardService], component: MenuComponent, children:[
+  {path :'menu' , component: MenuComponent, children:[
     {path :'' ,redirectTo: 'home', pathMatch: 'full'},
     {path :'home' , component: HomeComponent},
     {path :'users' , component: UsersComponent},

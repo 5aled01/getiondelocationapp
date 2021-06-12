@@ -1,3 +1,6 @@
+ 
+
+import { UserService } from './services/user.service';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,8 +15,9 @@ import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
 import { ProprietairesComponent } from './menu/proprietaires/proprietaires.component';
- 
-
+import { ProrietaireService } from './services/proprietaire.service';
+import { ProC1 } from './models/proc1';
+  
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import { ProprietairesComponent } from './menu/proprietaires/proprietaires.compo
     MenuComponent,
     UsersComponent,
     HomeComponent,
-    ProprietairesComponent
+    ProprietairesComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,10 @@ import { ProprietairesComponent } from './menu/proprietaires/proprietaires.compo
   ],
   providers: [
    AuthGuardService,
-    AuthService
+    AuthService,
+    UserService,
+    ProrietaireService,
+  
   ],
   bootstrap: [AppComponent]
 })

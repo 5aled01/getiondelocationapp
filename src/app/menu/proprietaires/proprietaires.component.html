@@ -1,11 +1,359 @@
 <nav class="navbar navbar-light bg-light">
   
   <form class="form-inline">
-    <a class="nav-link">List des proprietair</a> |
-    <a class="nav-link">Pro-C1</a> |
-    <a class="nav-link">Pro-C2</a> |
+    <a class="nav-link" routerLink="proprietaires">List des proprietair qui over leur mai</a> |
+    <a class="nav-link" (click)="onOpenModal1(null, 'add')">niveaux Pro-C1</a> |
+    <a class="nav-link" (click)="onOpenModal2(null, 'add')">niveaux Pro-C2</a> |
     
   </form>
 </nav>
 
+<div class="container" id="main-container">
+  <div class="row" id="mainProcc">
+    <div *ngFor="let proC1 of proC1s" class="col-md-6 col-xl-3">
+       <div class="card m-b-30">
+          <div class="card-body row">
+            <div class="col-6" >
+                <a href=""><img [src]="getImage(proC1?.img)" alt="" class="img-fluid rounded-circle w-60"></a>
+            </div>
+             <div class="col-6 card-title align-self-center mb-0">
+                <h5>{{proC1?.pronom}}</h5>
+             </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Nom : {{proC1?.nom}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prenom : {{proC1?.prenom}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>NNI : {{proC1?.nni}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Telephone : {{proC1?.telephone}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Compte : {{proC1?.numcomp}}</li>
+           </ul>
+          <div class="card-body">
+             <div class="float-right btn-group btn-group-sm">
+                <a (click)="onOpenModal1(proC1, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal1(proC1, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+             </div>
+          </div>
+       </div>
+    </div>
+  
+  <!-- Add Employee Modal -->
+  <div class="modal fade" id="addProC1Modal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addProC1ModalLabel">Ajouter un proprietaire </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddProC1(addForm)">
+            <div class="form-group">
+               <label for="Nom">Nom</label>
+               <input type="text" ngModel name="Nom" class="form-control" id="username" placeholder="le Nom" required>
+            </div>
+            <div class="form-group">
+               <label for="Prenom">Prenom</label>
+               <input type="text" ngModel name="Prenom" class="form-control" id="Prenom" placeholder="le Prenom" required>
+            </div>
+            <div class="form-group">
+               <label for="ProNom">nom d'authentification</label>
+               <input type="text" ngModel name="Pronom" class="form-control" id="Pronom" placeholder=" " required>
+            </div>
+            <div class="form-group">
+               <label for="nni">NNI </label>
+               <input type="number" ngModel name="nni" class="form-control" id="nni" placeholder=" " required>
+            </div>
+            <div class="form-group">
+               <label for="password">Password </label>
+               <input type="password" ngModel name="password" class="form-control" id="password" placeholder="password" required>
+            </div>
+            <div class="form-group">
+               <label for="telephone">Telephone</label>
+               <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="Job title" required>
+            </div>
+            <div class="form-group">
+               <label for="numComp">num Copmte</label>
+               <input type="text" ngModel name="numComp" class="form-control" id="numComp" placeholder="Job title" required>
+            </div>
+            <div class="form-group">
+               <label for="phone">Image </label>
+               <input type="file" (change)="onFileChanged($event)" ngModel name="image" class="form-control" id="image" placeholder="Image URL" >
+            </div>
+            <div class="modal-footer">
+               <button type="button" id="add-ProC1-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+  
+  <!-- Edit Modal -->
+  <div class="modal fade" id="updateProc1Modal" tabindex="-1" role="dialog" aria-labelledby="ProC1EditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateUserModalLabel">Modifier Proprietaire {{editeProC1?.pronom}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #editForm="ngForm">
+                <div class="form-group">
+                   <label for="nom">Nom </label>
+                   <input type="text" ngModel="{{editeProC1?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="nom" placeholder="username">
+                </div>
+                <input type="hidden" ngModel="{{editeProC1?.id}}" name="id" class="form-control" id="id"  >
+                <div class="form-group">
+                  <label for="prenom">Prenom</label>
+                  <input type="text" ngModel="{{editeProC1?.prenom }}" name="prenom" class="form-control" id="prenom" name="prenom" placeholder="prenom" required>
+               </div>
+               <div class="form-group">
+                  <label for="pronom">nom d'autentification</label>
+                  <input type="text" ngModel="{{editeProC1?.pronom }}" name="pronom" class="form-control" id="pronom" name="pronom" placeholder="prenom" required>
+               </div>
+                <div class="form-group">
+                  <label for="nni">NNI</label>
+                  <input type="text" ngModel="{{editeProC1?.nni }}" name="nni" class="form-control" id="nni" name="NNI" placeholder="password" required>
+               </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="text" ngModel="{{editeProC1?.password }}" name="password" class="form-control" id="password" name="password" placeholder="password" required>
+               </div> 
+                <div class="form-group">
+                    <label for="numcomp">numero du compte</label>
+                    <input type="text" ngModel="{{editeProC1?.numcomp }}" name="numcomp" class="form-control" id="numcomp" name="numcomp" placeholder="password" required>
+                 </div>
+               
+                <div class="form-group">
+                   <label for="telephone">Phone</label>
+                   <input type="text" ngModel="{{editeProC1?.telephone}}" name="telephone" class="form-control" id="Telephone" name="Telephone" placeholder="Phone">
+                </div>
+              
+                <div class="form-group">
+                  <label for="phone">Image </label>
+                  <input type="file" (change)="onFileChanged($event)" ngModel name="image" class="form-control" id="image" placeholder="Image URL" >
+               </div>
+                <div class="modal-footer">
+                   <button type="button"  id="update-user-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                   <button (click)="onUpdateProC1(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Suprimer Proprietaire</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Vous etez sur de suprimer le proprietaier {{deleteProC1?.pronom}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteProC1(deleteProC1?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+   </div>
+  
+  
+  <!-- Notification for no employees -->
+  <div *ngIf="proC1s?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+     <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">NON Proprietaire qui donne l'autorisation de gestion !!</h4>
+       <p>No Proprietaire trouver</p>
+     </div>
+  </div>
+ </div>
+
+
+
+
+ <!-- Patie du deuxieme catogorie de proprietaire-->
+
+
+<div class="row" id="mainProC">
+   <div *ngFor="let proC2 of proC2s" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+         <div class="card-body row">
+           <div class="col-6" >
+               <a href=""><img [src]="getImage(proC2?.img)" alt="" class="img-fluid rounded-circle w-60"></a>
+           </div>
+            <div class="col-6 card-title align-self-center mb-0">
+               <h5>{{proC2?.pronom}}</h5>
+            </div>
+         </div>
+         <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Nom : {{proC2?.nom}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.prenom}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.nni}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.telephone}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.numcomp}}</li>
+          </ul>
+         <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+               <a (click)="onOpenModal2(proC2, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+               <a (click)="onOpenModal2(proC2, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+         </div>
+      </div>
+   </div>
+ 
+ <!-- Add Employee Modal -->
+ <div class="modal fade" id="addProC2Modal" tabindex="-1" role="dialog" aria-labelledby="addProC2ModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="addProC2ModalLabel">Ajouter un proprietaire </h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #addForm="ngForm" (ngSubmit)="onAddProC2(addForm)">
+           <div class="form-group">
+              <label for="Nom">Nom</label>
+              <input type="text" ngModel name="Nom" class="form-control" id="username" placeholder="le Nom" required>
+           </div>
+           <div class="form-group">
+              <label for="Prenom">Prenom</label>
+              <input type="text" ngModel name="Prenom" class="form-control" id="Prenom" placeholder="le Prenom" required>
+           </div>
+           <div class="form-group">
+              <label for="ProNom">nom d'authentification</label>
+              <input type="text" ngModel name="Pronom" class="form-control" id="Pronom" placeholder=" " required>
+           </div>
+           <div class="form-group">
+              <label for="nni">NNI </label>
+              <input type="text" ngModel name="nni" class="form-control" id="nni" placeholder=" " required>
+           </div>
+           <div class="form-group">
+              <label for="password">Password </label>
+              <input type="password" ngModel name="password" class="form-control" id="password" placeholder="password" required>
+           </div>
+           <div class="form-group">
+              <label for="telephone">Telephone</label>
+              <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="Job title" required>
+           </div>
+           <div class="form-group">
+              <label for="numComp">num Copmte</label>
+              <input type="text" ngModel name="numComp" class="form-control" id="numComp" placeholder="Job title" required>
+           </div>
+           <div class="form-group">
+              <label for="phone">Image </label>
+              <input type="file" (change)="onFileChanged($event)" ngModel name="image" class="form-control" id="image" placeholder="Image URL" >
+           </div>
+           <div class="modal-footer">
+              <button type="button" id="add-ProC2-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" > Save changes</button>
+           </div>
+           </form>
+        </div>
+     </div>
+   </div>
+   </div>
+ 
+ <!-- Edit Modal -->
+ <div class="modal fade" id="updateProC2Modal" tabindex="-1" role="dialog" aria-labelledby="ProC2EditModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="ProC2EditModalLabel">Modifier Proprietaire {{editeProC2?.pronom}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #editForm="ngForm">
+               <div class="form-group">
+                  <label for="nom">Nom </label>
+                  <input type="text" ngModel="{{editeProC2?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="nom" placeholder="username">
+               </div>
+               <input type="hidden" ngModel="{{editeProC2?.id}}" name="id" class="form-control" id="id"  >
+               <div class="form-group">
+                 <label for="prenom">Prenom</label>
+                 <input type="text" ngModel="{{editeProC2?.prenom }}" name="prenom" class="form-control" id="prenom" name="prenom" placeholder="prenom" required>
+              </div>
+              <div class="form-group">
+                 <label for="pronom">nom d'autentification</label>
+                 <input type="text" ngModel="{{editeProC2?.pronom }}" name="pronom" class="form-control" id="pronom" name="pronom" placeholder="prenom" required>
+              </div>
+               <div class="form-group">
+                 <label for="nni">NNI</label>
+                 <input type="text" ngModel="{{editeProC2?.nni }}" name="nni" class="form-control" id="nni" name="NNI" placeholder="password" required>
+              </div>
+               <div class="form-group">
+                 <label for="password">Password</label>
+                 <input type="text" ngModel="{{editeProC2?.password }}" name="password" class="form-control" id="password" name="password" placeholder="password" required>
+              </div> 
+               <div class="form-group">
+                   <label for="numcomp">numero du compte</label>
+                   <input type="text" ngModel="{{editeProC2?.numcomp }}" name="numcomp" class="form-control" id="numcomp" name="numcomp" placeholder="password" required>
+                </div>
+              
+               <div class="form-group">
+                  <label for="Telephone">Telephone</label>
+                  <input type="text" ngModel="{{editeProC2?.telephone}}" name="Telephone" class="form-control" id="Telephone" name="phone" placeholder="Phone">
+               </div>
+             
+               <div class="form-group">
+                 <label for="phone">Image </label>
+                 <input type="file" (change)="onFileChanged($event)" ngModel name="image" class="form-control" id="image" placeholder="Image URL" >
+              </div>
+               <div class="modal-footer">
+                  <button type="button"  id="update-user-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button (click)="onUpdateProC2(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+ </div>
+ 
+ <!-- Delete Modal -->
+ <div class="modal fade" id="deleteProC2Modal" tabindex="-1" role="dialog" aria-labelledby="proC2deleteModelLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="proC2deleteModelLabel">Suprimer Proprietaire</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <p>Vous etez sur de suprimer le proprietaier {{deleteProC2?.pronom}}?</p>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+               <button (click)="onDeleteProC2(deleteProC2?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+ </div>
+ 
+ 
+ <!-- Notification for no employees -->
+ <div *ngIf="proC1s?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+ <div class="alert alert-info" role="alert">
+   <h4 class="alert-heading">NON Proprietaire qui annonce seulment leur immobliere !!</h4>
+   <p>No Proprietaire trouver</p>
+ </div>
+ 
+  </div>
+ </div>
+
+
+</div>
 
