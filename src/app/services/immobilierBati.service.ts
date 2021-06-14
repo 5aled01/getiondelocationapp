@@ -13,7 +13,11 @@ export class ImmobilierBatiService {
   public getImmobilierBatis(): Observable<ImmobilierBati[]> {
     return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/immobilierbati/all`);
   }
-
+  
+  public getImmobilierBati(id : number): Observable<ImmobilierBati> {
+    return this.http.get<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/find${id}`);
+  }
+  
   
   public addImmobilierBati(newimmobilierBati :ImmobilierBati): Observable<ImmobilierBati> {
     return this.http.post<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/add`,newimmobilierBati);
@@ -26,6 +30,7 @@ export class ImmobilierBatiService {
   public deleteImmobilierBati(ImmobilierBatiId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/immobilierbati/delete/${ImmobilierBatiId}`);
   }
+  
 
 
 }

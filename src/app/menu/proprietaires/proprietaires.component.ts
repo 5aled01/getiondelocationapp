@@ -70,7 +70,7 @@ export class ProprietairesComponent implements OnInit {
 
 
   public onAddProC1(addForm: NgForm): void {
-    document.getElementById('add-ProC1-form').click();
+    document.getElementById('add-ProC1-form')?.click();
     const formvalue =addForm.value ;
  
     const newProC1 = new ProC1(0,formvalue['telephone'],[0],formvalue['nom'],
@@ -102,7 +102,7 @@ console.log(this.selectedFile);
   }
 
   public onUpdateProC1(proC1: ProC1): void {
-    document.getElementById('update-user-form').click();
+    document.getElementById('update-user-form')?.click();
     const uploadImage = new FormData()
     if(this.selectedFile){
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
