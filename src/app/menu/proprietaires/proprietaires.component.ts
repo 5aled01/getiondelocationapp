@@ -274,7 +274,7 @@ console.log(this.selectedFile);
     }
     if (mode === 'edit') {
       this.editeProC1 = proC1;
-      this.editeProC1.img=null;
+    
       button.setAttribute('data-target', '#updateProC1Modal');
     }
     if (mode === 'delete') {

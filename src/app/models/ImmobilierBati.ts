@@ -10,7 +10,9 @@ export class ImmobilierBati {
         public numPermie:  String,
         public longueur :Number,
         public  largeur :Number,
+        public idProprietaire :number,
+        public nom :string,
         public  longueurBati :number,
-        public largeurBati :number){
-    }
+        public largeurBati :number){}
+           
 }
