@@ -8,6 +8,7 @@ import { ProC1 } from 'src/app/models/proc1';
 import { ProrietaireService } from 'src/app/services/proprietaire.service';
 import { ProprietairesComponent } from '../proprietaires/proprietaires.component';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-immobilier',
@@ -16,29 +17,43 @@ import { Observable } from 'rxjs';
 })
 export class ImmobilierBatiComponent implements OnInit {
 
-  public immobilierBatis: ImmobilierBati[];
-  public Proprietaires: ProC1[];
-  public editImmobilierBati: ImmobilierBati;
-  public deleteImmobilierBati: ImmobilierBati;
-
-  selectedFile: File;
+  public immobilierBatis!: ImmobilierBati[];
+  public Proprietaires!: ProC1[];
+  public editImmobilierBati!: ImmobilierBati;
+  public deleteImmobilierBati!: ImmobilierBati;
+  public nProprietaire :  ProC1 | undefined ;
+  selectedFile!: File;
   retrievedImage: any;
    base64Data: any;
     retrieveResonse: any;
-    message: string;
-    imageName: any;
+    message!: string;
+    imageName: any; 
 
   constructor(private immobilierBatiService: ImmobilierBatiService
-    ,private proprietaireService: ProrietaireService) { }
+    ,private proprietaireService: ProrietaireService,private router :Router) { }
 
   ngOnInit(): void {
     this.getImmobilierBatis();
     this.getProC1s();
   }
+  
+  public getNomProprietaire(id :number): void{
+    this.proprietaireService.getNomProprietaire(id).subscribe(
+      (response :ProC1) => {
+        this.nProprietaire = response;
+        console.log(this.nProprietaire);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+   
+      }
 
-  getNomProprietaire(id :number): Observable<String>{
-  return this.proprietaireService.getNomProprietaire(id);
-  }
+
+    onViewImmobilierBati(id: number) {
+        this.router.navigate(['/menu','immobilierBati','single-immobilier-bati', id]);
+      }
 
   public getProC1s(): void {
     this.proprietaireService.getProC1s().subscribe(
@@ -47,7 +62,7 @@ export class ImmobilierBatiComponent implements OnInit {
      
       },
       (error: HttpErrorResponse) => {
-      alert(error.message);
+    //  alert(error.message);
       }
     );
   }
@@ -57,7 +72,6 @@ export class ImmobilierBatiComponent implements OnInit {
     this.immobilierBatiService.getImmobilierBatis().subscribe(
       (response: ImmobilierBati[]) => {
         this.immobilierBatis = response;
-     
         console.log(this.immobilierBatis);
       },
       (error: HttpErrorResponse) => {
@@ -82,8 +96,9 @@ export class ImmobilierBatiComponent implements OnInit {
       
 
   public onAddImmobilierBati(addForm: NgForm): void {
-    document.getElementById('add-immobilierBati-form').click();
+    document.getElementById('add-immobilierBati-form')?.click();
     
+    console.log(addForm);
     const formvalue =addForm.value ;
     const p = new Point(formvalue['x'],formvalue['y']);
     const newimmobilierBati = new ImmobilierBati(0,
@@ -96,10 +111,6 @@ export class ImmobilierBatiComponent implements OnInit {
       formvalue['nom'],
       formvalue['longueurBati'],
       formvalue['largeurBati']);
-
-      
-      
-
     
       
     this.immobilierBatiService.addImmobilierBati(newimmobilierBati).subscribe(
@@ -116,13 +127,26 @@ export class ImmobilierBatiComponent implements OnInit {
     );
   }
 
-  public onUpdateImmobilierBati(immobilierBati: ImmobilierBati): void {
+  public onUpdateImmobilierBati(editForm: NgForm): void {
 
-    document.getElementById('update-immobilierBati-form').click();
+    document.getElementById('update-immobilierBati-form')?.click();
    
-console.log(immobilierBati);
-/*console.log(immobilierBati.localisation.y);
-  this.immobilierBatiService.updateImmobilierBati(immobilierBati).subscribe(
+    console.log(editForm);
+    const formvalue =editForm.value ;
+    const p = new Point(formvalue['localisationx'],formvalue['localisationy']);
+    const updatimmobilierBati = new ImmobilierBati(formvalue['id'],
+      formvalue['adresse'],
+      p,
+      formvalue['numeroPermie'],
+      formvalue['longueur'],
+      formvalue['largeur'],
+      formvalue['idProprietaire'],
+      formvalue['nom'],
+      formvalue['longueurBati'],
+      formvalue['largeurBati']);
+
+
+  this.immobilierBatiService.updateImmobilierBati(updatimmobilierBati).subscribe(
     (response: ImmobilierBati) => {
       console.log(response);
       this.getImmobilierBatis();
@@ -131,7 +155,7 @@ console.log(immobilierBati);
       alert(error.message);
     }
   )
-  */}
+}
   
   public onDeleteImmobilierBati(ImmobilierBatiId: number): void {
     this.immobilierBatiService.deleteImmobilierBati(ImmobilierBatiId).subscribe(

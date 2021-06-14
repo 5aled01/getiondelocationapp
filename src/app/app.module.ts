@@ -26,7 +26,7 @@ import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.co
     UsersComponent,
     HomeComponent,
     ProprietairesComponent,
-    ImmobilierBatiComponent
+    ImmobilierBatiComponent,
 
   ],
   imports: [
@@ -34,13 +34,15 @@ import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.co
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
   providers: [
    AuthGuardService,
     AuthService,
     UserService,
     ProrietaireService,
+ 
   
   ],
   bootstrap: [AppComponent]

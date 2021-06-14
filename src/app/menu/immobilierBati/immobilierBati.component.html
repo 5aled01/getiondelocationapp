@@ -25,7 +25,7 @@
             </div>
              <div class="col-6 card-title align-self-center mb-0">
                 <h5>{{immobilierBati?.nom}}</h5>
-                <p class="m-0">{{getNomProprietaire(immobilierBati?.idProprietaire)}}</p>
+                <p class="m-0">{{immobilierBati?.idProprietaire}}</p>
              </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -41,7 +41,9 @@
              <div class="float-right btn-group btn-group-sm">
                 <a (click)="onOpenModal(immobilierBati, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                 <a (click)="onOpenModal(immobilierBati, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-             </div>
+                <a (click)="onViewImmobilierBati(immobilierBati?.id)"  class="btn btn-success tooltips" data-placement="top" data-original-title="Update"><i class="fa fa-pencil"></i></a>
+            
+               </div>
           </div>
        </div>
     </div>
@@ -139,7 +141,7 @@
                    <div class="form-group">
                      <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
                   
-                    <option ngModel="{{editImmobilierBati?.idProprietaire}}">{{getNomProprietaire(editImmobilierBati?.idProprietaire)}}</option>    
+                    <option ngModel="{{editImmobilierBati?.idProprietaire}}"> {{editImmobilierBati?.idProprietaire}} </option>    
                     <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire.id}}">
                         {{Proprietaire?.nom}} 
                         {{Proprietaire?.prenom}}
@@ -148,8 +150,8 @@
                 </div>
                 <div class="form-group">
                    <label for="role">localisation immobilier</label>
-                   <input type="number" ngModel="{{editImmobilierBati?.localisation?.x}}" name="x" class="form-control" id="x" placeholder="x" step="any" required>
-                   <input type="number" ngModel="{{editImmobilierBati?.localisation?.y}}" name="y" class="form-control" id="y" placeholder="y" step="any" required>
+                   <input type="number" ngModel="{{editImmobilierBati?.localisation?.x}}" name="localisationx" class="form-control" id="localisationx" placeholder="x" step="any" required>
+                   <input type="number" ngModel="{{editImmobilierBati?.localisation?.y}}" name="localisationy" class="form-control" id="localisationy" placeholder="y" step="any" required>
                 </div>
                 
                 <div class="form-group">
@@ -170,7 +172,7 @@
               
                 <div class="modal-footer">
                    <button type="button"  id="update-immobilierBati-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                   <button (click)="onUpdateImmobilierBati(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+                   <button (click)="onUpdateImmobilierBati(editForm)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
                 </div>
              </form>
           </div>
