@@ -15,12 +15,9 @@ import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
 import { ProprietairesComponent } from './menu/proprietaires/proprietaires.component';
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 import { ProrietaireService } from './services/proprietaire.service';
 import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.component';
+import { SingleImmoblierBatiComponent } from './menu/single-immoblier-bati/single-immoblier-bati.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +27,8 @@ import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.co
     UsersComponent,
     HomeComponent,
     ProprietairesComponent,
-    ImmobilierBatiComponent
+    ImmobilierBatiComponent,
+    SingleImmoblierBatiComponent
 
   ],
   imports: [

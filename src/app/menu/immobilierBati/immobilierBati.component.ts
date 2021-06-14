@@ -19,7 +19,7 @@ export class ImmobilierBatiComponent implements OnInit {
   public Proprietaires: ProC1[];
   public editImmobilierBati: ImmobilierBati;
   public deleteImmobilierBati: ImmobilierBati;
-
+public nomP :any;
   selectedFile: File;
   retrievedImage: any;
    base64Data: any;
@@ -35,15 +35,15 @@ export class ImmobilierBatiComponent implements OnInit {
     this.getProC1s();
   }
 
-  getNomProprietaire(id :number){
-  return this.proprietaireService.getNomProprietaire(id);
+  public   getNomProprietaire(id :number)  {
+  return  this.nomP = this.proprietaireService.getNomProprietaire(id);
   }
 
   public getProC1s(): void {
     this.proprietaireService.getProC1s().subscribe(
       (response: ProC1[]) => {
         this.Proprietaires = response;
-     
+      
       },
       (error: HttpErrorResponse) => {
       alert(error.message);
@@ -111,7 +111,7 @@ export class ImmobilierBatiComponent implements OnInit {
     );
   }
 
-  public onUpdateImmobilierBati(immobilierBati: ImmobilierBati): void {
+  public onUpdatImmobilierBati(immobilierBati: ImmobilierBati): void {
 
     document.getElementById('update-immobilierBati-form').click();
    

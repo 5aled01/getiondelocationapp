@@ -25,7 +25,7 @@
             </div>
              <div class="col-6 card-title align-self-center mb-0">
                 <h5>{{immobilierBati?.nom}}</h5>
-                <p class="m-0">{{getNomProprietaire(immobilierBati?.id)}}</p>
+                <p class="m-0">{{getNomProprietaire(immobilierBati?.idProprietaire)}}</p>
              </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -93,8 +93,8 @@
                <input type="number" ngModel name="longueur" class="form-control" id="longueur" placeholder="longueur" required>
             </div>
             <div class="form-group">
-                <label for="longueur">longueur</label>
-                <input type="number" ngModel name="longueur" class="form-control" id="longueur" placeholder="longueur" required>
+                <label for="largeur">largeur</label>
+                <input type="number" ngModel name="largeur" class="form-control" id="larguer" placeholder="longueur" required>
              </div>  
              <div class="form-group">
                <label for="longueurBati">longueurBati</label>
@@ -126,7 +126,7 @@
              </button>
           </div>
           <div class="modal-body">
-             <form #editForm="ngForm">
+             <form #editeForm="ngForm">
                <div class="form-group">
                   <label for="name">nom ImmobilierBati</label>
                   <input type="text" ngModel="{{editImmobilierBati?.nom}}" name="nom" class="form-control" id="nom" placeholder="adresse">
@@ -153,12 +153,12 @@
                 </div>
                 
                 <div class="form-group">
-                   <label for="phone">Numero Permie</label>
+                   <label for="numPermie">Numero Permie</label>
                    <input type="text" ngModel="{{editImmobilierBati?.numPermie}}" name="numPermie" class="form-control" id="numPermie"  placeholder="numero Permie">
                 </div>
 
                 <div class="form-group">
-                    <label for="role">longueur et largeur</label>
+                    <label for="">longueur et largeur</label>
                     <input type="number" ngModel="{{editImmobilierBati?.longueur}}" class="form-control" name="longueur" id="longueur" placeholder="longueur" step="any" required>
                     <input type="number" ngModel="{{editImmobilierBati?.largeur}}" class="form-control" name="largeur" id="largeur" placeholder="largeur" step="any" required>
                  </div>
@@ -170,7 +170,7 @@
               
                 <div class="modal-footer">
                    <button type="button"  id="update-ImmobilierBati-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                   <button (click)="onUpdateImmobilierBati(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+                   <button (click)="onUpdatImmobilierBati(editeForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
                 </div>
              </form>
           </div>
