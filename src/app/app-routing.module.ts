@@ -21,9 +21,7 @@ const routes : Routes= [
     {path :'home' , component: HomeComponent},
     {path :'users' , component: UsersComponent},
     {path :'proprietaires' , component: ProprietairesComponent},
-    {path :'immobilierBati' , component: ImmobilierBatiComponent , children:[
-    {path :'single-immobilier-bati'}
-    ]},
+    {path :'immobilierBati' , component: ImmobilierBatiComponent},
   ]},
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: '**', redirectTo: 'auth/signin' }
