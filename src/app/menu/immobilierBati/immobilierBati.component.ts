@@ -7,6 +7,7 @@ import { Point } from 'src/app/models/Point';
 import { ProC1 } from 'src/app/models/proc1';
 import { ProrietaireService } from 'src/app/services/proprietaire.service';
 import { ProprietairesComponent } from '../proprietaires/proprietaires.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-immobilier',
@@ -35,7 +36,7 @@ export class ImmobilierBatiComponent implements OnInit {
     this.getProC1s();
   }
 
-  getNomProprietaire(id :number){
+  getNomProprietaire(id :number): Observable<String>{
   return this.proprietaireService.getNomProprietaire(id);
   }
 

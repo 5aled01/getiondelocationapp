@@ -22,7 +22,7 @@ export class ProrietaireService {
     return this.http.post<ProC1>(`${this.apiServerUrl}/proc1/add`,formdata);
   }
 
-  public getNomProprietaire(id :number) {
+  public getNomProprietaire(id :number): Observable<String> {
     return this.http.get<String>(`${this.apiServerUrl}/proc1/findnom/${id}`);
   }
 
