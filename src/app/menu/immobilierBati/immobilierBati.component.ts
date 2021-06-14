@@ -17,12 +17,14 @@ import { Router } from '@angular/router';
 })
 export class ImmobilierBatiComponent implements OnInit {
 
+
   public immobilierBatis!: ImmobilierBati[];
   public Proprietaires!: ProC1[];
   public editImmobilierBati!: ImmobilierBati;
   public deleteImmobilierBati!: ImmobilierBati;
   public nProprietaire :  ProC1 | undefined ;
   selectedFile!: File;
+
   retrievedImage: any;
    base64Data: any;
     retrieveResonse: any;
@@ -59,7 +61,7 @@ export class ImmobilierBatiComponent implements OnInit {
     this.proprietaireService.getProC1s().subscribe(
       (response: ProC1[]) => {
         this.Proprietaires = response;
-     
+      
       },
       (error: HttpErrorResponse) => {
     //  alert(error.message);

@@ -17,6 +17,7 @@ import { HomeComponent } from './menu/home/home.component';
 import { ProprietairesComponent } from './menu/proprietaires/proprietaires.component';
 import { ProrietaireService } from './services/proprietaire.service';
 import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.component';
+import { SingleImmoblierBatiComponent } from './menu/single-immoblier-bati/single-immoblier-bati.component';
 
 @NgModule({
   declarations: [

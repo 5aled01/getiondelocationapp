@@ -5,7 +5,7 @@ export class User {
     constructor(public id :number ,public username :string,public password :string ,public role : string ,public image:  any,public phone :Number){
 
     }
-
+ 
     public getImage(){
     
         const base64Data = this.image

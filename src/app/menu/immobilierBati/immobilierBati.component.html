@@ -96,7 +96,7 @@
             </div>
             <div class="form-group">
                 <label for="largeur">largeur</label>
-                <input type="number" ngModel name="largeur" class="form-control" id="largeur" placeholder="largeur" required>
+                <input type="number" ngModel name="largeur" class="form-control" id="larguer" placeholder="longueur" required>
              </div>  
              <div class="form-group">
                <label for="longueurBati">longueurBati</label>
@@ -128,7 +128,7 @@
              </button>
           </div>
           <div class="modal-body">
-             <form #editForm="ngForm">
+             <form #editeForm="ngForm">
                <div class="form-group">
                   <label for="name">nom ImmobilierBati</label>
                   <input type="text" ngModel="{{editImmobilierBati?.nom}}" name="nom" class="form-control" id="nom" placeholder="adresse">
@@ -155,12 +155,12 @@
                 </div>
                 
                 <div class="form-group">
-                   <label for="phone">Numero Permie</label>
-                   <input type="text" ngModel="{{editImmobilierBati?.numeroPermie}}" name="numeroPermie" class="form-control" id="numeroPermie"  placeholder="numero Permie">
+                   <label for="numPermie">Numero Permie</label>
+                   <input type="text" ngModel="{{editImmobilierBati?.numPermie}}" name="numPermie" class="form-control" id="numPermie"  placeholder="numero Permie">
                 </div>
 
                 <div class="form-group">
-                    <label for="role">longueur et largeur</label>
+                    <label for="">longueur et largeur</label>
                     <input type="number" ngModel="{{editImmobilierBati?.longueur}}" class="form-control" name="longueur" id="longueur" placeholder="longueur" step="any" required>
                     <input type="number" ngModel="{{editImmobilierBati?.largeur}}" class="form-control" name="largeur" id="largeur" placeholder="largeur" step="any" required>
                  </div>
@@ -171,9 +171,10 @@
                </div>
               
                 <div class="modal-footer">
+
                    <button type="button"  id="update-immobilierBati-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
                    <button (click)="onUpdateImmobilierBati(editForm)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
-                </div>
+   </div>
              </form>
           </div>
        </div>

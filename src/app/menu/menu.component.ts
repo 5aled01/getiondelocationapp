@@ -1,7 +1,11 @@
+import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Cookie } from 'ng2-cookies';
-import { User } from '../models/user';
+ 
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -11,17 +15,42 @@ import { AuthService } from '../services/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  UserConnect : User | undefined;
-   
-  constructor(public authservice : AuthService,private sanitizer: DomSanitizer) { 
+  UserConnect : User   ;
+  iduser : number ;
+  private apiServerUrl = environment.apiBaseUrl ;
+  constructor(public authservice : AuthService,private http: HttpClient,private sanitizer: DomSanitizer) { 
     this.UserConnect = authservice.userconncte;
 
     
   }
 
   ngOnInit() {
-    this.UserConnect = this.authservice.userconncte;
+    this.signInUser(Cookie.get('username') ,Cookie.get('password'));
+    console.log(this.UserConnect);
   }
+
+  signInUser(username: string, password: string) {
+    return new Promise <void>((response, reject) => {
+      this.http.get<User>(`${this.apiServerUrl}/user/find/${username}&${password}`)
+        .toPromise()
+        .then(
+          (response: User) => {  
+            Cookie.set('islogin', 'true');
+            Cookie.set('username', response.username.toString());
+            Cookie.set('password', password);
+           
+            this.UserConnect = response;
+          },
+          (error: HttpErrorResponse) => {
+            reject(error.message);
+            
+          }
+        );
+    });
+    
+  }
+
+  
 
   public getImage(image:any){
     
