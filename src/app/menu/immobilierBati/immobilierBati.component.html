@@ -30,8 +30,8 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Adresse : {{immobilierBati?.adresse}}</li>
-             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Localisation : {{immobilierBati?.localisation.x}} | {{immobilierBati?.localisation.y}}</li>
-             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Permie : {{immobilierBati?.numPermie}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Localisation : {{immobilierBati.localisation?.x}} | {{immobilierBati.localisation?.y}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Permie : {{immobilierBati?.numeroPermie}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Longueur : {{immobilierBati?.longueur}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Largeur : {{immobilierBati?.largeur}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>longueurBati : {{immobilierBati?.longueurBati}}</li>
@@ -85,16 +85,16 @@
                <input type="number" ngModel name="y" class="form-control" id="y" placeholder="y" step="any" required>
             </div>
             <div class="form-group">
-               <label for="numPermie">numPermie</label>
-               <input type="text" ngModel name="numPermie" class="form-control" id="numPermie" placeholder="Numero Permie" required>
+               <label for="numeroPermie">numeroPermie</label>
+               <input type="text" ngModel name="numeroPermie" class="form-control" id="numeroPermie" placeholder="numeroPermie" required>
             </div>
             <div class="form-group">
                <label for="longueur">longueur</label>
                <input type="number" ngModel name="longueur" class="form-control" id="longueur" placeholder="longueur" required>
             </div>
             <div class="form-group">
-                <label for="longueur">longueur</label>
-                <input type="number" ngModel name="longueur" class="form-control" id="longueur" placeholder="longueur" required>
+                <label for="largeur">largeur</label>
+                <input type="number" ngModel name="largeur" class="form-control" id="largeur" placeholder="largeur" required>
              </div>  
              <div class="form-group">
                <label for="longueurBati">longueurBati</label>
@@ -148,13 +148,13 @@
                 </div>
                 <div class="form-group">
                    <label for="role">localisation immobilier</label>
-                   <input type="number" ngModel="{{editImmobilierBati?.localisation.x}}" name="x" class="form-control" id="x" placeholder="x" step="any" required>
-                   <input type="number" ngModel="{{editImmobilierBati?.localisation.y}}" name="y" class="form-control" id="y" placeholder="y" step="any" required>
+                   <input type="number" ngModel="{{editImmobilierBati?.localisation?.x}}" name="x" class="form-control" id="x" placeholder="x" step="any" required>
+                   <input type="number" ngModel="{{editImmobilierBati?.localisation?.y}}" name="y" class="form-control" id="y" placeholder="y" step="any" required>
                 </div>
                 
                 <div class="form-group">
                    <label for="phone">Numero Permie</label>
-                   <input type="text" ngModel="{{editImmobilierBati?.numPermie}}" name="numPermie" class="form-control" id="numPermie"  placeholder="numero Permie">
+                   <input type="text" ngModel="{{editImmobilierBati?.numeroPermie}}" name="numeroPermie" class="form-control" id="numeroPermie"  placeholder="numero Permie">
                 </div>
 
                 <div class="form-group">
@@ -169,7 +169,7 @@
                </div>
               
                 <div class="modal-footer">
-                   <button type="button"  id="update-ImmobilierBati-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                   <button type="button"  id="update-immobilierBati-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
                    <button (click)="onUpdateImmobilierBati(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
                 </div>
              </form>

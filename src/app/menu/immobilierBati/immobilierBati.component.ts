@@ -69,35 +69,39 @@ export class ImmobilierBatiComponent implements OnInit {
 
   public onFileChanged(event:any) {
   
-        this.selectedFile = event.target.files[0];
+     //   this.selectedFile = event.target.files[0];
       }
       public getImage(image:any){
     
-        const base64Data = image
-        const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
-        console.log(retrievedImage);
-        return retrievedImage;
+       // const base64Data = image
+        //const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
+        //console.log(retrievedImage);
+        //return retrievedImage;
     
       }
       
 
   public onAddImmobilierBati(addForm: NgForm): void {
     document.getElementById('add-immobilierBati-form').click();
+    
     const formvalue =addForm.value ;
     const p = new Point(formvalue['x'],formvalue['y']);
     const newimmobilierBati = new ImmobilierBati(0,
-      formvalue['nom'],
-      formvalue['idProprietaire'],
       formvalue['adresse'],
       p,
-      formvalue['numPermie'],
+      formvalue['numeroPermie'],
       formvalue['longueur'],
       formvalue['largeur'],
+      formvalue['idProprietaire'],
+      formvalue['nom'],
       formvalue['longueurBati'],
       formvalue['largeurBati']);
 
+      
+      
+
     
-        
+      
     this.immobilierBatiService.addImmobilierBati(newimmobilierBati).subscribe(
       (response) => {
         
@@ -116,7 +120,8 @@ export class ImmobilierBatiComponent implements OnInit {
 
     document.getElementById('update-immobilierBati-form').click();
    
-
+console.log(immobilierBati);
+/*console.log(immobilierBati.localisation.y);
   this.immobilierBatiService.updateImmobilierBati(immobilierBati).subscribe(
     (response: ImmobilierBati) => {
       console.log(response);
@@ -126,7 +131,7 @@ export class ImmobilierBatiComponent implements OnInit {
       alert(error.message);
     }
   )
-  }
+  */}
   
   public onDeleteImmobilierBati(ImmobilierBatiId: number): void {
     this.immobilierBatiService.deleteImmobilierBati(ImmobilierBatiId).subscribe(

@@ -3,14 +3,14 @@ import { Point } from "./Point";
 export class ImmobilierBati {
     
     constructor(public id :number ,
-        public nom :string,
-        public idProprietaire :number,
-        public adresse :String ,
-        public localisation : Point ,
-        public numPermie:  number,
+        public adresse :String,
+        public localisation : Point,
+        public numeroPermie:  string,
         public longueur :Number,
         public  largeur :Number,
+        public idProprietaire :number,
+        public nom :string,
         public  longueurBati :number,
-        public largeurBati :number){
-    }
+        public largeurBati :number){}
+           
 }

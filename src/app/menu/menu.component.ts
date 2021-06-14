@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
     
     const base64Data = image
     const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
-    console.log(retrievedImage);
+  //  console.log(retrievedImage);
     return retrievedImage;
   }
 
