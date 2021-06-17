@@ -1,4 +1,11 @@
+ 
+import { ContratLocationService } from './../../services/contrat-location.service';
 import { Component, OnInit } from '@angular/core';
+import { ContratLocation } from 'src/app/models/contratLocation';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ProC1 } from 'src/app/models/proc1';
+import { NgForm } from '@angular/forms';
+import { ProrietaireService } from 'src/app/services/proprietaire.service';
 
 @Component({
   selector: 'app-contrat-location',
@@ -7,91 +14,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContratLocationComponent implements OnInit {
 
-  import { HttpErrorResponse } from '@angular/common/http';
-  import { Container } from '@angular/compiler/src/i18n/i18n_ast';
-  import { Component, OnInit } from '@angular/core';
-  import { User } from 'src/app/models/user';
-  import { UserService } from 'src/app/services/user.service';
-  import { NgForm } from '@angular/forms';
-  import { formatDate } from '@angular/common';
+   
+    public contratLocations: ContratLocation[] ;
+    public editeContratLocation: ContratLocation | undefined;
+    public deleteContratLocation: ContratLocation | undefined;
+     public Proprietaires! :ProC1[]  ;
+     public proprietaire :ProC1  ;
   
-  
-  @Component({
-    selector: 'app-users',
-    templateUrl: './users.component.html',
-    styleUrls: ['./users.component.css']
-  })
-  export class UsersComponent implements OnInit {
-  
-    public users: User[];
-    public editUser: User;
-    public deleteUser: User;
-    
-    selectedFile: File;
-    retrievedImage: any;
-     base64Data: any;
-      retrieveResonse: any;
-      message: string;
-      imageName: any;
-    
-  
-    constructor(private userService: UserService) {
+    constructor(private prorietaireService:ProrietaireService,private contratLocationService: ContratLocationService) {
      }
   
     ngOnInit(){
-      this.getUsers();
+      this.getContratLocations();
+      this.getProprietaires();
     }
   
-    public getUsers(): void {
-      this.userService.getUsers().subscribe(
-        (response: User[]) => {
-          this.users = response;
-       
-          console.log(this.users);
+    public getContratLocations(): void {
+      this.contratLocationService.getContratLocations().subscribe(
+        (response: ContratLocation[]) => {
+          this.contratLocations = response;
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
         }
       );
     }
+ 
    
-  
-    public onFileChanged(event:any) {
-    
-          this.selectedFile = event.target.files[0];
-        }
-        public getImage(image:any){
-      
-          const base64Data = image
-          const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
-          console.log(retrievedImage);
-          return retrievedImage;
-      
-        }
-        
-  
-    public onAddUser(addForm: NgForm): void {
-      document.getElementById('add-user-form').click();
+    public onAddContratLocation(addForm: NgForm): void {
+      document.getElementById('add-ContratLocation-form')?.click();
       const formvalue =addForm.value ;
-      const newuser = new User(0,formvalue['username'],formvalue['password'],
-      formvalue['role'],[0],formvalue['phone']);
-  
-       newuser.image= null;
-  
-       const uploadImage = new FormData()
-      uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
-      uploadImage.append('user', JSON.stringify(newuser));
-       console.log(uploadImage);
-   
-  
-  console.log(this.selectedFile);
-      
+      const newContrat = new ContratLocation(0,formvalue['dateDebut'],formvalue['dateFin'],
+      formvalue['idProprietaire'],formvalue['prixProprietaire'],formvalue['prixLocation'],formvalue['description']);
+    
           
-      this.userService.addUser(uploadImage).subscribe(
+      this.contratLocationService.addContratLocation(newContrat).subscribe(
         (response) => {
           
           console.log(response);
-          this.getUsers();
+          this.getContratLocations();
           addForm.reset();
         },
         (error: HttpErrorResponse) => {
@@ -101,43 +62,26 @@ export class ContratLocationComponent implements OnInit {
       );
     }
   
-    public onUpdateUser(user: User): void {
-      document.getElementById('update-user-form').click();
-      const uploadImage = new FormData()
-      if(this.selectedFile){
-      uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
-        user.image=null;
-      uploadImage.append('user', JSON.stringify(user));
-      this.userService.updateUserWithimg(uploadImage).subscribe(
-        (response: User) => {
+    public onUpdateContratLocation(contrat: ContratLocation): void {
+      document.getElementById('update-ContratLocation-form')?.click();
+     
+      this.contratLocationService.updateContratLocation(contrat).subscribe(
+        (response: ContratLocation) => {
           console.log(response);
-          this.getUsers();
+          this.getContratLocations();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
         }
       );
     }
-    else{
-      
-      user.image=null;
-    uploadImage.append('user', JSON.stringify(user));
-    this.userService.updateUser(uploadImage).subscribe(
-      (response: User) => {
-        console.log(response);
-        this.getUsers();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
-    }
-    }
-    public onDeleteUser(userId: number): void {
-      this.userService.deleteUser(userId).subscribe(
+        
+
+    public onDeleteContratLocation( Id: number): void {
+      this.contratLocationService.deleteContratLocation( Id).subscribe(
         (response: void) => {
           console.log(response);
-          this.getUsers();
+          this.getContratLocations();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -147,43 +91,65 @@ export class ContratLocationComponent implements OnInit {
   
     public searchUsers(key: string): void {
       console.log(key);
-      const results: User[] = [];
-      for (const user of this.users) {
-        if (user.username.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      const results: ContratLocation[] = [];
+      for (const user of this.contratLocations) {
+       /* if (user.username.toLowerCase().indexOf(key.toLowerCase()) !== -1
         ||user.phone !== -1
         || user.role.toLowerCase().indexOf(key.toLowerCase()) !== -1
          ) {
           results.push(user);
-        }
+        }*/
       }
-      this.users = results;
+      this.contratLocations = results;
       if (results.length === 0 || !key) {
-        this.getUsers();
+        this.getContratLocations();
       }
     }
-  
-    public onOpenModal(user: User, mode: string): void {
+   
+    public onOpenModal(contratLocation: ContratLocation, mode: string): void {
       const container = document.getElementById('main-container');
       const button = document.createElement('button');
       button.type = 'button';
       button.style.display = 'none';
       button.setAttribute('data-toggle', 'modal');
       if (mode === 'add') {
-        button.setAttribute('data-target', '#addUserModal');
+        button.setAttribute('data-target', '#addContratLocationModal');
       }
       if (mode === 'edit') {
-        this.editUser = user;
-        button.setAttribute('data-target', '#updateUserModal');
+        this.editeContratLocation = contratLocation;
+        button.setAttribute('data-target', '#updateContratLocationModal');
       }
       if (mode === 'delete') {
-        this.deleteUser = user;
-        button.setAttribute('data-target', '#deleteUserModal');
+        this.deleteContratLocation = contratLocation;
+        button.setAttribute('data-target', '#deleteContratLocationModal');
       }
       container?.appendChild(button)
       button.click();
     }
-  
+
+  public getProprietaire(id :number){
+this.contratLocationService.getProprietaire(id).subscribe(
+  (response: ProC1) => {
+     this.proprietaire=response
+  },
+  (error: HttpErrorResponse) => {
+    alert(error.message);
+  }
+);
+
+  }
+  public getProprietaires(): void {
+    this.prorietaireService.getProC1s().subscribe(
+      (response: ProC1[]) => {
+         this.Proprietaires=response
+       //  console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+     //   alert(error.message);
+      }
+    );
+      }
   }
   
 
-}
+

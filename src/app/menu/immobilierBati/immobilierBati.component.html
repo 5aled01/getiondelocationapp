@@ -75,8 +75,8 @@
                 <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
                     <option value="" disabled selected>choisur proprietaire</option>    
                     <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire?.id}}">
-                        {{Proprietaire?.nom}} 
-                        {{Proprietaire?.prenom}} 
+                        {{Proprietaire?.nom}}
+                        {{Proprietaire?.prenom}}
                     </option>
             </select>
                     </div>
