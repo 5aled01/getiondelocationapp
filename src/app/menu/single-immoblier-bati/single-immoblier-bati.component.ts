@@ -1,4 +1,4 @@
-import { ImageService } from './../../services/image.service';
+ 
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -18,10 +18,10 @@ import { EtageService } from 'src/app/services/etage.service';
 })
 export class SingleImmoblierBatiComponent implements OnInit {
 
-  immobolierBati :Observable<ImmobilierBati>;
-  images : Image[];
-  etages: Etage[];
-  selectedFile :File;
+  immobolierBati! :Observable<ImmobilierBati>;
+  images! : Image[];
+  etages!: Etage[];
+  selectedFile! :File;
   constructor(private etageService :EtageService, private route : ActivatedRoute ,private immobilierBatiService : ImmobilierBatiService ,private imageService :ImageService) { }
 
   ngOnInit(): void {
@@ -143,7 +143,7 @@ export class SingleImmoblierBatiComponent implements OnInit {
     
     this.etageService.updateEtage(etage).subscribe(
       (response: Etage) => {
-        console.log(response);
+        console.log(response); 
         this.getImmoBilierBati(+this.route.snapshot.params['id']);
       },
       (error: HttpErrorResponse) => {
