@@ -54,7 +54,7 @@ export class ImmobilierBatiComponent implements OnInit {
 
 
     onViewImmobilierBati(id: number) {
-        this.router.navigate(['/menu','immobilierBati','single-immobilier-bati', id]);
+        this.router.navigate(['/menu','detail', id]);
       }
 
   public getProC1s(): void {

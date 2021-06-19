@@ -16,7 +16,7 @@ export class EtageService{
       }
       
       public getEtages(id :number): Observable<Etage[]> {
-          return this.http.get<Etage[]>(`${this.apiServerUrl}/etage/find${id}`);
+          return this.http.get<Etage[]>(`${this.apiServerUrl}/etage/find/${id}`);
         }
         
   

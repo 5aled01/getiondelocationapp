@@ -1,186 +1,294 @@
+<div class="container" id="main-container">
+
  
-  <div class="container" id="main-container">
-    <div class="row">
-      <div *ngFor="let immobilierBati of immobilierBatis" class="col-md-6 col-xl-3">
-         <div class="card m-b-30">
-            <div class="card-body row">
-        
-               <div class="col-6 card-title align-self-center mb-0">
-                  <h5>{{immobilierBati?.nom}}</h5>
-                  <p class="m-0">{{immobilierBati?.idProprietaire}}</p>
-               </div>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Adresse : {{immobilierBati?.adresse}}</li>
-               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Localisation : {{immobilierBati.localisation?.x}} | {{immobilierBati.localisation?.y}}</li>
-               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Permie : {{immobilierBati?.numeroPermie}}</li>
-               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Longueur : {{immobilierBati?.longueur}}</li>
-               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Largeur : {{immobilierBati?.largeur}}</li>
-               <li class="list-group-item"><i class="fa fa-phone float-right"></i>longueurBati : {{immobilierBati?.longueurBati}}</li>
-               <li class="list-group-item"><i class="fa fa-phone float-right"></i>largeurBati : {{immobilierBati?.largeurBati}}</li>
-              </ul>
-            <div class="card-body">
-               <div class="float-right btn-group btn-group-sm">
-                  <a (click)="onOpenModal(immobilierBati, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                  <a (click)="onOpenModal(immobilierBati, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                  <a (click)="onViewImmobilierBati(immobilierBati?.id)"  class="btn btn-success tooltips" data-placement="top" data-original-title="Update"><i class="fa fa-pencil"></i></a>
-              
-                 </div>
-            </div>
-         </div>
-      </div>
-    </div>
+
+  <div class="card-group">
+    <div class="card" >
+      <a *ngIf="this.images?.length != 0" (click)="onOpenModal2(images[0]?.id, 'delete')">
+      <img class="card-img-top" [src]="getImage(this.images[0]?.image)" style="width: 50rem;"  alt="Card image cap" />
+     </a>
+
+     <ul class="navbar-nav mr-auto" *ngIf="images?.length == 0">
+      <li class="nav-item active" >
+         <a class="nav-link" (click)="onOpenModal(null, 'add')">Ajouter un  image <span class="sr-only">(current)</span></a>
+      </li>
+     </ul>
     
-    <!-- Add Employee Modal -->
-    <div class="modal fade" id="addImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="addImmobilierBatiModalLabel" aria-hidden="true">
+
+    <div class="card-body">
+        <h5 class="card-title">{{immobilierBati?.nom}}</h5>
+     </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+        Adresse et Localisation : {{immobilierBati?.adresse}} , {{immobilierBati.localisation?.x}} | {{immobilierBati.localisation?.y}}
+        </li> 
+        <li class="list-group-item">
+        Numero Permie : {{immobilierBati?.numeroPermie}}
+      </li>
+      <li class="list-group-item">
+        dimention(longueur,largeur) : {{immobilierBati?.longueur}} , {{immobilierBati?.largeur}}
+      </li>
+      <li class="list-group-item">
+        longueurBati : {{immobilierBati?.longueurBati}} ,
+        largeurBati : {{immobilierBati?.largeurBati}}
+
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+   
+    <!--add image bati-->
+<div class="card mb-3">
+ 
+    <div class="modal fade" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
            <div class="modal-header">
-              <h5 class="modal-title" id="addImmobilierBatiModalLabel">Ajouter immobilierBati</h5>
+              <h5 class="modal-title" id="addImageModalLabel" >Ajouter un image </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
               </button>
            </div>
            <div class="modal-body">
-              <form #addForm="ngForm" (ngSubmit)="onAddImmobilierBati(addForm)">
-                 <div class="form-group">
-                    <label for="name">immobilierBati nom</label>
-                    <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="nom immobilier" required>
-                 </div>
+              <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImage(addFormImageEtage)">
+    
               <div class="form-group">
-                 <label for="name">immobilierBati adresse</label>
-                 <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="adresse immobilier" required>
+                <input type="hidden"  name="corespondance" ngModel="immobilierBati" class="form-control" id="corespondance" placeholder="le Corespondance" required>
               </div>
-  
+              
               <div class="form-group">
-                  <label for="longueur">Proprietaire</label>
-                  <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
-                      <option value="" disabled selected>choisur proprietaire</option>    
-                      <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire?.id}}">
-                          {{Proprietaire?.nom}} 
-                          {{Proprietaire?.prenom}} 
-                      </option>
-              </select>
-                      </div>
-  
-              <div class="form-group">
-                 <label for="localisation">Localisation </label>
-                 <input type="number" ngModel name="x" class="form-control" id="x" placeholder="x" step="any" required>
-                 <input type="number" ngModel name="y" class="form-control" id="y" placeholder="y" step="any" required>
+                 <input type="hidden"   name="idCorespondance" ngModel="{{immobilierBati?.id}}" class="form-control" id="idcorespondance" placeholder="le idCorespondance" required>
               </div>
+    
+              
               <div class="form-group">
-                 <label for="numeroPermie">numeroPermie</label>
-                 <input type="text" ngModel name="numeroPermie" class="form-control" id="numeroPermie" placeholder="numeroPermie" required>
+                 <label for="img">Image </label>
+                 <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" required>
               </div>
-              <div class="form-group">
-                 <label for="longueur">longueur</label>
-                 <input type="number" ngModel name="longueur" class="form-control" id="longueur" placeholder="longueur" required>
-              </div>
-              <div class="form-group">
-                  <label for="largeur">largeur</label>
-                  <input type="number" ngModel name="largeur" class="form-control" id="larguer" placeholder="longueur" required>
-               </div>  
-               <div class="form-group">
-                 <label for="longueurBati">longueurBati</label>
-                 <input type="number" ngModel name="longueurBati" class="form-control" id="longueurBati" placeholder="longueurBati" required>
-              </div>
-              <div class="form-group">
-                  <label for="largeurBati">largeurBati</label>
-                  <input type="number" ngModel name="largeurBati" class="form-control" id="largeurBati" placeholder="largeurBati" required>
-               </div>  
-  
               <div class="modal-footer">
-                 <button type="button" id="add-immobilierBati-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button"  id="add-IB-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                <button  [disabled]="addFormImageEtage.invalid" type="submit" class="btn btn-primary" >Save changes</button>
               </div>
               </form>
            </div>
         </div>
       </div>
-      </div>
-    
-    <!-- Edit Modal -->
-    <div class="modal fade" id="updateImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="immobilierBatiEditModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="updateImmobilierBatiModalLabel">Modifier immobilier</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <form #editeForm="ngForm">
-                 <div class="form-group">
-                    <label for="name">nom ImmobilierBati</label>
-                    <input type="text" ngModel="{{editImmobilierBati?.nom}}" name="nom" class="form-control" id="nom" placeholder="adresse">
-                 </div>
-                  <div class="form-group">
-                     <label for="name">Adresse ImmobilierBati</label>
-                     <input type="text" ngModel="{{editImmobilierBati?.adresse}}" name="adresse" class="form-control" id="adresse" aria-describedby="emailHelp" placeholder="adresse">
-                  </div>
-                  <input type="hidden" ngModel="{{editImmobilierBati?.id}}" name="id" class="form-control" id="id" placeholder="id">
-                     <div class="form-group">
-                       <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
-                    
-                      <option ngModel="{{editImmobilierBati?.idProprietaire}}"> {{editImmobilierBati?.idProprietaire}} </option>    
-                      <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire.id}}">
-                          {{Proprietaire?.nom}} 
-                          {{Proprietaire?.prenom}}
-                      </option>
-                      </select>
-                  </div>
-                  <div class="form-group">
-                     <label for="role">localisation immobilier</label>
-                     <input type="number" ngModel="{{editImmobilierBati?.localisation?.x}}" name="localisationx" class="form-control" id="localisationx" placeholder="x" step="any" required>
-                     <input type="number" ngModel="{{editImmobilierBati?.localisation?.y}}" name="localisationy" class="form-control" id="localisationy" placeholder="y" step="any" required>
-                  </div>
-                  
-                  <div class="form-group">
-                     <label for="numeroPermie">Numero Permie</label>
-                     <input type="text" ngModel="{{editImmobilierBati?.numeroPermie}}" name="numeroPermie" class="form-control" id="numeroPermie"  placeholder="numero Permie">
-                  </div>
+    </div>
+ </div>
+
+
+    <!--add image Etage-->
+<div class="card mb-3">
+  <div class="modal fade" id="addImageEtageModal" tabindex="-1" role="dialog" aria-labelledby="addImageEtageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addImageEtageModalLabel" >Ajouter un image </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImage(addFormImageEtage)">
   
-                  <div class="form-group">
-                      <label for="">longueur et largeur</label>
-                      <input type="number" ngModel="{{editImmobilierBati?.longueur}}" class="form-control" name="longueur" id="longueur" placeholder="longueur" step="any" required>
-                      <input type="number" ngModel="{{editImmobilierBati?.largeur}}" class="form-control" name="largeur" id="largeur" placeholder="largeur" step="any" required>
-                   </div>
-                   <div class="form-group">
-                    <label for="role">longueurBati et largeurBati</label>
-                    <input type="number" ngModel="{{editImmobilierBati?.longueurBati}}" class="form-control" name="longueurBati" id="longueurBati" placeholder="longueurBati" step="any" required>
-                    <input type="number" ngModel="{{editImmobilierBati?.largeurBati}}" class="form-control" name="largeurBati" id="largeurBati" placeholder="largeurBati" step="any" required>
-                 </div>
+            <div class="form-group">
+              <input type="hidden" hidden name="corespondance"  ngModel="addImageEtage?.id" class="form-control" id="corespondance" placeholder="le Corespondance" required>
+            </div>
+  
+            <div class="form-group">
+               <input type="hidden" hidden  name="idCorespondance" ngModel="immobilierBati?.id" class="form-control" id="idCorespondance" placeholder="le idCorespondance" required>
+            </div>
+  
+            
+            <div class="form-group">
+               <label for="img">Image </label>
+               <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" required>
+            </div>
+            <div class="modal-footer">
+               <button type="button" id="add-ImageEtage-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button  [disabled]="addFormImageEtage.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- add etage -->
+<div class="card mb-3">
+<div class="modal fade" id="addEtageModal" tabindex="-1" role="dialog" aria-labelledby="addEtageModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addEtageModalLabel">Ajouter un Etage</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #addFormEt="ngForm" (ngSubmit)="onAddEtage(addFormEt)">
+
+          <div class="form-group">
+             <input type="hidden" hidden name="idImmobilierBati" ngModel="{{immobilierBati?.id}}" class="form-control" id="idImmobilierBati" placeholder="le idCorespondance" >
+          </div>
+      
+          <div class="form-group">
+             <label for="numEtage">Numero Etage </label>
+             <input type="number"  ngModel name="numEtage" class="form-control" id="numEtage" placeholder="numEtage" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">Description Etage </label>
+            <input type="text"  ngModel name="description" class="form-control" id="description" placeholder="description" required>
+         </div>
+
+          <div class="modal-footer">
+             <button type="button" id="add-Etage-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button  [disabled]="addFormEt.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
+          </form>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+
+
+<!--view etage-->
+<div class="row">
+  <div *ngFor="let etage of etages" class="col-md-6 col-xl-3" >
+     <div class="card m-b-30">
+        <div class="card-body row">
+           
+           <div class="col-6 card-title align-self-center mb-0">
+              <h5>{{etage?.numEtage}}</h5>
+            
+           </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="fa fa-phone float-right"></i>Description : {{etage?.description}}</li>
+           </ul>
+        <div class="card-body">
+           <div class="float-right btn-group btn-group-sm">
+              <a (click)="onOpenModal(etage, 'editEtage')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+              <a (click)="onOpenModal(etage, 'deleteEtage')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+              <a (click)="onOpenModal(etage, 'addImageEtage')" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-plus"></i></a>
                 
-                  <div class="modal-footer">
-  
-                     <button type="button"  id="update-immobilierBati-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                     <button (click)="onUpdateImmobilierBati(editeForm)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+             </div>
+        </div>
      </div>
-               </form>
-            </div>
-         </div>
+     <div class="column" *ngFor="let image of images" >
+       <img *ngif="image?.corespondance == etage?.id " [src]="getImage(image?.image)" alt="Snow" style="width:100%"> 
       </div>
-    </div>
-    
-    <!-- Delete Modal -->
-    <div class="modal fade" id="deleteImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="deleteModelLabel">Suprimer utilisateur</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
+
+  </div>
+
+  
+
+</div>
+
+
+<ul class="navbar-nav mr-auto">
+  <li class="nav-item active" >
+     <a class="nav-link" (click)="onOpenModal(null, 'addEtage')">Ajouter un  Etages <span class="sr-only">(current)</span></a>
+  </li>
+</ul>
+
+
+ <!-- Edit Modal -->
+ <div class="modal fade" id="updateEtageModal" tabindex="-1" role="dialog" aria-labelledby="EtageEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="updateEtageModalLabel">Modifier Etage</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editeForm="ngForm">
+             <div class="form-group">
+                <label for="name">Numero Etage </label>
+                <input type="text" ngModel="{{editEtage?.numEtage}}" name="numEtage" class="form-control" id="numEtage" placeholder="adresse">
+             </div>
+              <div class="form-group">
+                 
+                 <input type="hidden" ngModel="{{editEtage?.id}}" name="id" class="form-control" id="id" >
+              </div>
+              <input type="hidden" ngModel="{{editEtage?.idImmobilierBati}}" name="idImmobilierBati" class="form-control" id="idImmobilierBati" placeholder="id">
+               
+              
+              <div class="form-group">
+                 <label for="description">Description</label>
+                 <input type="text" ngModel="{{editEtage?.description}}" name="description" class="form-control" id="description"  >
+              </div>
+            
+              <div class="modal-footer">
+                 <button type="button"  id="update-Etage-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button (click)="onUpdateEtage(editeForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre Etage Modifier</button>
+ </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Delete etage Modal -->
+<div class="modal fade" id="deleteEtageModal" tabindex="-1" role="dialog" aria-labelledby="deleteEtageModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteEtageModelLabel">Suprimer Etage</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Vous etez sur de suprimer etage numero {{deleteEtage?.numEtage}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteEtage(deleteEtage?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            
             </div>
-            <div class="modal-body">
-               <p>Vous etez sur de suprimer Immobilier avec ladress {{deleteImmobilierBati?.adresse}}?</p>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <button (click)="onDeleteImmobilierBati(deleteImmobilierBati?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-               </div>
+        </div>
+     </div>
+  </div>
+  </div>
+
+
+  <!-- Delete image Modal -->
+<div class="modal fade" id="deleteImageModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteModelLabel">Suprimer image</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Vous etez sur de suprimer image de  {{immobilierBati?.nom}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteImage(deleteImageId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            
             </div>
-         </div>
-      </div>
-    </div>
-    </div>
+        </div>
+     </div>
+  </div>
+  </div>
+
+<!-- Notification for no employees -->
+<div *ngIf="immobilierBati.id == null" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NON Image trouver</h4>
+   </div>
+</div>
+
+
+</div>

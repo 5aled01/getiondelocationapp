@@ -19,6 +19,7 @@ import { ProrietaireService } from './services/proprietaire.service';
 import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.component';
 
 import { ContratLocationComponent } from './menu/contrat-location/contrat-location.component';
+import { SingleImmoblierBatiComponent } from './menu/single-immoblier-bati/single-immoblier-bati.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ContratLocationComponent } from './menu/contrat-location/contrat-locati
     HomeComponent,
     ProprietairesComponent,
     ImmobilierBatiComponent,
-    
+    SingleImmoblierBatiComponent,
     ContratLocationComponent,
 
   ],

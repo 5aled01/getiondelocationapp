@@ -16,11 +16,11 @@ export class ImageService {
     }
     
     public getImages(id :number): Observable<Image[]> {
-        return this.http.get<Image[]>(`${this.apiServerUrl}/image/find${id}`);
+        return this.http.get<Image[]>(`${this.apiServerUrl}/image/finds/${id}`);
       }
       
 
-    public addImage(newImage :any): Observable<Image> {
+    public addImage(newImage :FormData): Observable<Image> {
       return this.http.post<Image>(`${this.apiServerUrl}/image/add`,newImage);
     }
     

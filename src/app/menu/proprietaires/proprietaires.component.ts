@@ -184,7 +184,6 @@ console.log(this.selectedFile);
         
     this.prorietaireService.addProC2(uploadImage).subscribe(
       (response) => {
-        
         console.log(response);
         this.getProC2s();
         addForm.reset();

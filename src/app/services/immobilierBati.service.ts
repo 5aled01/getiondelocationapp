@@ -15,7 +15,7 @@ export class ImmobilierBatiService {
   }
   
   public getImmobilierBati(id : number): Observable<ImmobilierBati> {
-    return this.http.get<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/find${id}`);
+    return this.http.get<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/find/${id}`);
   }
   
   

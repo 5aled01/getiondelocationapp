@@ -2,7 +2,7 @@ import { Byte } from "@angular/compiler/src/util";
 
 export class Image {
     
-    constructor(id : number, idcorespondance :number ,  corespondance : String ,public image : Byte[]) {
+    constructor(public id : number,public idCorespondance :number ,public  corespondance : String ,public image : Byte[]) {
    
 }
 }
