@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit {
       
 
   public onAddUser(addForm: NgForm): void {
-    document.getElementById('add-user-form').click();
+    document.getElementById('add-user-form')?.click();
     const formvalue =addForm.value ;
     const newuser = new User(0,formvalue['username'],formvalue['password'],
     formvalue['role'],[0],formvalue['phone']);
@@ -93,7 +93,8 @@ console.log(this.selectedFile);
   }
 
   public onUpdateUser(user: User): void {
-    document.getElementById('update-user-form').click();
+    document.getElementById('update-user-form')
+    ?.click();
     const uploadImage = new FormData()
     if(this.selectedFile){
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);

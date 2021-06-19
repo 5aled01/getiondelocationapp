@@ -7,7 +7,7 @@ export class ImmobilierBati {
         public adresse :String ,
         public localisation : Point ,
         public numeroPermie:  String,
-        public longueur :Number,
+        public  longueur :Number,
         public  largeur :Number,
         public idProprietaire :number,
         public nom :string,

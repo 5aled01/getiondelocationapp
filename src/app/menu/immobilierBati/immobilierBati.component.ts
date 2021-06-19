@@ -53,8 +53,8 @@ export class ImmobilierBatiComponent implements OnInit {
       }
 
 
-    onViewImmobilierBati(id: number) {
-        this.router.navigate(['/menu','detail', id]);
+      onViewImmobilierBati(id: number) {
+        this.router.navigate(['/menu','detail',id]);
       }
 
   public getProC1s(): void {
@@ -147,6 +147,7 @@ export class ImmobilierBatiComponent implements OnInit {
       formvalue['longueurBati'],
       formvalue['largeurBati']);
 
+    
 
   this.immobilierBatiService.updateImmobilierBati(updatimmobilierBati).subscribe(
     (response: ImmobilierBati) => {

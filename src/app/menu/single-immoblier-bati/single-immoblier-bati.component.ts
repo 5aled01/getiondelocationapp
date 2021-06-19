@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { ImmobilierBatiService } from './../../services/immobilierBati.service';
 import { Component, OnInit } from '@angular/core';
 import { ImmobilierBati } from 'src/app/models/ImmobilierBati';
-import { Image } from 'src/app/models/image';
 import { ImageService } from 'src/app/services/image.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Etage } from 'src/app/models/etage';
 import { EtageService } from 'src/app/services/etage.service';
 import { ImmobilierBatiComponent } from '../immobilierBati/immobilierBati.component';
+import { Image } from 'src/app/models/image';
 
 @Component({
   selector: 'app-single-immoblier-bati',
@@ -259,6 +259,9 @@ export class SingleImmoblierBatiComponent implements OnInit {
     container?.appendChild(button)
     button.click();
   }
+
+
+
 
 }
 

@@ -6,9 +6,22 @@ import { ImmobilierBati } from '../models/ImmobilierBati';
 
 @Injectable({providedIn: 'root'})
 export class ImmobilierBatiService {
+
+  
+  constructor(private http: HttpClient){}
+
+  getSingleImmobilierBatis(id: number) {
+    return this.http.get<ImmobilierBati>(`${this.apiServerUrl}/image/add/${id}`);
+  }
+
+
+  getSingleImmobilierImage(id: number) {
+    return this.http.get<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/find/${id}`);
+  }
+
   private apiServerUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient){}
+ 
 
   public getImmobilierBatis(): Observable<ImmobilierBati[]> {
     return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/immobilierbati/all`);
