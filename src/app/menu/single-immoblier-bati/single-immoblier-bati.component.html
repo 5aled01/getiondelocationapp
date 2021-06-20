@@ -92,11 +92,7 @@
           </button>
        </div>
        <div class="modal-body">
-          <form #addFormEt="ngForm" (ngSubmit)="onAddEtage(addFormEt)">
-
-          <div class="form-group">
-             <input type="hidden" hidden name="idImmobilierBati" ngModel="{{immobilierBati?.id}}" class="form-control" id="idImmobilierBati" placeholder="le idCorespondance" >
-          </div>
+          <form #addFormEt="ngForm" (ngSubmit)="onAddEtage(addFormEt); addFormEt.resetForm()">
       
           <div class="form-group">
              <label for="numEtage">Numero Etage </label>
@@ -151,11 +147,17 @@
          </div>
           </td>
 
-          <div *ngFor="let image of images" class="col-md-4">
-           <td  class="w-25">
-          <img  class="img-fluid img-thumbnail" [src]="getImage(image?.image)" alt="Snow"> 
-            </td>
-         </div>
+          <ng-container *ngFor="let image of images" >
+            <ng-container *ngIf="image?.corespondance == etage?.id.toString()" >
+             <div  class="col-md-4">
+                 <td class="w-25" >
+                  <a  (click)="onOpenModal2(image?.id, 'delete')">
+                    <img  class="img-fluid img-thumbnail" [src]="getImage(image?.image)" alt="Snow"> 
+                  </a>
+                 </td>
+             </div>
+            </ng-container>
+          </ng-container>
    
 </tr>
   </tbody>
@@ -180,17 +182,8 @@
              </button>
           </div>
           <div class="modal-body">
-             <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImageEtage(addFormImageEtage)">
-   
-             <div class="form-group">
-               <input type="hidden"  name="corespondance"  ngModel="{{addImageEtage?.id}}" class="form-control" id="corespondance" placeholder="le Corespondance" required>
-             </div>
-   
-             <div class="form-group">
-                <input type="hidden"   name="idCorespondance" ngModel="{{immobilierBati?.id}}" class="form-control" id="idCorespondance" placeholder="le idCorespondance" required>
-             </div>
-   
-             
+             <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImageEtage(addFormImageEtage); addFormImageEtage.resetForm(); ">
+         
              <div class="form-group">
                 <label for="img">Image </label>
                 <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" required>

@@ -130,7 +130,8 @@ export class SingleImmoblierBatiComponent implements OnInit {
   onAddImageEtage(addForm :NgForm){
     document.getElementById('add-ImageEtage-form')?.click();
     const formvalue =addForm.value ;
-    const newImage = new Image(0,formvalue['idCorespondance'],formvalue['corespondance'],[0]);
+   const idToString = this.addImageEtage.id.toString();
+    const newImage = new Image(0,this.immobilierBati?.id,idToString,[0]);
  
      const uploadImage = new FormData()
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
@@ -156,7 +157,6 @@ export class SingleImmoblierBatiComponent implements OnInit {
     console.log(id)
 ;    this.imageService.deleteImage(id).subscribe(
       (response: void) => {
-       
         const id = this.route.snapshot.params['id'];
         this.getImages(+id);
         this.getImmoBilierBati(+id);
@@ -195,13 +195,14 @@ export class SingleImmoblierBatiComponent implements OnInit {
     document.getElementById('add-Etage-form')?.click();
     const formvalue =addFormEt.value ;
 
-    const newEtage = new Etage(0,formvalue['numEtage'], formvalue['idImmobilierBati'], formvalue['description']);
+    const newEtage = new Etage(0,formvalue['numEtage'], this.immobilierBati?.id, formvalue['description']);
      this.etageService.addEtage(newEtage).subscribe(
       (response) => {
      
         const id = this.route.snapshot.params['id'];
         this.getEtages(+id);
-        addFormEt.reset();
+        this.getImmoBilierBati(+id);
+    
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
