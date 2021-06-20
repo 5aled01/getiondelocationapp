@@ -127,6 +127,25 @@ export class SingleImmoblierBatiComponent implements OnInit {
 
   }
 
+  getNombreImage(id :number){
+  var n :number = 0;
+    for(let img of this.images){
+        if(img.corespondance === id.toString())
+        n = n + 1;
+    }
+    return n;
+  }
+
+  getBatiImageEx(){
+    var Ex :boolean = false ;
+      for(let img of this.images){
+          if(img.corespondance === 'immobilierBati')
+          Ex = true;
+      }
+      return Ex;
+    }
+  
+
   onAddImageEtage(addForm :NgForm){
     document.getElementById('add-ImageEtage-form')?.click();
     const formvalue =addForm.value ;
