@@ -28,6 +28,7 @@ export class SingleImmoblierBatiComponent implements OnInit {
   deleteImageId: number | undefined;
   imagesEtage!: Image[]  ;
   editEtage: Etage | undefined;
+  img: Image | undefined;
   constructor(private etageService :EtageService, private route : ActivatedRoute ,private immobilierBatiService : ImmobilierBatiService ,private imageService :ImageService) { }
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class SingleImmoblierBatiComponent implements OnInit {
     this.getEtages(+id);
       this.getImages(+id);
     //  console.log(this.images);
+    console.log(this.img);
   }
 
   public onFileChanged(event:any) {
@@ -43,13 +45,20 @@ export class SingleImmoblierBatiComponent implements OnInit {
   }
   public getImage(image:any){
 
-    const base64Data = image
+    const base64Data = image;
     const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
-
     return retrievedImage;
 
   }
-   
+
+  public getImage2(){
+    
+    const base64Data = this.img?.image;
+    const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
+    return retrievedImage;
+
+  }
+  
   getImmoBilierBati(id :number){
     this.immobilierBatiService.getImmobilierBati(id).subscribe(
       (response: ImmobilierBati) => {
@@ -66,6 +75,11 @@ export class SingleImmoblierBatiComponent implements OnInit {
     this.imageService.getImages(id).subscribe(
       (response: Image[]) => {
         this.images = response;
+        for(let img of response){
+          if(img.corespondance == "immobilierBati")
+            this.img = img;
+         
+        }
        
       },
       (error: HttpErrorResponse) => {
@@ -87,16 +101,57 @@ export class SingleImmoblierBatiComponent implements OnInit {
   }
 
 
-  onAddImage(addForm :NgForm){
+  onAddImageBati(addImageBatiForm :NgForm){
+    document.getElementById('add-IB-form')?.click();
+    const formvalue = addImageBatiForm.value ;
   
-    const formvalue =addForm.value ;
     const newImage = new Image(0,formvalue['idCorespondance'],formvalue['corespondance'],[0]);
  
-  if(newImage.corespondance == "immobilierBati")
-    document.getElementById('add-IB-form')?.click();
-  else
-  document.getElementById('add-ImageEtage-form')?.click();
+    
+     const uploadImage = new FormData();
+    uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
+    uploadImage.append('image', JSON.stringify(newImage));
+    
+  
+     this.imageService.addImage(uploadImage).subscribe(
+      (response) => {
+        console.log(response);
+        this.getImmoBilierBati(+this.route.snapshot.params['id']);
+        this.getImages(+this.route.snapshot.params['id']);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+       
+      }
+    );
 
+  }
+
+  getNombreImage(id :number){
+  var n :number = 0;
+    for(let img of this.images){
+        if(img.corespondance === id.toString())
+        n = n + 1;
+    }
+    return n;
+  }
+
+  getBatiImageEx(){
+    var Ex :boolean = false ;
+      for(let img of this.images){
+          if(img.corespondance === 'immobilierBati')
+          Ex = true;
+      }
+      return Ex;
+    }
+  
+
+  onAddImageEtage(addForm :NgForm){
+    document.getElementById('add-ImageEtage-form')?.click();
+    const formvalue =addForm.value ;
+   const idToString = this.addImageEtage.id.toString();
+    const newImage = new Image(0,this.immobilierBati?.id,idToString,[0]);
+ 
      const uploadImage = new FormData()
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
     uploadImage.append('image', JSON.stringify(newImage));
@@ -105,27 +160,23 @@ export class SingleImmoblierBatiComponent implements OnInit {
      this.imageService.addImage(uploadImage).subscribe(
       (response) => {
        
-        const id = this.route.snapshot.params['id'];
-        this.getImmoBilierBati(+id);
-        if(newImage.corespondance == "immobilierBati")
-        this.getImages(+id);
-        addForm.reset();
+        this.getImmoBilierBati(+this.route.snapshot.params['id']);
+        this.getImages(+this.route.snapshot.params['id']);
+      
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        addForm.reset();
+       
       }
     );
 
   }
 
   onDeleteImage(id : number): void {
-    
-    this.imageService.deleteImage(id).subscribe(
+    console.log(id)
+;    this.imageService.deleteImage(id).subscribe(
       (response: void) => {
-       
         const id = this.route.snapshot.params['id'];
-        
         this.getImages(+id);
         this.getImmoBilierBati(+id);
       },
@@ -163,17 +214,18 @@ export class SingleImmoblierBatiComponent implements OnInit {
     document.getElementById('add-Etage-form')?.click();
     const formvalue =addFormEt.value ;
 
-    const newEtage = new Etage(0,formvalue['numEtage'], formvalue['idImmobilierBati'], formvalue['description']);
+    const newEtage = new Etage(0,formvalue['numEtage'], this.immobilierBati?.id, formvalue['description']);
      this.etageService.addEtage(newEtage).subscribe(
       (response) => {
      
         const id = this.route.snapshot.params['id'];
         this.getEtages(+id);
-        addFormEt.reset();
+        this.getImmoBilierBati(+id);
+    
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        addFormEt.reset();
+      
       }
     );
 
@@ -226,16 +278,13 @@ export class SingleImmoblierBatiComponent implements OnInit {
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#addImageModal');
+    if (mode === 'addImageBati') {
+      button.setAttribute('data-target', '#addImageBatiModal');
     }
     if (mode === 'addEtage') {
       button.setAttribute('data-target', '#addEtageModal');
    }
-   if (mode === 'addImageEtage') {
-    this.addImageEtage = etage;
-    button.setAttribute('data-target', '#addImageEtageModal');
- }
+   
     if (mode === 'editEtage') {
       this.editEtage = etage;
       button.setAttribute('data-target', '#updateEtageModal');}
@@ -255,7 +304,10 @@ export class SingleImmoblierBatiComponent implements OnInit {
     if (mode === 'delete') {
       this.deleteImageId = id;
       button.setAttribute('data-target', '#deleteImageModal');
-    }
+    }if (mode === 'addImageEtage') {
+      this.addImageEtage= new Etage(id," ",0," ") 
+      button.setAttribute('data-target', '#addImageEtageModal');
+   }
     container?.appendChild(button)
     button.click();
   }
