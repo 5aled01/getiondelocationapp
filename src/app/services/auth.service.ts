@@ -18,7 +18,7 @@ export class AuthService {
     private apiServerUrl = environment.apiBaseUrl ;
     isAuth: boolean = false;
      
-    public userconncte:  User;
+    public userconncte!:  User;
   
  
   idc: number | undefined;

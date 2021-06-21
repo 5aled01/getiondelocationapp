@@ -18,7 +18,10 @@ import { ContratVenteService } from 'src/app/services/contratVente.service';
 })
 export class ContratLocationComponent implements OnInit {
 
-   
+  public contratVentes!: ContratVente[] ;
+  public editeContratVente: ContratVente | undefined;
+  public deleteContratVente: ContratVente | undefined; 
+
     public contratLocations!: ContratLocation[] ;
     public editeContratLocation: ContratLocation | undefined;
     public deleteContratLocation: ContratLocation | undefined;
@@ -144,6 +147,33 @@ export class ContratLocationComponent implements OnInit {
     }
 
 
+
+    public onDeleteContratVente( Id: number): void {
+      this.contratVenteService.deleteContratVente( Id).subscribe(
+        (response: void) => {
+          console.log(response);
+          this.getContratVentes();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    }
+  
+    public onUpdateContratVente(contrat: ContratLocation): void {
+      document.getElementById('update-ContratVente-form')?.click();
+     
+      this.contratVenteService.updateContratVente(contrat).subscribe(
+        (response: ContratVente) => {
+          console.log(response);
+          this.getContratVentes();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    }
+        
 
     public onDeleteContratVente( Id: number): void {
       this.contratVenteService.deleteContratVente( Id).subscribe(
