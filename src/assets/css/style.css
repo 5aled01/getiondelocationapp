@@ -2,9 +2,11 @@
 
 :root {
     --main-color: #027581;
-    --color-dark: #1D2231;
+    --color-dark: #343a40;
     --text-grey: #8390A2;
 }
+
+ 
 
 * {
     font-family: 'Poppins', sans-serif;
@@ -35,11 +37,12 @@
 
 .sidebar-header {
     display: flex;
+    padding: 0rem 1rem;
+    padding-left: 25px;
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    padding: 0rem 1rem;
-    padding-left: 25px;
+    
 }
  
 .sidebar-menu {
@@ -464,15 +467,15 @@ tbody tr:nth-child(even) {
   text-decoration: none;
 }
 
+
+
   .profile .social-links a {
   font-size: 18px;
   display: inline-block;
   background: #212431;
   color: #fff;
   line-height: 1;
-  padding: 8px 0;
-  margin-right: 4px;
-  border-radius: 50%;
+ 
   text-align: center;
   width: 36px;
   height: 36px;

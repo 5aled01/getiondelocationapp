@@ -214,7 +214,16 @@ export class SingleImmoblierBatiComponent implements OnInit {
     document.getElementById('add-Etage-form')?.click();
     const formvalue =addFormEt.value ;
 
-    const newEtage = new Etage(0,formvalue['numEtage'], this.immobilierBati?.id, formvalue['description']);
+    const newEtage = new Etage(0,formvalue['numEtage'],
+     this.immobilierBati?.id,
+      formvalue['description'],
+      formvalue['nbrChambre'],
+      formvalue['nbrQuisin'],
+      formvalue['nbrDouche'],
+      formvalue['nbrSalle'],
+      formvalue['nbrGarage']
+     
+      );
      this.etageService.addEtage(newEtage).subscribe(
       (response) => {
      
@@ -305,7 +314,7 @@ export class SingleImmoblierBatiComponent implements OnInit {
       this.deleteImageId = id;
       button.setAttribute('data-target', '#deleteImageModal');
     }if (mode === 'addImageEtage') {
-      this.addImageEtage= new Etage(id," ",0," ") 
+      this.addImageEtage= new Etage(id," ",0," ",0,0,0,0,0) 
       button.setAttribute('data-target', '#addImageEtageModal');
    }
     container?.appendChild(button)
