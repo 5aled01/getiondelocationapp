@@ -112,6 +112,32 @@
             <label for="description">Description Etage </label>
             <input type="text"  ngModel name="description" class="form-control" id="description" placeholder="description" required>
          </div>
+       
+        
+         <div class="form-group">
+            <label for="nbrChambre"> Nombre de chambre </label>
+            <input type="text"  ngModel name="nbrChambre" class="form-control" id="nbrChambre" placeholder="nbrChambre" required>
+         </div>
+
+         <div class="form-group">
+            <label for="nbrQuisin"> Nombre de quisin </label>
+            <input type="text"  ngModel name="nbrQuisin" class="form-control" id="nbrQuisin" placeholder="nbrQuisin" required>
+         </div>
+
+         <div class="form-group">
+            <label for="nbrDouche">Nombre de douche</label>
+            <input type="text"  ngModel name="nbrDouche" class="form-control" id="nbrDouche" placeholder="nbrDouche" required>
+         </div>
+
+         <div class="form-group">
+            <label for="nbrSalle">Nombre de salle</label>
+            <input type="text"  ngModel name="nbrSalle" class="form-control" id="nbrSalle" placeholder="nbrSalle" required>
+         </div>
+
+         <div class="form-group">
+            <label for="nbrGarage">Nombre de garage</label>
+            <input type="text"  ngModel name="nbrGarage" class="form-control" id="nbrGarage" placeholder="nbrGarage" required>
+         </div>
 
           <div class="modal-footer">
              <button type="button" id="add-Etage-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -130,21 +156,32 @@
 
 <!--view etage-->
 <div *ngFor="let etage of etages">
-<div class="row" >
-   <div class="col-12">
+<div class="row">
+   <div class="col-12" >
 		<table class="table table-image">
          <tbody>
-            <tr>
-         <td class="w-25" >
+            <tr class="row">
+               <section class="col col-md-3">
+         <td class="w-25">
                <div class="card m-b-30">
-                  <div class="card-body">
+                  <div class="card-body" > 
                      <div class="col-6 card-title align-self-center mb-0">
                   <h5>{{etage?.numEtage}}</h5>
                      </div>
                   </div>
-            <ul class="list-group list-group-flush">
+                  <ul class="list-group list-group-flush">
+                     <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de chambre : {{etage?.nbrChambre}}</h5></li>
+                     <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de quisin : {{etage?.nbrQuisin}}</h5></li>
+                   <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de douche : {{etage?.nbrDouche}}</h5></li>
+                          <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de salle : {{etage?.nbrSalle}}</h5></li>
+                       <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de garage : {{etage?.nbrGarage}}</h5></li>
+                              
                <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Description : {{etage?.description}}</h5></li>
-               </ul>
+              
+</ul>
+   
+        
+
                
             <div class="card-body">
                   <div class="float-right btn-group btn-group-sm">
@@ -157,19 +194,20 @@
              </div>
          </div>
           </td>
-
+         </section>
+         <section class="col"> 
           <ng-container *ngFor="let image of images" >
             <ng-container *ngIf="image?.corespondance == etage?.id.toString();" >
              <div  class="col-md-4">
                  <td class="w-25" >
                   <a  (click)="onOpenModal2(image?.id, 'delete')">
-                    <img  class="img-fluid img-thumbnail" [src]="getImage(image?.image)" alt="Snow"> 
+                    <img id="imgEtage"  class="img-fluid img-thumbnail" [src]="getImage(image?.image)" alt="Snow"> 
                   </a>
                  </td>
              </div>
             </ng-container>
           </ng-container>
-   
+   </section>
 </tr>
   </tbody>
   </table>
@@ -236,12 +274,33 @@
               </div>
               <input type="hidden" ngModel="{{editEtage?.idImmobilierBati}}" name="idImmobilierBati" class="form-control" id="idImmobilierBati" placeholder="id">
                
-              
               <div class="form-group">
                  <label for="description">Description</label>
                  <input type="text" ngModel="{{editEtage?.description}}" name="description" class="form-control" id="description"  >
               </div>
             
+        
+              <div class="form-group">
+               <label for="nbrChambre">Nombre de chambre</label>
+               <input type="text" ngModel="{{editEtage?.nbrChambre}}" name="nbrChambre" class="form-control" id="nbrChambre"  >
+            </div>
+
+            <div class="form-group">
+               <label for="nbrQuisin">Nombre de quisin</label>
+               <input type="text" ngModel="{{editEtage?.nbrQuisin}}" name="nbrQuisin" class="form-control" id="nbrQuisin"  >
+            </div>
+
+            <div class="form-group">
+               <label for="nbrSalle">Nombre de salle</label>
+               <input type="text" ngModel="{{editEtage?.nbrSalle}}" name="nbrSalle" class="form-control" id="nbrSalle"  >
+            </div>
+
+            <div class="form-group">
+               <label for="nbrGarage">Nombre de garage</label>
+               <input type="text" ngModel="{{editEtage?.nbrGarage}}" name="nbrGarage" class="form-control" id="nbrGarage"  >
+            </div>
+              
+
               <div class="modal-footer">
                  <button type="button"  id="update-Etage-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
                  <button (click)="onUpdateEtage(editeForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre Etage Modifier</button>

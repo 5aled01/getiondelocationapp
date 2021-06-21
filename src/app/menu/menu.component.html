@@ -1,83 +1,53 @@
+<html >
+  <head>
+ 
+  </head>
+  <body>
 
-    
-    <input type="checkbox" id="sidebar-toggle">
-    <div class="sidebar">
-        <div class="sidebar-header">
-          <div class="profile">
-            
+    <nav class="menu" tabindex="0">
+        <div class="smartphone-menu-trigger"  class="avatar">
             <img [src]="getImage(UserConnect?.image)" alt=""  id="ItemPreview" class="img-fluid rounded-circle" />
-            <h1 class="text-light"><a href="index.html">{{UserConnect?.username}}</a></h1>
-         
-          </div> 
-            <label  for="sidebar-toggle" class="ti-menu-alt"> </label>
+           <br><br>
+            <h2><a href="index.html">{{UserConnect?.username}}</a></h2>
         </div>
-        
-        <div class="sidebar-menu">
-            <ul>
-                <li>
-                    <a routerLink="home" routerLinkActive="active">
-                        <span class="ti-home"></span>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="users" routerLinkActive="active">
-                        <span class="ti-face-smile"></span>
-                        <span>Getion utilisateur</span>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="proprietaires" routerLinkActive="active">
-
-                        <span class="ti-agenda"></span>
-                        <span>Getion proprietaires</span>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="immobilierBati" routerLinkActive="active">
-                        <span class="ti-clipboard"></span>
-                        <span>Getion Immobilier batiment</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span class="ti-folder"></span>
-                        <span>Annonce</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span class="ti-time"></span>
-                        <span>Reservation</span>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="contrat" routerLinkActive="active">
-                        <span class="ti-book"></span>
-                        <span>Contrats</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span class="ti-settings"></span>
-                        <span>Account</span>
-                    </a>
-                </li>
-                <li>
-                    <a (click)="onSignOut()"
-                   >
-                        <span class="ti-sing"></span>
-                        <span>Deconnection</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    
-    
-    <div class="main-content">
-        
-       <router-outlet></router-outlet>
-      
-    </div>
      
+        <ul>
+            <a routerLink="home" routerLinkActive="active">
+                   <li tabindex="0" class="fa fa-home" aria-hidden="true"><span> Home </span></li>
+            </a>
+            <a routerLink="users" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-user" aria-hidden="true" ><span> Getion utilisateur</span></li>
+        </a>
+        
+        <a routerLink="proprietaires" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-folder-open-o" aria-hidden="true">  <span> Getion proprietaires</span></li>
+         </a>
+
+         <a routerLink="immobilierBati" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-university" aria-hidden="true">  <span> Getion immobilier-Bati</span></li>
+         </a>
+
+         <a routerLink="immobilierBati" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-map-marker" aria-hidden="true">  <span> Getion annonce</span></li>
+         </a>
+
+         <a routerLink="immobilierBati" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-calendar" aria-hidden="true">  <span> Getion reservation</span></li>
+         </a>
+         
+         
+            <a (click)="onSignOut()">
+            <li tabindex="0" class="logout"> <i class="fa fa-sign-out" ></i>  <span style="color: white;"> Deconnection</span></li>
+       </a>
+        </ul>
+        </nav>
+    
+        
+            <router-outlet></router-outlet>
+           
+       
+  
+
+       
+  </body>
+    </html>

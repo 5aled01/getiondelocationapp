@@ -6,13 +6,15 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
        <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-             <a class="nav-link" (click)="onOpenModal(null, 'add')">Ajouter un  ImmobilierBati <span class="sr-only">(current)</span></a>
+             <a class="btn btn-outline-secondary"  (click)="onOpenModal(null, 'add')" style="color: white;"><i class="fa fa-plus"></i> Ajouter un  ImmobilierBati <span class="sr-only">(current)</span></a>
           </li>
        </ul>
-       <form class="form-inline my-2 my-lg-0">
-          <input type="search" (ngModelChange)="searchImmobilierBatis(key.value)" #key="ngModel" ngModel
+       <div class="search-container">
+       <form class="form-inline my-2 my-lg-0" >
+          <input type="search" style="float: left; clear: both;" (ngModelChange)="searchImmobilierBatis(key.value)" #key="ngModel" ngModel
            name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere immobilier..." required>
        </form>
+      </div>
     </div>
   </nav>
   <div class="container" id="main-container">
