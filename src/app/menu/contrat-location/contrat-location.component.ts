@@ -26,9 +26,7 @@ export class ContratLocationComponent implements OnInit {
     public editeContratLocation: ContratLocation | undefined;
     public deleteContratLocation: ContratLocation | undefined;
 
-    public contratVentes!: ContratVente[] ;
-    public editeContratVente: ContratVente | undefined;
-    public deleteContratVente: ContratVente | undefined;
+  
 
      public proprietaires! :ProC1[]  ;
      public proprietaire! :ProC1  ;
@@ -117,19 +115,7 @@ export class ContratLocationComponent implements OnInit {
       );
     }
 
-    public onUpdateContratVente(contrat: ContratVente): void {
-      document.getElementById('update-ContratVente-form')?.click();
-     
-      this.contratVenteService.updateContratVente(contrat).subscribe(
-        (response: ContratVente) => {
-          console.log(response);
-          this.getContratVentes();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
-    }
+   
         
 
         
@@ -175,18 +161,7 @@ export class ContratLocationComponent implements OnInit {
     }
         
 
-    public onDeleteContratVente( Id: number): void {
-      this.contratVenteService.deleteContratVente( Id).subscribe(
-        (response: void) => {
-          console.log(response);
-          this.getContratVentes();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
-    }
-  
+    
     public searchUsers(key: string): void {
       console.log(key);
       const results: ContratLocation[] = [];

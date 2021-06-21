@@ -16,7 +16,7 @@ import { AuthService } from '../services/auth.service';
 export class MenuComponent implements OnInit {
 
   UserConnect : User   ;
-  iduser : number ;
+  iduser! : number ;
   private apiServerUrl = environment.apiBaseUrl ;
   constructor(public authservice : AuthService,private http: HttpClient,private sanitizer: DomSanitizer) { 
     this.UserConnect = authservice.userconncte;
