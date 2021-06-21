@@ -87,7 +87,6 @@
  </div>
 
 
-<<<<<<< HEAD
     <!--add image Etage-->
 <div class="card mb-3">
   <div class="modal fade" id="addImageEtageModal" tabindex="-1" role="dialog" aria-labelledby="addImageEtageModalLabel" aria-hidden="true">
@@ -100,13 +99,13 @@
             </button>
          </div>
          <div class="modal-body">
-            <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImage(addFormImageEtage)">
+            <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImageEtage(addFormImageEtage)">
   
             <div class="form-group">
               <input type="hidden" hidden name="corespondance"  ngModel="addImageEtage?.id" class="form-control" id="corespondance" placeholder="le Corespondance" required>
-=======
+
       </div>
-      Edit Modal 
+    <!--  Edit Modal 
     <div class="modal fade" id="updateImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="immobilierBatiEditModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
          <div class="modal-content">
@@ -116,7 +115,7 @@
                <span aria-hidden="true">&times;</span>
                </button>
             </div>
-  
+         -->
             <div class="form-group">
                <input type="hidden" hidden  name="idCorespondance" ngModel="immobilierBati?.id" class="form-control" id="idCorespondance" placeholder="le idCorespondance" required>
             </div>
@@ -134,12 +133,8 @@
          </div>
       </div>
     </div>
-<<<<<<< Updated upstream
   </div>
 </div>
-=======
-  
->>>>>>> 0e676d16e84ca8e11cbb6a3d7a71314f97348eca
   
 <!-- add etage -->
 <div class="card mb-3">
@@ -163,8 +158,9 @@
           <div class="form-group">
             <label for="description">Description Etage </label>
             <input type="text"  ngModel name="description" class="form-control" id="description" placeholder="description" required>
-    
-    Delete Modal 
+       </div>
+   <!--
+  Delete Modal 
     <div class="modal fade" id="deleteImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
          <div class="modal-content">
@@ -183,7 +179,7 @@
             </div>
          </div>
        
-        
+      -->    
          <div class="form-group">
             <label for="nbrChambre"> Nombre de chambre </label>
             <input type="text"  ngModel name="nbrChambre" class="form-control" id="nbrChambre" placeholder="nbrChambre" required>
@@ -218,10 +214,7 @@
     </div>
   </div>
 </div>
-
-
 </div>
-
 
 
 <!--view etage-->
@@ -435,9 +428,5 @@
 
  </div>
 
-<<<<<<< HEAD
-   
-=======
 
-</div>
->>>>>>> 0e676d16e84ca8e11cbb6a3d7a71314f97348eca
+ 
