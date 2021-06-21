@@ -165,7 +165,7 @@ console.log(this.selectedFile);
 
 
   public onAddProC2(addForm: NgForm): void {
-    document.getElementById('add-ProC2-form').click();
+    document.getElementById('add-ProC2-form')?.click();
     const formvalue =addForm.value ;
  
     const newProC2 = new ProC2(0,formvalue['telephone'],[0],formvalue['nom'],
@@ -196,7 +196,7 @@ console.log(this.selectedFile);
   }
 
   public onUpdateProC2(proC2: ProC2): void {
-    document.getElementById('update-ProC2-form').click();
+    document.getElementById('update-ProC2-form')?.click();
     const uploadImage = new FormData()
     if(this.selectedFile){
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);

@@ -1,0 +1,361 @@
+<nav class="navbar navbar-light bg-light">
+  
+    <form class="form-inline">
+      <a class="nav-link" routerLink="proprietaires">List Des Annonce </a> |
+      <a class="nav-link" (click)="onOpenModal1(null, 'add')">niveaux Annonce Externe</a> |
+      <a class="nav-link" (click)="onOpenModal2(null, 'add')">niveaux Annonce Interne</a> |
+      
+    </form>
+  </nav>
+  
+  <div class="container" id="main-container">
+    <div class="row" id="mainProcc">
+      <div *ngFor="let aE of annonceExternes" class="col-md-6 col-xl-3">
+         <div class="card m-b-30">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Immobiliere : {{ aE?.idImmobilier}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de debut : {{aE?.dateDebut}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de fin : {{aE?.dateFinAnnonce}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Type : {{aE?.type}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Frais d'annonce : {{aE?.fraisAnnonce}}</li>
+
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prix de  {{aE?.type}}  : {{aE?.prxiImmobilier}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Description : {{aE?.description}}</li>
+             
+            </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">
+                  <a (click)="onOpenModal1(aE, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                  <a (click)="onOpenModal1(aE, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+               </div>
+            </div>
+         </div>
+      </div>
+    
+    <!-- Add Employee Modal -->
+    <div class="modal fade" id="addAEModal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="addProC1ModalLabel">Ajouter Annonce Externe </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #addFormAE="ngForm" (ngSubmit)="onAddAE(addFormAE)">
+                <div class="form-group">
+                    <label for="idImmobilier">Immoblilier</label>
+                    <select ngModel name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
+                        <option value="" disabled selected>choisir immoblier</option>    
+                        <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                            {{immob?.id}}
+                        </option>
+                </select>
+                        </div>
+              <div class="form-group">
+                 <label for="dateDebut">Date debut annonce</label>
+                 <input type="date" ngModel name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>
+              </div>
+              <div class="form-group">
+               <label for="dateFinAnnonce">Date de fins Annonce</label>
+               <input type="date" ngModel name="dateFinAnnonce" class="form-control" id="dateFinAnnonce" placeholder="le Nom" required>
+            </div>
+              <div class="form-group">
+                 <label for="type">Type</label>
+                 <select ngModel name="type" class="form-control" id="type" placeholder="type" required>
+                    <option value="Location" >Location</option>    
+                    <option   value="Vente"> Vente</option>
+                 </select>
+                </div>
+              <div class="form-group">
+                 <label for="prxiImmobilier">Prix </label>
+                 <input type="number" ngModel name="prxiImmobilier" class="form-control" id="prxiImmobilier" placeholder=" " required>
+              </div>
+              <div class="form-group">
+               <label for="fraisAnnonce">Frais d'Annonce </label>
+               <input type="number" ngModel name="fraisAnnonce" class="form-control" id="fraisAnnonce" placeholder=" " required>
+            </div>
+              <div class="form-group">
+               <label for="description">Description </label>
+               <input type="text" ngModel name="description" class="form-control" id="description" placeholder=" " required>
+             </div>
+            
+              <div class="modal-footer">
+                 <button type="button" id="add-AE-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button [disabled]="addFormAE.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+      </div>
+    
+    <!-- Edit Modal -->
+    <div class="modal fade" id="updateAEModal" tabindex="-1" role="dialog" aria-labelledby="ProC1EditModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="updateUserModalLabel">Modifier le annonce Externe </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #editFormAE="ngForm">
+                  <div class="form-group">
+                     <label for="longueur">IMMOBILIERE</label>
+                     <select ngModel={{editeAnnonceExterne?.idImmobilier}} name="idImmobilier" class="form-control" id="idImmobilier" placeholder="Proprietaire" required>
+                         <option value="{{editeAnnonceExterne?.idImmobilier}}"   selected> {{editeAnnonceExterne?.idImmobilier}}</option>    
+                         <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                             {{immob?.id}}
+                         </option>
+                 </select>
+                         </div>
+               <div class="form-group">
+                  <label for="dateDebut">DATE DEBUT ANNONCE</label>
+                  <input type="date" ngModel="{{editeAnnonceExterne?.dateDebut}}" name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>
+               </div>
+               <div class="form-group">
+                  <label for="dateFinAnnonce">DATE DE FINS</label>
+                  <input type="date" ngModel="{{editeAnnonceExterne?.dateFinAnnonce}}" name="dateFinAnnonce" class="form-control" id="dateFinAnnonce" placeholder="le Nom" required>
+               </div>
+               <input type="hidden" ngModel="{{editeAnnonceExterne?.id}}" name="id" class="form-control" id="id" placeholder="id">
+
+               <div class="form-group">
+                  <label for="dateFinAnnonce">TYPE </label>
+                  <select ngModel="{{editeAnnonceExterne?.type}}" name="type" class="form-control" id="type" placeholder="type" required>
+                     <option value="Location" >Location</option>    
+                     <option   value="Vente"> Vente</option>
+                  </select>
+                 </div>
+               <div class="form-group">
+                  <label for="prxiImmobilier">PRIX DE IMOBLIERE </label>
+                  <input type="number" ngModel="{{editeAnnonceExterne?.prxiImmobilier}}" name="prxiImmobilier" class="form-control" id="prxiImmobilier" placeholder=" " required>
+               </div>
+               <div class="form-group">
+                  <label for="fraisAnnonce">FRAIS D'ANNONCE </label>
+                  <input type="number" ngModel="{{editeAnnonceExterne?.fraisAnnonce}}" name="fraisAnnonce" class="form-control" id="fraisAnnonce" placeholder=" " required>
+               </div>
+               <div class="form-group">
+                  <label for="description">DESCRPITION </label>
+                  <input type="text" ngModel="{{editeAnnonceExterne?.description}}" name="description" class="form-control" id="description" placeholder=" " required>
+                </div>
+                  <div class="modal-footer">
+                     <button type="button"  id="update-AE-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                     <button (click)="onUpdateAE(editFormAE.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteAEModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">Suprimer Annonce</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Vous etez sur de suprimer l'annonce externe  ?</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteAE(deleteAnnonceExterne?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+     </div>
+    
+    
+    <!-- Notification for no employees -->
+    <div *ngIf="annonceExternes?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+       <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NON Annonce Externce   !!</h4>
+         <p>No annonnce trouver</p>
+       </div>
+    </div>
+   </div>
+  
+  
+  
+  
+   <!-- Patie du deuxieme catogorie de proprietaire-->
+  
+  
+  <div class="row" id="mainProC">
+   <div *ngFor="let aI of annonceInternes" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+         <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Immobiliere : {{ aI.idImmobilier}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de debut : {{aI?.dateDebut}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Type : {{aI?.type}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Id Contrat  : {{aI?.idContrat}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Description : {{aI?.description}}</li>
+
+         </ul>
+         <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+               <a (click)="onOpenModal2(aI, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+               <a (click)="onOpenModal2(aI, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+         </div>
+      </div>
+   </div>
+ 
+ <!-- Add Employee Modal -->
+ <div class="modal fade" id="addAIModal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="addProC1ModalLabel">Ajouter un annonce interne </h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #addFormAI="ngForm" (ngSubmit)="onAddAI(addFormAI)">
+             <div class="form-group">
+                 <label for="idImmobilier">Immoblilier</label>
+                 <select ngModel name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
+                     <option value="" disabled selected>choisir immoblier</option>    
+                     <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                         {{immob?.id}}
+                     </option>
+             </select>
+                     </div>
+                     <div class="form-group">
+                        <label for="type">Type</label>
+                        <select ngModel name="type" class="form-control" id="type" placeholder="type" required>
+                           <option value="Location" >Location</option>    
+                           <option   value="Vente"> Vente</option>
+                        </select>
+                       </div>
+                     <div class="form-group">
+                        <label for="idContrat">Contrat Location </label>
+                        <select ngModel name="idContrat" class="form-control" id="idContrat" placeholder="Proprietaire" required>
+                            <option value="" disabled selected>choisir immoblier</option>    
+                            <option *ngFor="let contratLocation of contratLocations" value="{{contratLocation?.id}}">
+                                {{contratLocation?.id}}
+                            </option>
+                         </select>
+                     </div>
+           <div class="form-group">
+              <label for="dateDebut">Date debut annonce</label>
+              <input type="date" ngModel name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>
+           </div>
+            
+           <div class="form-group">
+            <label for="description">Description </label>
+            <input type="text" ngModel name="description" class="form-control" id="description" placeholder=" " required>
+          </div>
+         
+           <div class="modal-footer">
+              <button type="button" id="add-AI-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addFormAI.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+           </div>
+           </form>
+        </div>
+     </div>
+   </div>
+   </div>
+ 
+ <!-- Edit Modal -->
+ <div class="modal fade" id="updateAIModal" tabindex="-1" role="dialog" aria-labelledby="ProC1EditModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="updateUserModalLabel">Modifier le Annonce Interne </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #editFormAI="ngForm">
+               <div class="form-group">
+                  <label for="longueur">Immoblilier</label>
+                  <select ngModel="{{editeAnnonceInterne?.idImmobilier }}" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="Proprietaire" required>
+                      <option value="" disabled selected>choisir immoblier</option>    
+                      <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                          {{immob?.id}}
+                      </option>
+              </select>
+                      </div>
+                      <input type="hidden" ngModel="{{editeAnnonceInterne?.id}}" name="id" class="form-control" id="id" placeholder="id">
+
+                      <div class="form-group">
+                         <label for="dateFinAnnonce">Type</label>
+                         <select ngModel="{{ editeAnnonceInterne?.type}}" name="type" class="form-control" id="type" placeholder="type" required>
+                            <option value="Location"   >Location</option>    
+                            <option   value="Vente"> Vente</option>
+                         </select>
+                        </div>
+                      <div class="form-group">
+                         <label for="longueur">Contrat Location </label>
+                         <select ngModel="{{ editeAnnonceInterne?.idContrat}}" name="idContrat" class="form-control" id="idContrat" placeholder="Proprietaire" required>
+                             <option value="{{  editeAnnonceInterne?.idContrat}}" >{{editeAnnonceInterne?.idContrat }}</option>   
+                             <option *ngFor="let contratLocation of contratLocations" value="{{contratLocation?.id}}">
+                                 {{contratLocation?.id}}
+                             </option>
+                          </select>
+                      </div>
+            <div class="form-group">
+               <label for="dateDebut">Date debut annonce</label>
+               <input type="date" ngModel="{{ editeAnnonceInterne?.dateDebut}}" name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>
+            </div>
+           
+            <div class="form-group">
+               <label for="description">Description </label>
+               <input type="text" ngModel="{{editeAnnonceInterne?.description}}" name="description" class="form-control" id="description" placeholder=" " required>
+             </div>
+               <div class="modal-footer">
+                  <button type="button"  id="update-AI-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button (click)="onUpdateAI(editFormAI.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+ </div>
+ 
+ <!-- Delete Modal -->
+ <div class="modal fade" id="deleteAIModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteModelLabel">Suprimer annonce</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <p>Vous etez sur de suprimer l'annonce interne  ?</p>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+               <button (click)="onDeleteAI(deleteAnnonceInterne?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+  </div>
+ 
+   
+   <!-- Notification for no employees -->
+   <div *ngIf="annonceInternes?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+   <div class="alert alert-info" role="alert">
+     <h4 class="alert-heading">NON Annonce interne !!</h4>
+     <p>No annone interne trouver</p>
+   </div>
+   
+    </div>
+   </div>
+  
+  
+  </div>
+  
+  

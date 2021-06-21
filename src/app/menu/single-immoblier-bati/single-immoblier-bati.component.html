@@ -50,7 +50,7 @@
     <!--add image bati-->
 <div class="card mb-3">
  
-    <div class="modal fade" id="addImageBatiModal" tabindex="-1" role="dialog" aria-labelledby="addImageBatiModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
            <div class="modal-header">
@@ -87,7 +87,59 @@
  </div>
 
 
+<<<<<<< HEAD
+    <!--add image Etage-->
+<div class="card mb-3">
+  <div class="modal fade" id="addImageEtageModal" tabindex="-1" role="dialog" aria-labelledby="addImageEtageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addImageEtageModalLabel" >Ajouter un image </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImage(addFormImageEtage)">
   
+            <div class="form-group">
+              <input type="hidden" hidden name="corespondance"  ngModel="addImageEtage?.id" class="form-control" id="corespondance" placeholder="le Corespondance" required>
+=======
+      </div>
+      Edit Modal 
+    <div class="modal fade" id="updateImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="immobilierBatiEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="updateImmobilierBatiModalLabel">Modifier immobilier</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+  
+            <div class="form-group">
+               <input type="hidden" hidden  name="idCorespondance" ngModel="immobilierBati?.id" class="form-control" id="idCorespondance" placeholder="le idCorespondance" required>
+            </div>
+  
+            
+            <div class="form-group">
+               <label for="img">Image </label>
+               <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" required>
+            </div>
+            <div class="modal-footer">
+               <button type="button" id="add-ImageEtage-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button  [disabled]="addFormImageEtage.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+<<<<<<< Updated upstream
+  </div>
+</div>
+=======
+  
+>>>>>>> 0e676d16e84ca8e11cbb6a3d7a71314f97348eca
   
 <!-- add etage -->
 <div class="card mb-3">
@@ -111,6 +163,24 @@
           <div class="form-group">
             <label for="description">Description Etage </label>
             <input type="text"  ngModel name="description" class="form-control" id="description" placeholder="description" required>
+    
+    Delete Modal 
+    <div class="modal fade" id="deleteImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">Suprimer utilisateur</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Vous etez sur de suprimer Immobilier avec ladress {{deleteImmobilierBati?.adresse}}?</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteImmobilierBati(deleteImmobilierBati?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
          </div>
        
         
@@ -363,6 +433,11 @@
    </div>
 </div>
 
+ </div>
 
+<<<<<<< HEAD
+   
+=======
 
 </div>
+>>>>>>> 0e676d16e84ca8e11cbb6a3d7a71314f97348eca

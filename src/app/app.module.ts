@@ -20,6 +20,7 @@ import { ImmobilierBatiComponent } from './menu/immobilierBati/immobilierBati.co
 
 import { ContratLocationComponent } from './menu/contrat-location/contrat-location.component';
 import { SingleImmoblierBatiComponent } from './menu/single-immoblier-bati/single-immoblier-bati.component';
+import { AnnonceComponent } from './menu/annonce/annonce.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SingleImmoblierBatiComponent } from './menu/single-immoblier-bati/singl
     ImmobilierBatiComponent,
     SingleImmoblierBatiComponent,
     ContratLocationComponent,
+          AnnonceComponent,
 
   ],
   imports: [

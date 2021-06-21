@@ -142,14 +142,14 @@ console.log(this.selectedFile);
     const results: User[] = [];
     for (const user of this.users) {
       if (user.username.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ||user.phone !== -1
+     
       || user.role.toLowerCase().indexOf(key.toLowerCase()) !== -1
        ) {
         results.push(user);
       }
     }
     this.users = results;
-    if (results.length === 0 || !key) {
+    if (!key) {
       this.getUsers();
     }
   }
