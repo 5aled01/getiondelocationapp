@@ -9,12 +9,15 @@
 </nav>
 
 <div class="container" id="main-container">
+   <div class="row"> 
+   <section class="col md-6"> 
   <div class="row" id="mainProcc">
-    <div *ngFor="let proC1 of proC1s" class="col-md-6 col-xl-3">
+     
+    <div *ngFor="let proC1 of proC1s" class="col md-6 col-xl-6">
        <div class="card m-b-30">
           <div class="card-body row">
-            <div class="col-6" >
-                <a href=""><img [src]="getImage(proC1?.img)" alt="" class="img-fluid rounded-circle w-60"></a>
+            <div class="col-6" style="height: 55px;" >
+                <a href=""><img [src]="getImage(proC1?.img)" style="height: 50px;"  alt="" class="img-fluid rounded-circle w-60"></a>
             </div>
              <div class="col-6 card-title align-self-center mb-0">
                 <h5>{{ proC1?.pronom}}</h5>
@@ -183,9 +186,10 @@
 
  <!-- Patie du deuxieme catogorie de proprietaire-->
 
-
+</section>
+<section class="col md-6"> 
 <div class="row" id="mainProC">
-   <div *ngFor="let proC2 of proC2s" class="col-md-6 col-xl-3">
+   <div *ngFor="let proC2 of proC2s" class="col md-6 col-xl-6">
       <div class="card m-b-30">
          <div class="card-body row">
            <div class="col-6" >
@@ -352,8 +356,9 @@
  </div>
  
   </div>
+  
  </div>
-
-
+</section>
+</div>
 </div>
 

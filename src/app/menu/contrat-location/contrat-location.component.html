@@ -1,20 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" style="color:white;">Gestion De Contrat de Location</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor02">
-       <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-             <a class="nav-link" (click)="onOpenModal(null, 'add')">Ajouter Contrat de Location <span class="sr-only">(current)</span></a>
-          </li>
-       </ul>
-       <form class="form-inline my-2 my-lg-0">
-          <input type="search" (ngModelChange)="searchUsers(key.value)" #key="ngModel" ngModel
-           name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere contartLocation..." required>
-       </form>
-    </div>
-</nav>
+
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <a class="navbar-brand" style="color:white;">Getion Contrat-location</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+            <a class="btn btn-outline-secondary"  (click)="onOpenModal1(null, 'add')" style="color: white;"><i class="fa fa-plus"></i> Ajouter un  contrat location </a>
+         </li>
+         <li class="nav-item active">
+            <a class="btn btn-outline-secondary"  (click)="onOpenModal2(null, 'add')" style="color: white;"><i class="fa fa-plus"></i> Ajouter un  annonce vente </a>
+         </li>
+      </ul>
+      <div class="search-container">
+      <form class="form-inline my-2 my-lg-0" >
+         <input type="search" style="float: left; clear: both;" (ngModelChange)="searchContratLocation(key.value)" #key="ngModel" ngModel
+          name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere immobilier..." required>
+      </form>
+     </div>
+   </div>
+ </nav>
+
+
+
   <div class="container" id="main-container">
   <div class="row">
     <div *ngFor="let contratLocation of contratLocations" class="col-md-6 col-xl-3">
@@ -23,7 +33,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>date De debut : {{contratLocation?.dateDebut}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de fin : {{contratLocation?.dateFin}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>nom Proprietaire :{{this.getproprietaire(contratLocation?.id)?.nom}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>nom Proprietaire :{{this.getproprietaire(contratLocation?.idPro)?.nom}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>prixProprietaire : {{contratLocation?.prixProprietaire}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>prixLocation : {{contratLocation?.prixLocation}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>description  : {{contratLocation?.description}}</li>
@@ -32,8 +42,8 @@
             </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
-                <a (click)="onOpenModal(contratLocation, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                <a (click)="onOpenModal(contratLocation, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                <a (click)="onOpenModal1(contratLocation, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal1(contratLocation, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
              </div>
           </div>
        </div>
@@ -167,13 +177,183 @@
        </div>
     </div>
   </div>
-</div>
+ 
   
   <!-- Notification for no employees -->
  <div *ngIf="contratLocations?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
     <div class="alert alert-info" role="alert">
-          <h4 class="alert-heading">NON Contrat disponible !!</h4>
+          <h4 class="alert-heading">NON Contrat Location disponible !!</h4>
         <p>Non Contrat trouver</p>
       </div>
   </div>
+
+
+
+  <!--Contrat de vente -->
+
+
+
+
+
+  <div class="row">
+   <div *ngFor="let contratVente of contratVentes" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+         
+         <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Date De Debut : {{contratVente?.dateDebut}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Date De Fin : {{contratVente?.dateFin}}</li>
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Nom Proprietaire :{{this.getproprietaire(contratVente?.idPro)?.nom}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>PrixProprietaire : {{contratVente?.prixProprietaire}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Commution D'Agence : {{contratVente?.commutionAgence}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Description  : {{contratVente?.description}}</li>
+
+       
+           </ul>
+         <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+               <a (click)="onOpenModal2(contratVente, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+               <a (click)="onOpenModal2(contratVente, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+         </div>
+      </div>
+   </div>
+ </div>
  
+ <!-- Add Employee Modal -->
+ <div class="modal fade" id="addContratVenteModal" tabindex="-1" role="dialog" aria-labelledby="addContratVenteModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="addContratVenteModalLabel">Ajouter utlisateur</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #addContratVente="ngForm" (ngSubmit)="onAddContratVente(addContratVente)">
+           <div class="form-group">
+              <label for="dateDebut">date de debut</label>
+              <input type="date" ngModel name="dateDebut" class="form-control" id="dateDebut" placeholder="dateDebut" required />
+           </div>
+           <div class="form-group">
+              <label for="dateFin">date de fin </label>
+              <input type="date" ngModel name="dateFin" class="form-control" id="dateFin" placeholder="dateFin" required />
+           </div>
+           <div class="form-group">
+              <label for="longueur">Proprietaire</label>
+              <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>   
+              
+                 <option value="" disabled selected>choisur proprietaire</option>    
+                 <option *ngFor="let pro of this.proprietaires" [value]="pro?.id" >
+                    {{ pro?.nom }}
+                    {{ pro?.prenom}}
+                 </option>
+          </select>
+                  </div>
+           <div class="form-group">
+              <label for="prixProprietaire">prix de Proprietaire</label>
+              <input type="number" ngModel name="prixProprietaire" class="form-control" id="prixProprietaire" placeholder="" required>
+           </div>
+           <div class="form-group">
+               <label for="commutionAgence">Commustion d'agence</label>
+               <input type="number" ngModel name="commutionAgence" class="form-control" id="commutionAgence" placeholder=" " required>
+            </div>
+            <div class="form-group">
+               <label for="description">Description</label>
+               <input type="text" ngModel name="description" class="form-control" id="description" placeholder=" " required>
+            </div>
+           <div class="modal-footer">
+              <button type="button" id="add-ContratVente-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addContratVente.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+           </div>
+           </form>
+        </div>
+     </div>
+   </div>
+   </div>
+ 
+ <!-- Edit Modal -->
+ <div class="modal fade" id="updateContratVenteModal" tabindex="-1" role="dialog" aria-labelledby="contratVenteEditModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="contratVenteEditModalLabel">Modifier Contart</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #editFormVente="ngForm">
+               <div class="form-group">
+                   <label for="dateDebut">date de debut</label>
+                   <input type="date" ngModel="{{editeContratVente?.dateDebut}}" name="dateDebut" class="form-control" id="dateDebut" placeholder="dateDebut" required>
+                </div>
+                <input type="number" ngModel="{{editeContratVente?.id}}" name="id" class="form-control" id="id" placeholder="id">
+
+                <div class="form-group">
+                   <label for="dateFin">date de fin </label>
+                   <input type="date" ngModel="{{editeContratVente?.dateFin}}" name="dateFin" class="form-control" id="dateFin" placeholder="dateFin" required>
+                </div>
+                <div class="form-group">
+                   <label for="idPro"> Choisir Id de prorietaire</label>
+                   <select ngModel="{{editeContratVente?.idPro }}" name="idPro" class="form-control" id="idPro" placeholder="Proprietaire" required>
+                    
+                    <option *ngFor="let pro of proprietaires" value="pro?.id">
+                        {{pro?.nom}} 
+                        {{pro?.prenom}} 
+                    </option>
+                            </select>
+                    </div>
+                <div class="form-group">
+                   <label for="prixProprietaire">prix de Proprietaire</label>
+                   <input type="number" ngModel="{{editeContratVente?.prixProprietaire}}" name="prixProprietaire" class="form-control" id="prixProprietaire" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label for="commutionAgence">prix de Location</label>
+                    <input type="number" ngModel="{{editeContratVente?.commutionAgence}}" name="commutionAgence" class="form-control" id="commutionAgence" placeholder=" " required>
+                 </div>
+                 <div class="form-group">
+                    <label for="description">prix de Location</label>
+                    <input type="text" ngModel="{{editeContratVente?.description}}" name="description" class="form-control" id="description" placeholder=" " required>
+                 </div>
+               <div class="modal-footer">
+                  <button type="button"  id="update-contratVente-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button (click)="onUpdateContratVente(editFormVente.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre Contrat Location</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+ </div>
+ 
+ <!-- Delete Modal -->
+ <div class="modal fade" id="deleteContratVenteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteModelLabel">Suprimer contrat Vente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <p>Vous etez sur de suprimer le  contrat  de {{deleteContratVente?.idPro}}?</p>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+               <button (click)="onDeleteContratVente(deleteContratVente?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+ </div>
+
+ 
+ <!-- Notification for no employees -->
+<div *ngIf="contratVentes?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+   <div class="alert alert-info" role="alert">
+         <h4 class="alert-heading">NON Contrat Vente disponible !!</h4>
+       <p>Non Contrat trouver</p>
+     </div>
+ </div>
+
+ </div>

@@ -1,3 +1,5 @@
+
+import { ContratVente } from './../../models/contratVente';
 import { Observable } from 'rxjs';
  
 import { ContratLocationService } from './../../services/contrat-location.service';
@@ -7,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ProC1 } from 'src/app/models/proc1';
 import { NgForm } from '@angular/forms';
 import { ProrietaireService } from 'src/app/services/proprietaire.service';
+import { ContratVenteService } from 'src/app/services/contratVente.service';
 
 @Component({
   selector: 'app-contrat-location',
@@ -19,14 +22,20 @@ export class ContratLocationComponent implements OnInit {
     public contratLocations!: ContratLocation[] ;
     public editeContratLocation: ContratLocation | undefined;
     public deleteContratLocation: ContratLocation | undefined;
+
+    public contratVentes!: ContratVente[] ;
+    public editeContratVente: ContratVente | undefined;
+    public deleteContratVente: ContratVente | undefined;
+
      public proprietaires! :ProC1[]  ;
      public proprietaire! :ProC1  ;
   
-    constructor(private prorietaireService:ProrietaireService,private contratLocationService: ContratLocationService) {
+    constructor(private prorietaireService:ProrietaireService,private contratLocationService: ContratLocationService ,private contratVenteService: ContratVenteService) {
      }
   
     ngOnInit(){
       this.getContratLocations();
+      this.getContratVentes();
       this.getProprietaires();
     }
        
@@ -40,7 +49,16 @@ export class ContratLocationComponent implements OnInit {
         }
       );
     }
- 
+    public getContratVentes(): void {
+      this.contratVenteService.getContratVentes().subscribe(
+        (response: ContratVente[]) => {
+          this.contratVentes = response;
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    }
    
     public onAddContratLocation(addForm: NgForm): void {
       document.getElementById('add-ContratLocation-form')?.click();
@@ -53,6 +71,26 @@ export class ContratLocationComponent implements OnInit {
         (response) => {
           console.log(response);
           this.getContratLocations();
+          addForm.reset();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+          addForm.reset();
+        }
+      );
+    }
+
+    public onAddContratVente(addForm: NgForm): void {
+      document.getElementById('add-ContratVente-form')?.click();
+      const formvalue =addForm.value ;
+      const newContrat = new ContratVente(0,formvalue['dateDebut'],formvalue['dateFin'],formvalue['description'],
+      formvalue['idProprietaire'],formvalue['prixProprietaire'],formvalue['commutionAgence']);
+    
+          
+      this.contratVenteService.addContratVente(newContrat).subscribe(
+        (response) => {
+          console.log(response);
+          this.getContratVentes();
           addForm.reset();
         },
         (error: HttpErrorResponse) => {
@@ -75,6 +113,22 @@ export class ContratLocationComponent implements OnInit {
         }
       );
     }
+
+    public onUpdateContratVente(contrat: ContratVente): void {
+      document.getElementById('update-ContratVente-form')?.click();
+     
+      this.contratVenteService.updateContratVente(contrat).subscribe(
+        (response: ContratVente) => {
+          console.log(response);
+          this.getContratVentes();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    }
+        
+
         
 
     public onDeleteContratLocation( Id: number): void {
@@ -82,6 +136,20 @@ export class ContratLocationComponent implements OnInit {
         (response: void) => {
           console.log(response);
           this.getContratLocations();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    }
+
+
+
+    public onDeleteContratVente( Id: number): void {
+      this.contratVenteService.deleteContratVente( Id).subscribe(
+        (response: void) => {
+          console.log(response);
+          this.getContratVentes();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -106,7 +174,7 @@ export class ContratLocationComponent implements OnInit {
       }
     }
    
-    public onOpenModal(contratLocation: ContratLocation, mode: string): void {
+    public onOpenModal1(contratLocation: ContratLocation, mode: string): void {
       const container = document.getElementById('main-container');
       const button = document.createElement('button');
       button.type = 'button';
@@ -122,6 +190,27 @@ export class ContratLocationComponent implements OnInit {
       if (mode === 'delete') {
         this.deleteContratLocation = contratLocation;
         button.setAttribute('data-target', '#deleteContratLocationModal');
+      }
+      container?.appendChild(button)
+      button.click();
+    }
+
+    public onOpenModal2(contratVente: ContratVente, mode: string): void {
+      const container = document.getElementById('main-container');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.style.display = 'none';
+      button.setAttribute('data-toggle', 'modal');
+      if (mode === 'add') {
+        button.setAttribute('data-target', '#addContratVenteModal');
+      }
+      if (mode === 'edit') {
+        this.editeContratVente = contratVente;
+        button.setAttribute('data-target', '#updateContratVenteModal');
+      }
+      if (mode === 'delete') {
+        this.deleteContratVente = contratVente;
+        button.setAttribute('data-target', '#deleteContratVenteModal');
       }
       container?.appendChild(button)
       button.click();
@@ -154,6 +243,13 @@ export class ContratLocationComponent implements OnInit {
       }
     );
       }
+
+
+      searchContratLocation(key: string): void{
+
+      }
+
+      
   }
   
 

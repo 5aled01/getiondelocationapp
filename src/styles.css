@@ -48,7 +48,9 @@ h6 {
   width: 30px;
   font-size: 12px;
 }
-
+a:active{
+  color: blue;
+}
 a {
   color: #707070;
 }

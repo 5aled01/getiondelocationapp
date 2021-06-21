@@ -149,8 +149,8 @@ export class SingleImmoblierBatiComponent implements OnInit {
   onAddImageEtage(addForm :NgForm){
     document.getElementById('add-ImageEtage-form')?.click();
     const formvalue =addForm.value ;
-   const idToString = this.addImageEtage.id.toString();
-    const newImage = new Image(0,this.immobilierBati?.id,idToString,[0]);
+   const idToString = this.addImageEtage?.id.toString();
+    const newImage = new Image(0,this.immobilierBati?.id,idToString!,[0]);
  
      const uploadImage = new FormData()
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
