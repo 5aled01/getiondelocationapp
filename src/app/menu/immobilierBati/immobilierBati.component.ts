@@ -20,6 +20,7 @@ export class ImmobilierBatiComponent implements OnInit {
 
   public immobilierBatis!: ImmobilierBati[];
   public Proprietaires!: ProC1[];
+  public proprietaire! :ProC1;
   public editImmobilierBati!: ImmobilierBati;
   public deleteImmobilierBati!: ImmobilierBati;
   public nProprietaire :  ProC1 | undefined ;
@@ -39,18 +40,17 @@ export class ImmobilierBatiComponent implements OnInit {
     this.getProC1s();
   }
   
-  public getNomProprietaire(id :number): void{
-    this.proprietaireService.getNomProprietaire(id).subscribe(
-      (response :ProC1) => {
-        this.nProprietaire = response;
-        console.log(this.nProprietaire);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-   
-      }
+ 
+  public getproprietaire(id :number)  {
+    
+    for(let pro of this.Proprietaires){
+       if(pro.id=id){
+         this.proprietaire =pro ;
+         break;
+       }    
+    }
+    return this.proprietaire;
+  } 
 
 
       onViewImmobilierBati(id: number) {

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
  
 import { ContratLocationService } from './../../services/contrat-location.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,11 +16,11 @@ import { ProrietaireService } from 'src/app/services/proprietaire.service';
 export class ContratLocationComponent implements OnInit {
 
    
-    public contratLocations: ContratLocation[] ;
+    public contratLocations!: ContratLocation[] ;
     public editeContratLocation: ContratLocation | undefined;
     public deleteContratLocation: ContratLocation | undefined;
-     public Proprietaires! :ProC1[]  ;
-     public proprietaire :ProC1  ;
+     public proprietaires! :ProC1[]  ;
+     public proprietaire! :ProC1  ;
   
     constructor(private prorietaireService:ProrietaireService,private contratLocationService: ContratLocationService) {
      }
@@ -28,7 +29,7 @@ export class ContratLocationComponent implements OnInit {
       this.getContratLocations();
       this.getProprietaires();
     }
-  
+       
     public getContratLocations(): void {
       this.contratLocationService.getContratLocations().subscribe(
         (response: ContratLocation[]) => {
@@ -44,13 +45,12 @@ export class ContratLocationComponent implements OnInit {
     public onAddContratLocation(addForm: NgForm): void {
       document.getElementById('add-ContratLocation-form')?.click();
       const formvalue =addForm.value ;
-      const newContrat = new ContratLocation(0,formvalue['dateDebut'],formvalue['dateFin'],
-      formvalue['idProprietaire'],formvalue['prixProprietaire'],formvalue['prixLocation'],formvalue['description']);
+      const newContrat = new ContratLocation(0,formvalue['dateDebut'],formvalue['dateFin'],formvalue['description'],
+      formvalue['idProprietaire'],formvalue['prixProprietaire'],formvalue['prixLocation']);
     
           
       this.contratLocationService.addContratLocation(newContrat).subscribe(
         (response) => {
-          
           console.log(response);
           this.getContratLocations();
           addForm.reset();
@@ -127,22 +127,27 @@ export class ContratLocationComponent implements OnInit {
       button.click();
     }
 
-  public getProprietaire(id :number){
-this.contratLocationService.getProprietaire(id).subscribe(
-  (response: ProC1) => {
-     this.proprietaire=response
-  },
-  (error: HttpErrorResponse) => {
-    alert(error.message);
-  }
-);
+   public getproprietaire(id :number)  {
+    
+      for(let pro of this.proprietaires){
+         if(pro.id=id){
+           this.proprietaire =pro ;
+           break;
+         }    
+      }
+      return this.proprietaire;
+    } 
 
-  }
+
   public getProprietaires(): void {
     this.prorietaireService.getProC1s().subscribe(
       (response: ProC1[]) => {
-         this.Proprietaires=response
-       //  console.log(response);
+          
+        for(  let re of response){
+          re.img=[0];
+        }
+         this.proprietaires=response
+         console.log(this.proprietaires);
       },
       (error: HttpErrorResponse) => {
      //   alert(error.message);

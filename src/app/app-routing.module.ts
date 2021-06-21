@@ -1,5 +1,4 @@
- 
-import { ContratLocationComponent } from './menu/contrat-location/contrat-location.component';
+  
  
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +10,9 @@ import { ProprietairesComponent } from './menu/proprietaires/proprietaires.compo
 import { SingleImmoblierBatiComponent } from './menu/single-immoblier-bati/single-immoblier-bati.component';
 import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
+import { AnnonceComponent } from './menu/annonce/annonce.component';
+import { ContratLocationComponent } from './menu/contrat-location/contrat-location.component';
+ 
  
 const routes : Routes= [
  
@@ -20,8 +22,8 @@ const routes : Routes= [
     {path :'home' , component: HomeComponent},
     {path :'users' , component: UsersComponent},
     {path :'proprietaires' , component: ProprietairesComponent},
-    {path :'detail/:id' , component: SingleImmoblierBatiComponent},
- 
+    {path :'detail' , component: SingleImmoblierBatiComponent},
+    {path :'annonce' , component: AnnonceComponent},
     {path :'immobilierBati' , component: ImmobilierBatiComponent},
     {path :'detail/:id' , component: SingleImmoblierBatiComponent}
   ]},

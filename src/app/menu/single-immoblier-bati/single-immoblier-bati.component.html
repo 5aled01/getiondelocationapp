@@ -42,6 +42,42 @@
 <div class="card mb-3">
  
     <div class="modal fade" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
+=======
+ <!-- 
+  <div class="container" id="main-container">
+    <div class="row">
+      <div *ngFor="let immobilierBati of immobilierBatis" class="col-md-6 col-xl-3">
+         <div class="card m-b-30">
+            <div class="card-body row">
+        
+               <div class="col-6 card-title align-self-center mb-0">
+                  <h5>{{immobilierBati?.nom}}</h5>
+                  <p class="m-0">{{immobilierBati?.idProprietaire}}</p>
+               </div>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Adresse : {{immobilierBati?.adresse}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Localisation : {{immobilierBati.localisation?.x}} | {{immobilierBati.localisation?.y}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Permie : {{immobilierBati?.numeroPermie}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Longueur : {{immobilierBati?.longueur}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Largeur : {{immobilierBati?.largeur}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>longueurBati : {{immobilierBati?.longueurBati}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>largeurBati : {{immobilierBati?.largeurBati}}</li>
+              </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">
+                  <a (click)="onOpenModal(immobilierBati, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                  <a (click)="onOpenModal(immobilierBati, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                  <a (click)="onViewImmobilierBati(immobilierBati?.id)"  class="btn btn-success tooltips" data-placement="top" data-original-title="Update"><i class="fa fa-pencil"></i></a>
+              
+                 </div>
+            </div>
+         </div>
+      </div>
+    </div>
+   -->
+    <!-- Add Employee Modal  
+    <div class="modal fade" id="addImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="addImmobilierBatiModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
            <div class="modal-header">
@@ -94,6 +130,17 @@
   
             <div class="form-group">
               <input type="hidden" hidden name="corespondance"  ngModel="addImageEtage?.id" class="form-control" id="corespondance" placeholder="le Corespondance" required>
+=======
+      </div>
+      Edit Modal 
+    <div class="modal fade" id="updateImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="immobilierBatiEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="updateImmobilierBatiModalLabel">Modifier immobilier</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
             </div>
   
             <div class="form-group">
@@ -113,6 +160,7 @@
          </div>
       </div>
     </div>
+<<<<<<< Updated upstream
   </div>
 </div>
   
@@ -142,6 +190,24 @@
           <div class="form-group">
             <label for="description">Description Etage </label>
             <input type="text"  ngModel name="description" class="form-control" id="description" placeholder="description" required>
+    
+    Delete Modal 
+    <div class="modal fade" id="deleteImmobilierBatiModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">Suprimer utilisateur</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Vous etez sur de suprimer Immobilier avec ladress {{deleteImmobilierBati?.adresse}}?</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteImmobilierBati(deleteImmobilierBati?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
          </div>
 
           <div class="modal-footer">
@@ -290,5 +356,6 @@
    </div>
 </div>
 
+ </div>
 
-</div>
+   

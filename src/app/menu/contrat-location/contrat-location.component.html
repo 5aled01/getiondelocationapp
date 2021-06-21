@@ -23,7 +23,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>date De debut : {{contratLocation?.dateDebut}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de fin : {{contratLocation?.dateFin}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>nom Proprie : {{getProprietaire(contratLocation?.idPro)}}{{proprietaire.nom}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>nom Proprietaire :{{this.getproprietaire(contratLocation?.id)?.nom}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>prixProprietaire : {{contratLocation?.prixProprietaire}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>prixLocation : {{contratLocation?.prixLocation}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>description  : {{contratLocation?.description}}</li>
@@ -51,7 +51,7 @@
             </button>
          </div>
          <div class="modal-body">
-            <form #addForm="ngForm" (ngSubmit)="onAddContratLocation(addForm)">
+            <form #addContrat="ngForm" (ngSubmit)="onAddContratLocation(addContrat)">
             <div class="form-group">
                <label for="dateDebut">date de debut</label>
                <input type="date" ngModel name="dateDebut" class="form-control" id="dateDebut" placeholder="dateDebut" required />
@@ -62,12 +62,13 @@
             </div>
             <div class="form-group">
                <label for="longueur">Proprietaire</label>
-               <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
-                   <option value="" disabled selected>choisur proprietaire</option>    
-                   <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire?.id}}">
-                       {{Proprietaire?.nom}}
-                       {{Proprietaire?.prenom}}
-                   </option>
+               <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>   
+               
+                  <option value="" disabled selected>choisur proprietaire</option>    
+                  <option *ngFor="let pro of this.proprietaires" [value]="pro?.id" >
+                     {{ pro?.nom }}
+                     {{ pro?.prenom}}
+                  </option>
            </select>
                    </div>
             <div class="form-group">
@@ -79,12 +80,12 @@
                 <input type="number" ngModel name="prixLocation" class="form-control" id="prixLocation" placeholder=" " required>
              </div>
              <div class="form-group">
-                <label for="description">prix de Location</label>
+                <label for="description">Description</label>
                 <input type="text" ngModel name="description" class="form-control" id="description" placeholder=" " required>
              </div>
             <div class="modal-footer">
                <button type="button" id="add-ContratLocation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+               <button [disabled]="addContrat.invalid" type="submit" class="btn btn-primary" >Save changes</button>
             </div>
             </form>
          </div>
@@ -106,33 +107,35 @@
              <form #editForm="ngForm">
                 <div class="form-group">
                     <label for="dateDebut">date de debut</label>
-                    <input type="date" ngModel="{{editeContratLocation.dateDebut}}" name="dateDebut" class="form-control" id="dateDebut" placeholder="dateDebut" required>
+                    <input type="date" ngModel="{{editeContratLocation?.dateDebut}}" name="dateDebut" class="form-control" id="dateDebut" placeholder="dateDebut" required>
                  </div>
+                 <input type="hidden" ngModel="{{editeContratLocation?.id}}" name="id" class="form-control" id="id" placeholder="id">
+
                  <div class="form-group">
                     <label for="dateFin">date de fin </label>
-                    <input type="date" ngModel="{{editeContratLocation.dateFin}}" name="dateFin" class="form-control" id="dateFin" placeholder="dateFin" required>
+                    <input type="date" ngModel="{{editeContratLocation?.dateFin}}" name="dateFin" class="form-control" id="dateFin" placeholder="dateFin" required>
                  </div>
                  <div class="form-group">
                     <label for="idPro"> Choisir Id de prorietaire</label>
                     <select ngModel name="idPro" class="form-control" id="idPro" placeholder="Proprietaire" required>
-                     <option value="{{editeContratLocation.idPro }}">{{editeContratLocation.idPro }}</option>
-                     <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire?.id}}">
-                         {{Proprietaire?.nom}} 
-                         {{Proprietaire?.prenom}} 
+                     <option value="{{editeContratLocation?.idPro }}">{{editeContratLocation?.idPro }}</option>
+                     <option *ngFor="let pro of proprietaires" value="pro?.id">
+                         {{pro?.nom}} 
+                         {{pro?.prenom}} 
                      </option>
                              </select>
                      </div>
                  <div class="form-group">
                     <label for="prixProprietaire">prix de Proprietaire</label>
-                    <input type="number" ngModel="{{editeContratLocation.prixProprietaire}}" name="prixProprietaire" class="form-control" id="prixProprietaire" placeholder="" required>
+                    <input type="number" ngModel="{{editeContratLocation?.prixProprietaire}}" name="prixProprietaire" class="form-control" id="prixProprietaire" placeholder="" required>
                  </div>
                  <div class="form-group">
                      <label for="prixLocation">prix de Location</label>
-                     <input type="number" ngModel="{{editeContratLocation.prixLocation}}" name="prixLocation" class="form-control" id="prixLocation" placeholder=" " required>
+                     <input type="number" ngModel="{{editeContratLocation?.prixLocation}}" name="prixLocation" class="form-control" id="prixLocation" placeholder=" " required>
                   </div>
                   <div class="form-group">
                      <label for="description">prix de Location</label>
-                     <input type="text" ngModel="{{editeContratLocation.description}}" name="description" class="form-control" id="description" placeholder=" " required>
+                     <input type="text" ngModel="{{editeContratLocation?.description}}" name="description" class="form-control" id="description" placeholder=" " required>
                   </div>
                 <div class="modal-footer">
                    <button type="button"  id="update-contratLocation-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
