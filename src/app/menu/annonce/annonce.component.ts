@@ -237,4 +237,44 @@ export class AnnonceComponent implements OnInit {
     container?.appendChild(button)
     button.click();
  }
+
+
+ public searchAnnonce(key: string): void {
+  console.log(key);
+  const results1: AnnonceExterne[] = [];
+  const results2: AnnonceInetrne[] = [];
+  for (const annonceExterne of this.annonceExternes) {
+    if (annonceExterne.prxiImmobilier.toString().indexOf(key.toString()
+      ) !== -1
+    ||annonceExterne.fraisAnnonce.toString().indexOf(key.toString()) !== -1
+    || annonceExterne.dateFinAnnonce.toString().indexOf(key.toString()) !== -1
+    || annonceExterne.dateDebut.toString().indexOf(key.toString()) !== -1
+    || annonceExterne.id.toString().indexOf(key.toString()) !== -1
+    
+    ) {
+      results1.push(annonceExterne);
+    }
+  }
+
+
+  for (const annonceInterne of this.annonceInternes) {
+    if (annonceInterne.dateDebut.toString().indexOf(key.toString()) !== -1
+    ||annonceInterne.idContrat.toString().indexOf(key.toString()) !== -1
+    ||annonceInterne.id.toString().indexOf(key.toString()) !== -1
+    
+    ) {
+      results2.push(annonceInterne);
+    }
+
+  this.annonceExternes = results1;
+  this.annonceInternes = results2;
+
+  if (!key) {
+    this.getAnnonceExternes();
+    this.getAnnonceInternes();
+      }
+
+  }
+
+ }
 }

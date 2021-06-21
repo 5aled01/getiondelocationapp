@@ -14,15 +14,15 @@ import { formatDate } from '@angular/common';
 })
 export class UsersComponent implements OnInit {
 
-  public users: User[];
-  public editUser: User;
-  public deleteUser: User;
+  public users: User[] | undefined;
+  public editUser: User | undefined;
+  public deleteUser: User | undefined;
   
-  selectedFile: File;
+  selectedFile: File | undefined;
   retrievedImage: any;
    base64Data: any;
     retrieveResonse: any;
-    message: string;
+    message: string | undefined;
     imageName: any;
   
 

@@ -24,7 +24,7 @@ const routes : Routes= [
     {path :'proprietaires' , component: ProprietairesComponent},
     {path :'detail' , component: SingleImmoblierBatiComponent},
     {path :'annonce' , component: AnnonceComponent},
-    {path :'contrats' , component: ContratLocationComponent},
+    {path :'contrat' , component: ContratLocationComponent},
     {path :'immobilierBati' , component: ImmobilierBatiComponent},
     {path :'detail/:id' , component: SingleImmoblierBatiComponent}
   ]},

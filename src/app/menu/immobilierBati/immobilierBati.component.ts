@@ -18,11 +18,11 @@ import { Router } from '@angular/router';
 export class ImmobilierBatiComponent implements OnInit {
 
 
-  public immobilierBatis!: ImmobilierBati[];
-  public Proprietaires!: ProC1[];
-  public proprietaire! :ProC1;
-  public editImmobilierBati!: ImmobilierBati;
-  public deleteImmobilierBati!: ImmobilierBati;
+  public immobilierBatis: ImmobilierBati[] | undefined ;
+  public Proprietaires : ProC1[] | undefined ;
+  public proprietaire :ProC1 | undefined ;
+  public editImmobilierBati: ImmobilierBati | undefined ;
+  public deleteImmobilierBati: ImmobilierBati | undefined ;
   public nProprietaire :  ProC1 | undefined ;
   selectedFile!: File;
 
@@ -174,21 +174,23 @@ export class ImmobilierBatiComponent implements OnInit {
 
   
   public searchImmobilierBatis(key: string): void {
-  /*  console.log(key);
+    console.log(key);
     const results: ImmobilierBati[] = [];
-    for (const user of this.immobilierBatis) {
-      if (user.username.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ||user.phone !== -1
-      || user.role.toLowerCase().indexOf(key.toLowerCase()) !== -1
-       ) {
-        results.push(user);
+    for (const immobilierBati of this.immobilierBatis) {
+      if (immobilierBati.adresse.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      ||immobilierBati.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || immobilierBati.numeroPermie.toLowerCase().indexOf(key.toLowerCase()) !== -1
+     
+      
+      ) {
+        results.push(immobilierBati);
       }
     }
-    this.users = results;
-    if (results.length === 0 || !key) {
-      this.getUsers();
-    */    }
-  
+    this.immobilierBatis = results;
+    if (!key) {
+      this.getImmobilierBatis();
+        }
+    }
 
 
   public onOpenModal(immobilierBati: ImmobilierBati, mode: string): void {
