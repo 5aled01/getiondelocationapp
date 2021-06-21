@@ -1,12 +1,26 @@
-<nav class="navbar navbar-light bg-light">
-  
-    <form class="form-inline">
-      <a class="nav-link" routerLink="proprietaires">List Des Annonce </a> |
-      <a class="nav-link" (click)="onOpenModal1(null, 'add')">niveaux Annonce Externe</a> |
-      <a class="nav-link" (click)="onOpenModal2(null, 'add')">niveaux Annonce Interne</a> |
-      
-    </form>
-  </nav>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <a class="navbar-brand" style="color:white;">Getion annonce</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+            <a class="btn btn-outline-secondary"  (click)="onOpenModal1(null, 'add')" style="color: white;"><i class="fa fa-plus"></i> Ajouter annonce Externe </a>
+         </li>
+         <li class="nav-item active">
+            <a class="btn btn-outline-secondary"  (click)="onOpenModal2(null, 'add')" style="color: white;"><i class="fa fa-plus"></i> Ajouter annonce interne </a>
+         </li>
+      </ul>
+      <div class="search-container">
+      <form class="form-inline my-2 my-lg-0" >
+         <input type="search" style="float: left; clear: both;" (ngModelChange)="searchAnnonce(key.value)"  #key="ngModel" ngModel
+          name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere annonce..." required>
+      </form>
+     </div>
+   </div>
+ </nav>
   
   <div class="container" id="main-container">
     <div class="row" id="mainProcc">

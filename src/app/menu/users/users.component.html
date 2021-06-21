@@ -6,14 +6,16 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
        <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-             <a class="nav-link" (click)="onOpenModal(null, 'add')">Ajouter un  utilisateur <span class="sr-only">(current)</span></a>
+             <a class="btn btn-outline-secondary" (click)="onOpenModal(null, 'add')" style="color: white;"> <i class="fa fa-plus"></i>  Ajouter un  utilisateur <span class="sr-only">(current)</span></a>
           </li>
        </ul>
+       <div class="search-container">
        <form class="form-inline my-2 my-lg-0">
-          <input type="search" (ngModelChange)="searchUsers(key.value)" #key="ngModel" ngModel
+          <input type="search" style="float: left; clear: both;" (ngModelChange)="searchUsers(key.value)" #key="ngModel" ngModel
            name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere utilisateur..." required>
        </form>
     </div>
+   </div>
 </nav>
   <div class="container" id="main-container">
   <div class="row">
