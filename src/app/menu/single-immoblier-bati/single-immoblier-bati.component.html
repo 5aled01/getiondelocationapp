@@ -48,43 +48,44 @@
   </div>
    
     <!--add image bati-->
-<div class="card mb-3">
+    <div class="card mb-3">
  
-    <div class="modal fade" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-           <div class="modal-header">
-              <h5 class="modal-title" id="addImageModalLabel" >Ajouter un image </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              </button>
-           </div>
-           <div class="modal-body">
-              <form #addFormImageBati="ngForm" (ngSubmit)="onAddImageBati(addFormImageBati)">
-    
-              <div class="form-group">
-                <input type="hidden"  name="corespondance" ngModel="immobilierBati" class="form-control" id="corespondance" placeholder="le Corespondance" required>
-              </div>
-              
-              <div class="form-group">
-                 <input type="hidden"   name="idCorespondance" ngModel="{{immobilierBati?.id}}" class="form-control" id="idcorespondance" placeholder="le idCorespondance" required>
-              </div>
-    
-              
-              <div class="form-group">
-                 <label for="img">Image </label>
-                 <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" required>
-              </div>
-              <div class="modal-footer">
-                <button type="button"  id="add-IB-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                <button  [disabled]="addFormImageBati.invalid" type="submit" class="btn btn-primary" >Save changes</button>
-              </div>
-              </form>
-           </div>
+      <div class="modal fade" id="addImageBatiModal" tabindex="-1" role="dialog" aria-labelledby="addImageBatiModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="addImageModalLabel" >Ajouter un image </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <form #addFormImageBati="ngForm" (ngSubmit)="onAddImageBati(addFormImageBati)">
+      
+                <div class="form-group">
+                  <input type="hidden"  name="corespondance" ngModel="immobilierBati" class="form-control" id="corespondance" placeholder="le Corespondance" required>
+                </div>
+                
+                <div class="form-group">
+                   <input type="hidden"   name="idCorespondance" ngModel="{{immobilierBati?.id}}" class="form-control" id="idcorespondance" placeholder="le idCorespondance" required>
+                </div>
+      
+                
+                <div class="form-group">
+                   <label for="img">Image </label>
+                   <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button"  id="add-IB-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button  [disabled]="addFormImageBati.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+                </div>
+                </form>
+             </div>
+          </div>
         </div>
       </div>
-    </div>
- </div>
+   </div>
+  
 
 
     <!--add image Etage-->
