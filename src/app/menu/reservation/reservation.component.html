@@ -1,0 +1,214 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color:white;">Reservation  Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+       <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+             <a class="btn btn-outline-secondary" (click)="onOpenModal(null, 'add')" style="color: white;"> <i class="fa fa-plus"></i>  Ajouter Reservation <span class="sr-only">(current)</span></a>
+          </li>
+       </ul>
+       <div class="search-container">
+       <form class="form-inline my-2 my-lg-0">
+          <input type="search" style="float: left; clear: both;" (ngModelChange)="searchUsers(key.value)" #key="ngModel" ngModel
+           name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere reservation..." required>
+       </form>
+    </div>
+   </div>
+</nav>
+  <div class="container" id="main-container">
+  <div class="row">
+    <div *ngFor="let reservation of reservations" class="col-md-6 col-xl-3">
+       <div class="card m-b-30">
+          
+          <ul class="list-group list-group-flush">
+            
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Annonce : {{reservation?.idAnnonce}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>id  Client : {{reservation?.idClient}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de reservation : {{reservation?.date}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>etat de reservation : {{reservation?.etats}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>duree de reservation : {{reservation?.duree}}</li>
+
+        </ul>
+          <div class="card-body">
+             <div class="float-right btn-group btn-group-sm">
+                <a (click)="onOpenModal(reservation, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal(reservation, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <!-- Add Employee Modal -->
+  <div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addUserModalLabel">Ajouter Reservation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddReservation(addForm)">
+               <div class="form-group">
+                  <label for="type">type annonce</label>
+                  <select  [(ngModel)]="this.type"   name="type" class="form-control" id="type" placeholder="idClient" required>
+                   <option value="interne"   selected>Interne</option>    
+                   <option value="externe"  >Externe</option>
+                </select>
+                </div>
+            <div class="form-group">
+               <label for="idAnnonce">Id Annonce </label>
+               <select ngModel  *ngIf="type=='externe'"  name="idAnnonce" class="form-control" id="idAnnonceex" placeholder="idAnnonce" required>
+                <option value="" disabled selected>choisur extern</option>    
+              
+                <option *ngFor="let annonce of aExternes" value="{{annonce?.id}}-ext">
+                  ext-{{annonce?.id}} 
+              </option>
+        </select>
+             
+               <select ngModel  *ngIf="type=='interne'" name="idAnnonce"   class="form-control" id="idAnnoncein" placeholder="idAnnonce" required>
+                <option value="" disabled selected>choisur Annonce</option>    
+                <option *ngFor="let annonce of aInternes" value="{{annonce?.id}}-int">
+                    int-{{annonce?.id}} 
+         
+                </option>
+                
+        </select>
+             </div>
+           
+            <div class="form-group">
+               <label for="idClient">id Client</label>
+               <select ngModel  name="idClient" class="form-control" id="idClient" placeholder="idClient" required>
+                <option value="" disabled selected>choisur idClient</option>    
+                <option *ngFor="let client of clients" value="{{client?.id}}">
+                    {{client?.id}}
+             
+                </option>
+        </select>
+             </div>
+            
+   
+            <div class="form-group">
+                <label for="duree">duree en jour</label>
+ 
+                <select ngModel  name="duree" class="form-control" id="duree" placeholder="duree" required>
+                  <option value="1"   selected>1</option>    
+                  <option value="2" >2</option>
+                  <option value="3">3</option>
+                  </select>
+                  </div>
+             <div class="form-group">
+                <label for="etats">etat</label>
+                <select ngModel name="etats" class="form-control" id="etats" placeholder="etats" required>
+                    <option value="En attent"   selected>En Cours</option>    
+                    <option value="Accepte" disabled   >Accepte</option>    
+                    <option value="Refuse"  disabled  >Refuse</option>   
+            </select>
+              </div>
+            <div class="modal-footer">
+               <button type="button" id="add-Reservation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+  
+  <!-- Edit Modal -->
+  <div class="modal fade" id="updateReservationModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateUserModalLabel">Modifier utilisateur {{editeReservation?.id}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #editForm="ngForm"> 
+               
+                 <div class="form-group">
+                    <label for="idAnnonce">Id Annonce </label>
+                    <select ngModel="{{editeReservation?.idAnnonce }}" name="idAnnonce" class="form-control" id="idAnnonce" placeholder="idAnnonce" required>
+                     <option value="" disabled selected>choisur Annonce</option>    
+                     <option *ngFor="let annonce of aExternes" value="{{annonce?.id}}-ext">
+                         AE{{annonce?.id}}
+                     </option>
+                     <option *ngFor="let annonce of aInternes" value="{{annonce?.id}}-int">
+                        AI{{annonce?.id}}
+                    </option>
+             </select>
+                  </div>
+                 <div class="form-group">
+                    <label for="idClient">id client</label>
+                    <select ngModel="{{editeReservation?.idClient }}" name="idClient" class="form-control" id="idClient" placeholder="idClient" required>
+                     <option value="" disabled selected>choisur idClient</option>    
+                     <option *ngFor="let client of clients" value="{{client?.id}}">
+                         {{client?.id}}
+                  
+                     </option>
+             </select>
+                  </div>
+                 <div class="form-group">
+                    <label for="date">date</label>
+                    <input type="text" ngModel="{{editeReservation?.date }}" name="date" class="form-control" id="date" placeholder="date" required>
+                 </div>
+        
+                 <div class="form-group">
+                     <label for="duree">duree</label>
+                     <input type="date" ngModel="{{editeReservation?.duree }}" name="duree" class="form-control" id="duree" placeholder="date" required>
+                  </div>
+                  <div class="form-group">
+                     <label for="etats">etat</label>
+                     <select ngModel="{{editeReservation?.etats }}" name="etats" class="form-control" id="etats" placeholder="etats" required>
+                         <option value="" disabled selected>En Cours</option>    
+                         <option value="" disabled selected>Accepte</option>    
+                         <option value="" disabled selected>Refuse</option>   
+                 </select>
+                   </div>
+                <div class="modal-footer">
+                   <button type="button"  id="update-Reservation-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                   <button (click)="onUpdateReservation(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteReservationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Suprimer Reservation</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Vous etez sur de suprimer la reservation {{deleteReservation?.id}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteReservation(deleteReservation?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+</div>
+  
+  <!-- Notification for no employees -->
+ <div *ngIf="reservations?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+          <h4 class="alert-heading">NON RESERVATION !!</h4>
+        <p>No RESERVATION trouver</p>
+      </div>
+  </div>
+ 

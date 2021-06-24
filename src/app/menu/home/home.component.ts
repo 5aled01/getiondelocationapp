@@ -1,4 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { ReservationService } from 'src/app/services/reservation.service';
 import { Component, OnInit } from '@angular/core';
+import { Reservation } from 'src/app/models/reservation';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public reservationinternes! :Reservation[];
+
+  constructor(private reservationService :ReservationService) { }
 
   ngOnInit(): void {
+    this.getReservation();
   }
+
+  getReservation(){
+    this.reservationService.getReservationIntern().subscribe(
+      (response :Reservation[])=>{
+        this.reservationinternes=response;
+      },
+      (error :HttpErrorResponse)=>
+      {
+        alert(error.message)
+      }
+    );
+  }
+  
 
 }

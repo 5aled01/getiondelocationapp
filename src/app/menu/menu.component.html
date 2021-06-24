@@ -6,7 +6,7 @@
 
     <nav class="menu" tabindex="0">
         <div class="smartphone-menu-trigger"  class="avatar">
-            <img [src]="getImage(UserConnect?.image)" alt=""  id="ItemPreview" class="img-fluid rounded-circle" />
+            <img [src]="getImage(UserConnect?.image)" alt="" style="height: 70px ;" id="ItemPreview" class="img-fluid rounded-circle" />
            <br><br>
             <h2><a href="index.html">{{UserConnect?.username}}</a></h2>
         </div>
@@ -15,7 +15,7 @@
             <a routerLink="home" routerLinkActive="active">
                 <li tabindex="0" class="fa fa-home" aria-hidden="true"><span> Home </span></li>
             </a>
-            <a *ngIf="UserConnect?.role == 'admine' " routerLink="users" routerLinkActive="active">
+            <a   routerLink="users" routerLinkActive="active">
                 <li tabindex="0" class="fa fa-user" aria-hidden="true" ><span> Getion utilisateur</span></li>
             </a>
         
@@ -31,10 +31,14 @@
             <li tabindex="0" class="fa fa-map-marker" aria-hidden="true">  <span> Getion annonce</span></li>
          </a>
 
-         <a routerLink="immobilierBati" routerLinkActive="active">
+         <a routerLink="reservation" routerLinkActive="active">
             <li tabindex="0" class="fa fa-calendar" aria-hidden="true">  <span> Getion reservation</span></li>
          </a>
+         <a routerLink="client" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-calendar" aria-hidden="true">  <span> Getion Client</span></li>
+         </a>
          
+
          <a  routerLink="contrat" routerLinkActive="active">
             <li tabindex="0" class="fa fa-folder-open" aria-hidden="true">  <span> Getion contrat</span></li>
             

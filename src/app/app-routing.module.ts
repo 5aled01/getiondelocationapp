@@ -1,3 +1,5 @@
+import { ReservationComponent } from './menu/reservation/reservation.component';
+import { Reservation } from 'src/app/models/reservation';
   
  
 import { NgModule } from '@angular/core';
@@ -12,6 +14,7 @@ import { UsersComponent } from './menu/users/users.component';
 import { HomeComponent } from './menu/home/home.component';
 import { AnnonceComponent } from './menu/annonce/annonce.component';
 import { ContratLocationComponent } from './menu/contrat-location/contrat-location.component';
+import { ClientComponent } from './menu/client/client.component';
  
  
 const routes : Routes= [
@@ -25,6 +28,9 @@ const routes : Routes= [
     {path :'detail' , component: SingleImmoblierBatiComponent},
     {path :'annonce' , component: AnnonceComponent},
     {path :'contrat' , component: ContratLocationComponent},
+    {path :'client',component:ClientComponent},
+
+    {path :'reservation',component:ReservationComponent},
     {path :'immobilierBati' , component: ImmobilierBatiComponent},
     {path :'detail/:id' , component: SingleImmoblierBatiComponent}
   ]},

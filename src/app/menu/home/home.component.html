@@ -1,1 +1,28 @@
-<p>home works!</p>
+ 
+<div class="container" id="main-container">
+  <div class="row">
+    <div *ngFor="let reservation of reservationinternes" class="col-md-6 col-xl-3">
+       <div class="card m-b-30">
+          
+          <ul class="list-group list-group-flush">
+            
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Annonce : {{reservation?.idAnnonce}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>id  Client : {{reservation?.idClient}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de reservation : {{reservation?.date}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>etat de reservation : {{reservation?.etats}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>duree de reservation : {{reservation?.duree}}</li>
+
+        </ul>
+          <div class="card-body">
+             <div class="float-right btn-group btn-group-sm">
+                <a   class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a   class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+
+  
+ </div>  
+ 

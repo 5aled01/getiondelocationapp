@@ -1,3 +1,4 @@
+import { ContratVenteService } from 'src/app/services/contratVente.service';
  
 
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import { ImmobilierBati } from 'src/app/models/ImmobilierBati';
 import { ContratLocation } from 'src/app/models/contratLocation';
 import { ImmobilierBatiService } from 'src/app/services/immobilierBati.service';
 import { ContratLocationService } from 'src/app/services/contrat-location.service';
+import { ContratVente } from 'src/app/models/contratVente';
 
 @Component({
   selector: 'app-annonce',
@@ -29,16 +31,24 @@ export class AnnonceComponent implements OnInit {
   public deleteAnnonceInterne!: AnnonceInetrne;
     
  public immobilierBatis! :ImmobilierBati[] ;
+ public immobilierBatispc1! :ImmobilierBati[] ;
+ public immobilierBatispc2! :ImmobilierBati[] ;
  public contratLocations! :ContratLocation[] ;
+ public contratVentes! :ContratVente[] ;
 
+ public type :string ="Location";
   constructor(private annonceService :AnnonceService ,private immobilierBatiService:ImmobilierBatiService ,
-              private contratLocationService :ContratLocationService) { }
+              private contratLocationService :ContratLocationService ,private contratVenteService:ContratVenteService) { }
 
   ngOnInit(): void {
     this.getAnnonceExternes();
     this.getAnnonceInternes();
     this.getContratLocations();
-    this.getImmobilierBatis();
+    this.getContratVentes();
+    
+    this.getImmobilierBatispc1();
+    this.getImmobilierBatispc2();
+    
   }
   getContratLocations() {
      this.contratLocationService.getContratLocations().subscribe(
@@ -51,20 +61,38 @@ export class AnnonceComponent implements OnInit {
       }
      );
   }
-  getImmobilierBatis() {
-    this.immobilierBatiService.getImmobilierBatis().subscribe(
+  getContratVentes() {
+    this.contratVenteService.getContratVentes().subscribe(
+
+     (response : ContratVente[])=>{
+       this.contratVentes =response ;
+     },
+     (error: HttpErrorResponse) => {
+       alert(error.message);
+     }
+    );
+ }
+  getImmobilierBatispc1() {
+    this.immobilierBatiService.getImmobilierBatispc1().subscribe(
 
       (response : ImmobilierBati[])=>{
         this.immobilierBatis =response ;
-      },
-      (error: HttpErrorResponse) => {
+      }, (error: HttpErrorResponse) => {
         alert(error.message);
       }
-     );
-     
+     );  
   }
   
+  getImmobilierBatispc2() {
+    this.immobilierBatiService.getImmobilierBatispc2().subscribe(
 
+      (response : ImmobilierBati[])=>{
+        this.immobilierBatis =response ;
+      }, (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+     );  
+  }
   public getAnnonceExternes(): void {
     this.annonceService.getAllEx().subscribe(
       (response: AnnonceExterne[]) => {
@@ -194,7 +222,11 @@ export class AnnonceComponent implements OnInit {
       }
     );
   }
- 
+ getcatogorie(idpro :String){
+   const cat =idpro.split("-");
+   console.log(cat[1]);
+   return cat[1];
+ }
 
   public onOpenModal2(annoce: AnnonceInetrne, mode: string): void {
     const container = document.getElementById('main-container');
