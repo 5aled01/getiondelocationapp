@@ -193,6 +193,8 @@ export class ImmobilierBatiComponent implements OnInit {
     }
 
 
+    
+
   public onOpenModal(immobilierBati: ImmobilierBati, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');

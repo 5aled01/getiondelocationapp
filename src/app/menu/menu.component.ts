@@ -38,7 +38,6 @@ export class MenuComponent implements OnInit {
             Cookie.set('islogin', 'true');
             Cookie.set('username', response.username.toString());
             Cookie.set('password', password);
-           
             this.UserConnect = response;
           },
           (error: HttpErrorResponse) => {
@@ -61,8 +60,6 @@ export class MenuComponent implements OnInit {
   }
 
   onSignOut() {
-   
-   
    this.authservice.signOutUser();
   }
 
