@@ -1,27 +1,25 @@
 # Getiondelocationapp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
+une information générale doit être ajoutée au projet notamment pour les contributeurs qui travaillent sur le projet
 
-## Development server
+- en quoi consiste le projet (introduction, informations générales) ?
+quelle est la liste des fonctionnalités déjà implémentées et celles qui devraient être ajoutées ?
+- y a-t-il des bugs ?
+- par où commencer les nouveaux contributeurs ? et quelles tâches ils doivent faire ?
+## Frontend(Angular)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+une information ou des guides doivent être ajoutées ici
 
-## Code scaffolding
+### liste des fonctionnalités déjà implémentées
+....
+....
+### tâches qui devraient être faites (backlog)
+...
+...
+### buges ?
+...
+...
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Backend(Spring)
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+https://github.com/5aled01/GetionLocation
