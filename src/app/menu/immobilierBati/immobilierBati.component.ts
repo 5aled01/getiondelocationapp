@@ -6,9 +6,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Point } from 'src/app/models/Point';
 import { ProC1 } from 'src/app/models/proc1';
 import { ProrietaireService } from 'src/app/services/proprietaire.service';
-import { ProprietairesComponent } from '../proprietaires/proprietaires.component';
-import { Observable } from 'rxjs';
+ 
 import { Router } from '@angular/router';
+import { ProC2 } from 'src/app/models/proc2';
 
 @Component({
   selector: 'app-immobilier',
@@ -19,8 +19,10 @@ export class ImmobilierBatiComponent implements OnInit {
 
 
   public immobilierBatis: ImmobilierBati[] | undefined ;
-  public Proprietaires : ProC1[] | undefined ;
-  public proprietaire :ProC1 | undefined ;
+  public proC1s! : ProC1[]  ;
+  public proC1! :ProC1;
+  public proC2s! : ProC2[]  ;
+  public proC2!:ProC2;
   public editImmobilierBati: ImmobilierBati | undefined ;
   public deleteImmobilierBati: ImmobilierBati | undefined ;
   public nProprietaire :  ProC1 | undefined ;
@@ -30,7 +32,8 @@ export class ImmobilierBatiComponent implements OnInit {
    base64Data: any;
     retrieveResonse: any;
     message!: string;
-    imageName: any; 
+    imageName: any;
+   public  prom!:string;
 
   constructor(private immobilierBatiService: ImmobilierBatiService
     ,private proprietaireService: ProrietaireService,private router :Router) { }
@@ -38,18 +41,39 @@ export class ImmobilierBatiComponent implements OnInit {
   ngOnInit(): void {
     this.getImmobilierBatis();
     this.getProC1s();
+    this.getProC2s();
+    this.prom=""
   }
   
  
-  public getproprietaire(id :number)  {
-    
-    for(let pro of this.Proprietaires){
+  public getproprietaire(idp :String)  {
+      const idpt=idp.split("-");
+      const id =+idpt[0];
+      
+      if(idpt[1]=="pc1"){
+       
+    for(let pro of this.proC1s){
        if(pro.id=id){
-         this.proprietaire =pro ;
+         this.proC1 =pro ;
+          this.prom="proC1";
          break;
-       }    
+       }  }
+        
     }
-    return this.proprietaire;
+    if(idpt[1]=="pc2"){
+       
+      for(let pro of this.proC2s){
+         if(pro.id=id){
+           this.proC2 =pro ;
+            this.prom="proC2";
+           break;
+         }  }
+          
+      }
+    if(this.prom=="proC1")
+    return this.proC1;
+    else
+    return this.proC2;
   } 
 
 
@@ -60,7 +84,18 @@ export class ImmobilierBatiComponent implements OnInit {
   public getProC1s(): void {
     this.proprietaireService.getProC1s().subscribe(
       (response: ProC1[]) => {
-        this.Proprietaires = response;
+        this.proC1s = response;
+      
+      },
+      (error: HttpErrorResponse) => {
+    //  alert(error.message);
+      }
+    );
+  }
+  public getProC2s(): void {
+    this.proprietaireService.getProC2s().subscribe(
+      (response: ProC2[]) => {
+        this.proC2s = response;
       
       },
       (error: HttpErrorResponse) => {

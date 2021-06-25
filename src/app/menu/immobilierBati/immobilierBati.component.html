@@ -74,10 +74,14 @@
                 <label for="longueur">Proprietaire</label>
                 <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
                     <option value="" disabled selected>choisur proprietaire</option>    
-                    <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire?.id}}">
-                        {{Proprietaire?.nom}}
-                        {{Proprietaire?.prenom}}
+                    <option *ngFor="let prc1 of proC1s " value="{{prc1?.id}}-pc1">
+                        {{prc1?.nom}}
+                        {{prc1?.prenom}}
                     </option>
+                    <option *ngFor="let prc2 of proC2s " value="{{prc2?.id}}-pc2">
+                     {{prc2?.nom}}
+                     {{prc2?.prenom}}
+                 </option>
             </select>
                     </div>
 
@@ -142,10 +146,14 @@
                      <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
                   
                     <option ngModel="{{editImmobilierBati?.idProprietaire}}"> {{editImmobilierBati?.idProprietaire}} </option>    
-                    <option *ngFor="let Proprietaire of Proprietaires" value="{{Proprietaire.id}}">
+                    <option *ngFor="let Proprietaire of proC1s" value="{{Proprietaire.id}}-pc1">
                         {{Proprietaire?.nom}} 
                         {{Proprietaire?.prenom}}
                     </option>
+                    <option *ngFor="let Proprietaire of proC2s" value="{{Proprietaire.id}}-pc2">
+                     {{Proprietaire?.nom}} 
+                     {{Proprietaire?.prenom}}
+                 </option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -62,7 +62,7 @@
                     <label for="idImmobilier">Immoblilier</label>
                     <select ngModel name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
                         <option value="" disabled selected>choisir immoblier</option>    
-                        <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                        <option *ngFor="let immob of immobilierBatispc2" value="{{immob?.id}}">
                             {{immob?.id}}
                         </option>
                 </select>
@@ -121,7 +121,7 @@
                      <label for="longueur">IMMOBILIERE</label>
                      <select ngModel={{editeAnnonceExterne?.idImmobilier}} name="idImmobilier" class="form-control" id="idImmobilier" placeholder="Proprietaire" required>
                          <option value="{{editeAnnonceExterne?.idImmobilier}}"   selected> {{editeAnnonceExterne?.idImmobilier}}</option>    
-                         <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                         <option *ngFor="let immob of immobilierBatispc2" value="{{immob?.id}}">
                              {{immob?.id}}
                          </option>
                  </select>
@@ -238,26 +238,32 @@
                  <label for="idImmobilier">Immoblilier</label>
                  <select ngModel name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
                      <option value="" disabled selected>choisir immoblier</option>    
-                     <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                     <option *ngFor="let immob of immobilierBatispc1" value="{{immob?.id}}" >
                          {{immob?.id}}
                      </option>
              </select>
                      </div>
                      <div class="form-group">
                         <label for="type">Type</label>
-                        <select ngModel name="type" class="form-control" id="type" placeholder="type" required>
+                        <select [(ngModel)]="type" name="type" class="form-control" id="type" placeholder="type" required>
                            <option value="Location" >Location</option>    
                            <option   value="Vente"> Vente</option>
                         </select>
                        </div>
                      <div class="form-group">
-                        <label for="idContrat">Contrat Location </label>
-                        <select ngModel name="idContrat" class="form-control" id="idContrat" placeholder="Proprietaire" required>
-                            <option value="" disabled selected>choisir immoblier</option>    
+                        <label for="idContrat">Contrat   </label>
+                        <select ngModel *ngIf="type=='Location'" name="idContrat" class="form-control" id="idContrat" placeholder="Proprietaire" required>
+                            <option value="" disabled selected>contrat location</option>    
                             <option *ngFor="let contratLocation of contratLocations" value="{{contratLocation?.id}}">
                                 {{contratLocation?.id}}
                             </option>
                          </select>
+                         <select ngModel *ngIf="type=='Vente'" name="idContrat" class="form-control" id="idContrat" placeholder="Proprietaire" required>
+                           <option value="" disabled selected>contrat vente</option>    
+                           <option *ngFor="let contratVente of contratVentes" value="{{contratVente?.id}}">
+                               {{contratVente?.id}}
+                           </option>
+                        </select>
                      </div>
            <div class="form-group">
               <label for="dateDebut">Date debut annonce</label>
@@ -295,7 +301,7 @@
                   <label for="longueur">Immoblilier</label>
                   <select ngModel="{{editeAnnonceInterne?.idImmobilier }}" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="Proprietaire" required>
                       <option value="" disabled selected>choisir immoblier</option>    
-                      <option *ngFor="let immob of immobilierBatis" value="{{immob?.id}}">
+                      <option *ngFor="let immob of immobilierBatispc1" value="{{immob?.id}}"  >
                           {{immob?.id}}
                       </option>
               </select>
@@ -304,7 +310,7 @@
 
                       <div class="form-group">
                          <label for="dateFinAnnonce">Type</label>
-                         <select ngModel="{{ editeAnnonceInterne?.type}}" name="type" class="form-control" id="type" placeholder="type" required>
+                         <select ngModel="{{editeAnnonceInterne?.type}}" name="type" class="form-control" id="type" placeholder="type" required>
                             <option value="Location"   >Location</option>    
                             <option   value="Vente"> Vente</option>
                          </select>
