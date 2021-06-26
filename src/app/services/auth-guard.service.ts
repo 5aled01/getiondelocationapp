@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import { Observable } from 'rxjs';
 import { promise } from 'selenium-webdriver';
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class AuthGuardService /* implements CanActivate*/ {
 
   
   constructor(
     private router: Router,
     private authService: AuthService
-) { }
+) { }/*
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  }
 
-canActivate(route: ActivatedRouteSnapshot,
-   state: RouterStateSnapshot): Observable <boolean> | Promise<boolean> | boolean {
-
-    if(Cookie.get('islogin')=='true') {
-        return true;
-    }else{
-      this.router.navigate(['/auth','signin']);
-      return false;
-    }
-
-    
+    return new Promise(
+      (resolve, reject) =>{
+        if(this.authService.isProc2Auth==true) {
+         resolve(true);
+        }else{
+          this.router.navigate(['/principale']);
+          resolve(false);
+           }
+      }
+         );
 }
+*/
+ 
 }

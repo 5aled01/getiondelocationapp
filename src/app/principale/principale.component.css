@@ -1,0 +1,25 @@
+.navbar-nav>li>a.profile-image {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.special-img{
+  position: relative;
+  top: -5px;
+  float: left;
+  left: -5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+             }
+
+@media (min-width: 768px){
+  .navbar-nav{
+      margin: 0 auto;
+      padding: 0 auto;
+      display: table;
+      table-layout: fixed;
+      float:none;
+  }
+}

@@ -72,7 +72,7 @@ export class ClientComponent implements OnInit {
     uploadImage.append('client', JSON.stringify(newuser));
      console.log(uploadImage);
  
- this.selectedFile=null;
+  /* this.selectedFile = null; */
     
         
     this.clientService.addClient(uploadImage).subscribe(
@@ -97,7 +97,7 @@ export class ClientComponent implements OnInit {
     uploadImage.append('imageFile', this.selectedFile ,this.selectedFile.name);
      
     uploadImage.append('client', JSON.stringify(client));
-    this.selectedFile=null;
+ /*   this.selectedFile=null; */
     this.clientService.updateClientwithimg(uploadImage).subscribe(
       (response: Client) => {
         console.log(response);

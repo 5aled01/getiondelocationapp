@@ -1,8 +1,7 @@
 
 
 
-<body style="background-image: url('bg2.jpg');">
-<p></p><br>
+
 <div class="container" id="container">
 		
 	<div class="form-container sign-in-container" >
@@ -10,9 +9,12 @@
 			<h1>Connection</h1>
 			<div class="social-container">
 			</div>
-			<span>remplire les chaaamps</span>
 			<input type="text" placeholder="username" formControlName="username"  required/>	
 			<input type="password" formControlName="password" placeholder="password" required/>
+			<select formControlName="type" placeholder="Type utilisateur" required>
+			<option  value="proprietaire" selected>Proprietaire</option>
+			<option value="user">Amployer</option>	
+			</select>
 
 			<p class="text-danger"  ng-if="errorMessage" >{{errorMessage}}</p>
 			<button   type="submit"  [disabled]="signInForm.invalid" >
@@ -30,6 +32,5 @@
 	</div>
 </div>
 
-</body>
 
 
