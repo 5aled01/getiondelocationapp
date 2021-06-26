@@ -18,7 +18,7 @@ import { ProC2 } from 'src/app/models/proc2';
 export class ImmobilierBatiComponent implements OnInit {
 
 
-  public immobilierBatis: ImmobilierBati[] | undefined ;
+  public immobilierBatis!: ImmobilierBati[] ;
   public proC1s! : ProC1[]  ;
   public proC1! :ProC1;
   public proC2s! : ProC2[]  ;

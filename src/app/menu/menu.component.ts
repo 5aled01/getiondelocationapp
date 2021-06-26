@@ -1,5 +1,4 @@
 import { environment } from 'src/environments/environment';
-import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Cookie } from 'ng2-cookies';
  
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -18,15 +18,23 @@ export class MenuComponent implements OnInit {
   UserConnect : User   ;
   iduser! : number ;
   private apiServerUrl = environment.apiBaseUrl ;
-  constructor(public authservice : AuthService,private http: HttpClient,private sanitizer: DomSanitizer) { 
-    this.UserConnect = authservice.userconncte;
-
-    
-  }
+  constructor(public authservice : AuthService,private router: Router,private http: HttpClient,private sanitizer: DomSanitizer) { 
+    this.UserConnect = authservice.userconncte;/*
+    this.router.events.subscribe(event =>{
+      if(Cookie.get('isAuth') == 'true'){
+        if(Cookie.get('type') != 'user')
+           this.router.navigate(['/principale']);
+      }
+    })
+  */    }
 
   ngOnInit() {
+
+       
     this.signInUser(Cookie.get('username') ,Cookie.get('password'));
     console.log(this.UserConnect);
+
+    
   }
 
   signInUser(username: string, password: string) {
@@ -42,11 +50,9 @@ export class MenuComponent implements OnInit {
           },
           (error: HttpErrorResponse) => {
             reject(error.message);
-            
           }
         );
     });
-    
   }
 
   
