@@ -19,13 +19,14 @@
   </nav>
   <div class="container" id="main-container">
   <div class="row">
-    <div *ngFor="let immobilierBati of immobilierBatis" class="col-md-6 col-xl-3">
+    <div *ngFor="let immobilierBati of immobilierBatis" class="col-md-3 col-xl-3">
        <div class="card m-b-30">
           <div class="card-body row">
              
              <div class="col-6 card-title align-self-center mb-0">
                 <h5>{{immobilierBati?.nom}}</h5>
-                <p class="m-0">{{this.getproprietaire(immobilierBati?.idProprietaire)?.nom}}</p>
+ 
+                <p class="m-0">le {{immobilierBati?.typeProprietaire }} : {{this.getproprietaire(immobilierBati?.idProprietaire,immobilierBati?.typeProprietaire)?.nom}}</p>
              </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -41,8 +42,10 @@
              <div class="float-right btn-group btn-group-sm">
                 <a (click)="onOpenModal(immobilierBati, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                 <a (click)="onOpenModal(immobilierBati, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                <a (click)="onViewImmobilierBati(immobilierBati?.id)"  class="btn btn-success tooltips" data-placement="top" data-original-title="Update"><i class="fa fa-plus"></i></a>
-            
+                <a (click)="onViewImmobilierBati(immobilierBati?.id)"  ngModel class="btn btn-success tooltips" data-placement="top" data-original-title="Update" style="color: white;"><i class="fa fa-plus"></i></a>
+
+                <a (click)="onOpenModal(immobilierBati,'addAnnonce')" *ngIf="annoced(immobilierBati?.id, immobilierBati?.typeProprietaire) == false" ngModel class="btn btn-danger tooltips" data-placement="top" data-original-title="Update" style="color: white;"> ajouter annonce </a>
+               
                </div>
           </div>
        </div>
@@ -71,20 +74,30 @@
             </div>
 
             <div class="form-group">
-                <label for="longueur">Proprietaire</label>
-                <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
-                    <option value="" disabled selected>choisur proprietaire</option>    
-                    <option *ngFor="let prc1 of proC1s " value="{{prc1?.id}}-pc1">
-                        {{prc1?.nom}}
-                        {{prc1?.prenom}}
-                    </option>
-                    <option *ngFor="let prc2 of proC2s " value="{{prc2?.id}}-pc2">
-                     {{prc2?.nom}}
-                     {{prc2?.prenom}}
-                 </option>
-            </select>
-                    </div>
-
+               <label for="typeProprietaire">type propritaire</label>
+               <select [(ngModel)]="type" name="typeProprietaire" class="form-control" id="typeProprietaire" placeholder="Proprietaire" required>
+                 <option value="proc1" selected>proc1</option>
+                 <option value="proc2" >proc2</option>
+               </select>
+               </div>
+               <div class="form-group">
+                  <label for="idProprietaire">id propritaire</label>
+               <select   ngModel *ngIf="type=='proc1'" name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
+              <option  disabled > choisir proprietaire </option>    
+              <option *ngFor="let Proprietaire of proC1s" value="{{Proprietaire.id}}">
+                  {{Proprietaire?.nom}} 
+                  {{Proprietaire?.prenom}}
+              </option>
+              </select>
+              <select   ngModel *ngIf="type=='proc2'" name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
+               <option selected disabled > choisir proprietaire </option>  
+               <option *ngFor="let Proprietaire of proC2s" value="{{Proprietaire.id}}">
+               {{Proprietaire?.nom}} 
+               {{Proprietaire?.prenom}}
+           </option>
+              </select>
+          </div>
+      
             <div class="form-group">
                <label for="localisation">Localisation </label>
                <input type="number" ngModel name="x" class="form-control" id="x" placeholder="x" step="any" required>
@@ -143,14 +156,22 @@
                 </div>
                 <input type="hidden" ngModel="{{editImmobilierBati?.id}}" name="id" class="form-control" id="id" placeholder="id">
                    <div class="form-group">
-                     <select ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
-                  
+                     <select [(ngModel)]="type" name="typeProprietaire" class="form-control" id="typeProprietaire" placeholder="Proprietaire" required>
+                       <option value="proc1" selected>proc1</option>
+                       <option value="proc2" >proc2</option>
+                     </select>
+                     </div>
+                     <div class="form-group">
+                     <select *ngif="type =='proc1'" ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
                     <option ngModel="{{editImmobilierBati?.idProprietaire}}"> {{editImmobilierBati?.idProprietaire}} </option>    
-                    <option *ngFor="let Proprietaire of proC1s" value="{{Proprietaire.id}}-pc1">
+                    <option *ngFor="let Proprietaire of proC1s" value="{{Proprietaire.id}}">
                         {{Proprietaire?.nom}} 
                         {{Proprietaire?.prenom}}
                     </option>
-                    <option *ngFor="let Proprietaire of proC2s" value="{{Proprietaire.id}}-pc2">
+                    </select>
+                    <select *ngif="type =='proc2'" ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
+                     <option ngModel="{{editImmobilierBati?.idProprietaire}}"> {{editImmobilierBati?.idProprietaire}} </option>    
+                     <option *ngFor="let Proprietaire of proC2s" value="{{Proprietaire.id}}">
                      {{Proprietaire?.nom}} 
                      {{Proprietaire?.prenom}}
                  </option>
@@ -210,6 +231,113 @@
     </div>
   </div>
   </div>
+  
+  <!-- Add Employee Modal -->
+ <div class="modal fade" id="addAIModal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="addProC1ModalLabel">Ajouter un annonce interne </h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #addFormAI="ngForm" (ngSubmit)="onAddAI(addFormAI)">
+            <div class="form-group">
+                        <label for="type">Type</label>
+                        <select [(ngModel)]="type" name="type" class="form-control" id="type" placeholder="type" required>
+                           <option value="Location" >Location</option>    
+                           <option   value="Vente"> Vente</option>
+                        </select>
+                       </div>
+                     <div class="form-group">
+                        <label for="idContrat">Contrat   </label>
+                        <select ngModel *ngIf="type=='Location'" name="idContrat" class="form-control" id="idContrat" placeholder="Proprietaire" required>
+                            <option value="" disabled selected>contrat location</option>    
+                            <option *ngFor="let contratLocation of contratLocations" value="{{contratLocation?.id}}">
+                                {{contratLocation?.id}}
+                            </option>
+                         </select>
+                         <select ngModel *ngIf="type=='Vente'" name="idContrat" class="form-control" id="idContrat" placeholder="Proprietaire" required>
+                           <option value="" disabled selected>contrat vente</option>    
+                           <option *ngFor="let contratVente of contratVentes" value="{{contratVente?.id}}">
+                               {{contratVente?.id}}
+                           </option>
+                        </select>
+                     </div>
+           <div class="form-group">
+              <label for="dateDebut">Date debut annonce</label>
+              <input type="date" ngModel name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>
+           </div>
+            
+           <div class="form-group">
+            <label for="description">Description </label>
+            <input type="text" ngModel name="description" class="form-control" id="description" placeholder=" " required>
+          </div>
+         
+           <div class="modal-footer">
+              <button type="button" id="add-AI-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addFormAI.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+           </div>
+           </form>
+        </div>
+     </div>
+   </div>
+   </div>
+
+   <div class="modal fade" id="addAEModal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="addProC1ModalLabel">Ajouter Annonce Externe </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #addFormAE="ngForm" (ngSubmit)="onAddAE(addFormAE)">
+                <div class="form-group">
+                    <label for="idImmobilier">Immoblilier</label>
+                    <input type="number" ngModel="currentImmob?.id" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
+                        </div>
+              <div class="form-group">
+                 <label for="dateDebut">Date debut annonce</label>
+                 <input type="date" ngModel name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>
+              </div>
+              <div class="form-group">
+               <label for="dateFinAnnonce">Date de fins Annonce</label>
+               <input type="date" ngModel name="dateFinAnnonce" class="form-control" id="dateFinAnnonce" placeholder="le Nom" required>
+            </div>
+              <div class="form-group">
+                 <label for="type">Type</label>
+                 <select ngModel name="type" class="form-control" id="type" placeholder="type" required>
+                    <option value="Location" >Location</option>    
+                    <option   value="Vente"> Vente</option>
+                 </select>
+                </div>
+              <div class="form-group">
+                 <label for="prxiImmobilier">Prix </label>
+                 <input type="number" ngModel name="prxiImmobilier" class="form-control" id="prxiImmobilier" placeholder=" " required>
+              </div>
+              <div class="form-group">
+               <label for="fraisAnnonce">Frais d'Annonce </label>
+               <input type="number" ngModel name="fraisAnnonce" class="form-control" id="fraisAnnonce" placeholder=" " required>
+            </div>
+              <div class="form-group">
+               <label for="description">Description </label>
+               <input type="text" ngModel name="description" class="form-control" id="description" placeholder=" " required>
+             </div>
+            
+              <div class="modal-footer">
+                 <button type="button" id="add-AE-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button [disabled]="addFormAE.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+      </div>
   
   <!-- Notification for no employees -->
   <div *ngIf="immobilierBatis?.length == 0" class="col-lg-12 col-md-12 col-xl-12">

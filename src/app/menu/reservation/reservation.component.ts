@@ -93,7 +93,7 @@ export class ReservationComponent implements OnInit {
     document.getElementById('add-Reservation-form')?.click();
     const formvalue =addForm.value ;
     let date =new Date()
-    const newuser = new Reservation(0,formvalue['type'], formvalue['idAnnonce'],
+    const newuser = new Reservation(0,this.type, formvalue['idAnnonce'],
     formvalue['idClient'],date,formvalue['etats'],formvalue['duree']);
  
  
@@ -168,6 +168,7 @@ export class ReservationComponent implements OnInit {
     }
     if (mode === 'edit') {
       this.editeReservation = user;
+      this.type=this.editeReservation.type;
       button.setAttribute('data-target', '#updateReservationModal');
     }
     if (mode === 'delete') {
@@ -176,6 +177,61 @@ export class ReservationComponent implements OnInit {
     }
     container?.appendChild(button)
     button.click();
-  }
+ }
+ deleteReservations(idannonce:number ,id:number) {
+  this.reservationService.deleteReservationByAnnonce( idannonce, id).subscribe(
+    (response)=>{
+      this.getReservation();
+    },(error :HttpErrorResponse)=>{
+      alert(error.message);
+    }
+  )
+}
+updateEtats(type: string, idAnnonce: number) {
+  this.getAnnoncesEx();
+  if(type=="interne"){
+    for(let annonceInetrne of this.aInternes){
+        if(annonceInetrne.id == idAnnonce){
+          annonceInetrne.etats='Indisponible';
+    this.annonce.updateAnnonceInterne(annonceInetrne).subscribe(
+      (respons)=>{
+
+      },
+      (error:HttpErrorResponse) =>{
+        alert(error.message);
+      }
+        ); }
+      } }
+      
+  if(type=="externe"){
+    for(let annonceExtern of this.aExternes){
+      if(annonceExtern.id == idAnnonce){
+        annonceExtern.etats='Indisponible';
+    this.annonce.updateAnnonceInterne(annonceExtern).subscribe(
+      (respons)=>{
+
+      },
+      (error:HttpErrorResponse)=>{
+        alert(error.message);
+      }
+        );
+  }}
+}
+}
+ public onAccepte(resevation :Reservation){
+      resevation.etats="Accepte";
+      this.reservationService.updateReservation(resevation).subscribe(
+        (response :Reservation )=>{
+          this.updateEtats(resevation?.type,resevation?.idAnnonce);
+        },(eror:HttpErrorResponse)=>{
+          alert("La reservation n'est pas accepter")
+        }
+        );
+
+        this.deleteReservations(resevation?.idAnnonce,resevation?.id);
+      
+     
+ }
+ 
 
 }

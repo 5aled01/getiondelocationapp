@@ -29,6 +29,7 @@
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>id  Client : {{reservation?.idClient}}</li>
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de reservation : {{reservation?.date}}</li>
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>etat de reservation : {{reservation?.etats}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>type d'annonce  : {{reservation?.type}}</li>
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>duree de reservation : {{reservation?.duree}}</li>
 
         </ul>
@@ -36,7 +37,9 @@
              <div class="float-right btn-group btn-group-sm">
                 <a (click)="onOpenModal(reservation, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                 <a (click)="onOpenModal(reservation, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-             </div>
+                <a (click)="onAccepte(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete" style="color: white;">Accepter</a>
+
+               </div>
           </div>
        </div>
     </div>
@@ -56,7 +59,7 @@
             <form #addForm="ngForm" (ngSubmit)="onAddReservation(addForm)">
                <div class="form-group">
                   <label for="type">type annonce</label>
-                  <select  [(ngModel)]="this.type"   name="type" class="form-control" id="type" placeholder="idClient" required>
+                  <select  [(ngModel)]="this.type"  name="type" class="form-control" id="type" placeholder="idClient" required>
                    <option value="interne"   selected>Interne</option>    
                    <option value="externe"  >Externe</option>
                 </select>
@@ -64,17 +67,17 @@
             <div class="form-group">
                <label for="idAnnonce">Id Annonce </label>
                <select ngModel  *ngIf="type=='externe'"  name="idAnnonce" class="form-control" id="idAnnonceex" placeholder="idAnnonce" required>
-                <option value="" disabled selected>choisur extern</option>    
+                <option value="" disabled selected>choisur externe</option>    
               
-                <option *ngFor="let annonce of aExternes" value="{{annonce?.id}}-ext">
-                  ext-{{annonce?.id}} 
+                <option *ngFor="let annonce of aExternes" value="{{annonce?.id}}">
+                  {{annonce?.id}} 
               </option>
         </select>
              
                <select ngModel  *ngIf="type=='interne'" name="idAnnonce"   class="form-control" id="idAnnoncein" placeholder="idAnnonce" required>
                 <option value="" disabled selected>choisur Annonce</option>    
-                <option *ngFor="let annonce of aInternes" value="{{annonce?.id}}-int">
-                    int-{{annonce?.id}} 
+                <option *ngFor="let annonce of aInternes" value="{{annonce?.id}}">
+                    {{annonce?.id}} 
          
                 </option>
                 
@@ -107,7 +110,7 @@
                 <select ngModel name="etats" class="form-control" id="etats" placeholder="etats" required>
                     <option value="En attent"   selected>En Cours</option>    
                     <option value="Accepte" disabled   >Accepte</option>    
-                    <option value="Refuse"  disabled  >Refuse</option>   
+                     
             </select>
               </div>
             <div class="modal-footer">
@@ -125,26 +128,35 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="updateUserModalLabel">Modifier utilisateur {{editeReservation?.id}}</h5>
+             <h5 class="modal-title" id="updateUserModalLabel">Modifier le Demande de reservation {{editeReservation?.id}}</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
              </button>
           </div>
           <div class="modal-body">
              <form #editForm="ngForm"> 
-               
+               <div class="form-group">
+                  <label for="type">type annonce</label>
+                  <select  [(ngModel)]="type"  name="type" class="form-control" id="type" placeholder="idClient" required>
+                   <option value="interne"   >Interne</option>    
+                   <option value="externe"  >Externe</option>
+                </select>
+                </div>
                  <div class="form-group">
                     <label for="idAnnonce">Id Annonce </label>
-                    <select ngModel="{{editeReservation?.idAnnonce }}" name="idAnnonce" class="form-control" id="idAnnonce" placeholder="idAnnonce" required>
-                     <option value="" disabled selected>choisur Annonce</option>    
-                     <option *ngFor="let annonce of aExternes" value="{{annonce?.id}}-ext">
-                         AE{{annonce?.id}}
+                    <select *ngIf="type=='externe'" ngModel="editeReservation?.idAnnonce"   name="idAnnonce" class="form-control" id="idAnnonce" placeholder="idAnnonce" required>
+                      <option *ngFor="let annonce of aExternes" value="{{annonce?.id}}">
+                         {{annonce?.id}}
                      </option>
-                     <option *ngFor="let annonce of aInternes" value="{{annonce?.id}}-int">
-                        AI{{annonce?.id}}
+                     </select>
+                     <select  *ngIf="type=='interne'"  ngModel="editeReservation?.idAnnonce"  name="idAnnonce" class="form-control" id="idAnnonce" placeholder="idAnnonce" required>
+                         <option *ngFor="let annonce of aInternes" value="{{annonce?.id}}">
+                     {{annonce?.id}}
                     </option>
              </select>
                   </div>
+                  <input type="hidden" ngModel="{{editeReservation?.id}}" name="id" class="form-control" id="id"  >
+
                  <div class="form-group">
                     <label for="idClient">id client</label>
                     <select ngModel="{{editeReservation?.idClient }}" name="idClient" class="form-control" id="idClient" placeholder="idClient" required>
@@ -167,9 +179,9 @@
                   <div class="form-group">
                      <label for="etats">etat</label>
                      <select ngModel="{{editeReservation?.etats }}" name="etats" class="form-control" id="etats" placeholder="etats" required>
-                         <option value="" disabled selected>En Cours</option>    
-                         <option value="" disabled selected>Accepte</option>    
-                         <option value="" disabled selected>Refuse</option>   
+                         <option value="En Cours"   selected>En Cours</option>    
+                         <option value="Accepte"   selected>Accepte</option>    
+      
                  </select>
                    </div>
                 <div class="modal-footer">

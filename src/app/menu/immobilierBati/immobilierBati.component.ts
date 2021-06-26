@@ -1,3 +1,10 @@
+
+ 
+import { ContratLocationService } from './../../services/contrat-location.service';
+import { AnnonceExterne } from 'src/app/models/annonceExterne';
+import { AnnonceInetrne } from 'src/app/models/annonceInterne';
+ 
+import { EtageService } from './../../services/etage.service';
 import { Component, OnInit } from '@angular/core';
 import { ImmobilierBatiService } from 'src/app/services/immobilierBati.service';
 import { ImmobilierBati } from 'src/app/models/ImmobilierBati';
@@ -9,6 +16,11 @@ import { ProrietaireService } from 'src/app/services/proprietaire.service';
  
 import { Router } from '@angular/router';
 import { ProC2 } from 'src/app/models/proc2';
+import { Etage } from 'src/app/models/etage';
+import { ContratVenteService } from 'src/app/services/contratVente.service';
+import { ContratLocation } from 'src/app/models/contratLocation';
+import { ContratVente } from 'src/app/models/contratVente';
+import { AnnonceService } from 'src/app/services/annonce.service';
 
 @Component({
   selector: 'app-immobilier',
@@ -17,8 +29,11 @@ import { ProC2 } from 'src/app/models/proc2';
 })
 export class ImmobilierBatiComponent implements OnInit {
 
-
-  public immobilierBatis!: ImmobilierBati[] ;
+public annonceInternes! :AnnonceInetrne[];
+public annonceExternes! : AnnonceExterne[];
+public immobilierBatisAnnocedEx: ImmobilierBati[] = [];
+public immobilierBatisAnnocedIn: ImmobilierBati[] = [];  
+public immobilierBatis!: ImmobilierBati[] ;
   public proC1s! : ProC1[]  ;
   public proC1! :ProC1;
   public proC2s! : ProC2[]  ;
@@ -26,32 +41,163 @@ export class ImmobilierBatiComponent implements OnInit {
   public editImmobilierBati: ImmobilierBati | undefined ;
   public deleteImmobilierBati: ImmobilierBati | undefined ;
   public nProprietaire :  ProC1 | undefined ;
-  selectedFile!: File;
-
-  retrievedImage: any;
-   base64Data: any;
-    retrieveResonse: any;
-    message!: string;
-    imageName: any;
+  public type :string  ="proc1";
+  public currentImmob! :ImmobilierBati;  
    public  prom!:string;
+  public annonced: boolean = false ;
+  public contratLocations!: ContratLocation[];
+  public contratVentes!: ContratVente[];
 
-  constructor(private immobilierBatiService: ImmobilierBatiService
-    ,private proprietaireService: ProrietaireService,private router :Router) { }
+  constructor(private immobilierBatiService: ImmobilierBatiService,private etageService:EtageService ,
+    private proprietaireService: ProrietaireService,private serviceAnnonce:  AnnonceService,
+    private contratLocationService:ContratLocationService,private contratVenteService :ContratVenteService,private router :Router) { }
 
   ngOnInit(): void {
     this.getImmobilierBatis();
     this.getProC1s();
     this.getProC2s();
-    this.prom=""
+    this.prom="";
+    this.getContratLocations();
+    this.getContratVentes();
+    this.getAnnonceExternes();
+    this.getAnnonceInternes();
   }
-  
+  getContratLocations() {
+    this.contratLocationService.getContratLocations().subscribe(
+
+     (response : ContratLocation[])=>{
+       this.contratLocations =response ;
+     },
+     (error: HttpErrorResponse) => {
+       alert(error.message);
+     }
+    );
+ }
+ getContratVentes() {
+   this.contratVenteService.getContratVentes().subscribe(
+
+    (response : ContratVente[])=>{
+      this.contratVentes =response ;
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    }
+   );
+}
+  public getAnnonceExternes()  {
+    this.serviceAnnonce.getAllEx().subscribe(
+      (response: AnnonceExterne[]) => {
+        this.annonceExternes = response;
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+  public onAddAE(addForm: NgForm): void {
+    document.getElementById('add-AE-form')?.click();
+    const formvalue =addForm.value ;
  
-  public getproprietaire(idp :String)  {
-      const idpt=idp.split("-");
-      const id =+idpt[0];
+    const newAE = new AnnonceExterne(0,formvalue['idImmobilier'],formvalue['dateDebut'],
+    formvalue['type'],"Disponible",formvalue['description'],formvalue['fraisAnnonce'],formvalue['dateFinAnnonce'],formvalue['prxiImmobilier']);
+
+    this.serviceAnnonce.addAnnoncExterne(newAE).subscribe(
+      (response) => {
+        
+        console.log(response);
+        this.getAnnonceExternes();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
+  public onAddAI(addForm: NgForm): void {
+    document.getElementById('add-AI-form')?.click();
+    const formvalue =addForm.value ;
+    const newAI = new AnnonceInetrne(0,this.currentImmob?.id,formvalue['dateDebut'],
+    formvalue['type'],"Disponible",formvalue['description'],formvalue['idContrat']);
+ 
+ 
+    this.serviceAnnonce.addAnnoncInterne(newAI).subscribe(
+      (response) => {
+        
+        console.log(response);
+        this.getAnnonceInternes();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
+
+  public getAnnonceInternes() {
+    this.serviceAnnonce.getAllIn().subscribe(
+      (response: AnnonceInetrne[]) => {
+        this.annonceInternes = response;
+        console.log(response)
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+  public annoced(id :number, type : string){
+    this.getImmobilierBatisAnnoced();
+    if(type === 'proc1' ){
+   for(let annoced of this.immobilierBatisAnnocedIn){
+     if(annoced.id == id){
+      return true;
+     }
+   }
+   return false;
+  
+  }
+
+  else{
+    for(let annoced of this.immobilierBatisAnnocedEx){
+      if(annoced.id == id){
+       return true;
+      }
+    }
+    return false;
+  }
+
+  }
+
+ public getImmobilierBatisAnnoced(){
+  
+  for(let annonce of this.annonceInternes){
+   for(let immobilierBati of this.immobilierBatis)
+    if(annonce.idImmobilier==immobilierBati.id){
+     this.immobilierBatisAnnocedIn.push(immobilierBati);
+     
+    }
+  }
+
+  for(let annonce of this.annonceExternes){
+    for(let immobilierBati of this.immobilierBatis)
+     if(annonce.idImmobilier==immobilierBati.id){
+      this.immobilierBatisAnnocedEx.push(immobilierBati); 
       
-      if(idpt[1]=="pc1"){
-       
+     }
+   }
+
+  }
+
+
+
+
+ 
+ 
+  public getproprietaire(id :number,type :string)  {
+     
+ if(type=="proc1"){
     for(let pro of this.proC1s){
        if(pro.id=id){
          this.proC1 =pro ;
@@ -60,7 +206,7 @@ export class ImmobilierBatiComponent implements OnInit {
        }  }
         
     }
-    if(idpt[1]=="pc2"){
+    if(type=="proc2"){
        
       for(let pro of this.proC2s){
          if(pro.id=id){
@@ -145,6 +291,7 @@ export class ImmobilierBatiComponent implements OnInit {
       formvalue['longueur'],
       formvalue['largeur'],
       formvalue['idProprietaire'],
+      formvalue['typeProprietaire'],
       formvalue['nom'],
       formvalue['longueurBati'],
       formvalue['largeurBati']);
@@ -152,7 +299,16 @@ export class ImmobilierBatiComponent implements OnInit {
       
     this.immobilierBatiService.addImmobilierBati(newimmobilierBati).subscribe(
       (response) => {
-        
+        const etage=new Etage(0,1,response?.id,"*****",1,1,1,1,0);
+        this.etageService.addEtage(etage).subscribe(
+          (response)=>{
+
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+            addForm.reset();
+          }
+        );
         console.log(response);
         this.getImmobilierBatis();
         addForm.reset();
@@ -178,6 +334,7 @@ export class ImmobilierBatiComponent implements OnInit {
       formvalue['longueur'],
       formvalue['largeur'],
       formvalue['idProprietaire'],
+      formvalue['typeProprietaire'],
       formvalue['nom'],
       formvalue['longueurBati'],
       formvalue['largeurBati']);
@@ -239,6 +396,15 @@ export class ImmobilierBatiComponent implements OnInit {
     if (mode === 'add') {
       button.setAttribute('data-target', '#addImmobilierBatiModal');
     }
+    if(mode==='addAnnonce'){
+         if(immobilierBati.typeProprietaire=='proc1'){
+          button.setAttribute('data-target', '#addAIModal');
+         }
+         if(immobilierBati.typeProprietaire=='proc2'){
+          button.setAttribute('data-target', '#addAEModal');
+         }
+         this.currentImmob=immobilierBati;
+    }
     if (mode === 'edit') {
       this.editImmobilierBati = immobilierBati;
       button.setAttribute('data-target', '#updateImmobilierBatiModal');
@@ -251,4 +417,25 @@ export class ImmobilierBatiComponent implements OnInit {
     button.click();
   }
 
+
+  public onOpenModal1(immobilierBati: ImmobilierBati, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if (mode === 'add') {
+      button.setAttribute('data-target', '#addImmobilierBatiModal');
+    }
+    if (mode === 'edit') {
+      this.editImmobilierBati = immobilierBati;
+      button.setAttribute('data-target', '#updateImmobilierBatiModal');
+    }
+    if (mode === 'delete') {
+      this.deleteImmobilierBati = immobilierBati;
+      button.setAttribute('data-target', '#deleteImmobilierBatiModal');
+    }
+    container?.appendChild(button)
+    button.click();
+  }
 }

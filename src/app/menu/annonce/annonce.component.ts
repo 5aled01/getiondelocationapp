@@ -76,7 +76,7 @@ export class AnnonceComponent implements OnInit {
     this.immobilierBatiService.getImmobilierBatispc1().subscribe(
 
       (response : ImmobilierBati[])=>{
-        this.immobilierBatis =response ;
+        this.immobilierBatispc1 =response ;
       }, (error: HttpErrorResponse) => {
         alert(error.message);
       }
@@ -87,7 +87,7 @@ export class AnnonceComponent implements OnInit {
     this.immobilierBatiService.getImmobilierBatispc2().subscribe(
 
       (response : ImmobilierBati[])=>{
-        this.immobilierBatis =response ;
+        this.immobilierBatispc2 =response ;
       }, (error: HttpErrorResponse) => {
         alert(error.message);
       }
@@ -113,7 +113,7 @@ export class AnnonceComponent implements OnInit {
     const formvalue =addForm.value ;
  
     const newAE = new AnnonceExterne(0,formvalue['idImmobilier'],formvalue['dateDebut'],
-    formvalue['type'],formvalue['description'],formvalue['fraisAnnonce'],formvalue['dateFinAnnonce'],formvalue['prxiImmobilier']);
+    formvalue['type'], "Disponible",formvalue['description'],formvalue['fraisAnnonce'],formvalue['dateFinAnnonce'],formvalue['prxiImmobilier']);
 
     this.annonceService.addAnnoncExterne(newAE).subscribe(
       (response) => {
@@ -179,7 +179,7 @@ export class AnnonceComponent implements OnInit {
     document.getElementById('add-AI-form')?.click();
     const formvalue =addForm.value ;
     const newAI = new AnnonceInetrne(0,formvalue['idImmobilier'],formvalue['dateDebut'],
-    formvalue['type'],formvalue['description'],formvalue['idContrat']);
+    formvalue['type'],"Disponible",formvalue['description'],formvalue['idContrat']);
  
  
     this.annonceService.addAnnoncInterne(newAI).subscribe(

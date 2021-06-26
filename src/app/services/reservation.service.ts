@@ -27,13 +27,18 @@ export class ReservationService{
         return this.http.post<Reservation>(`${this.apiServerUrl}/reservation/add`,newEtage);
       }
       
-      public updateReservation(etage : any): Observable<Reservation> {
-        return this.http.put<Reservation>(`${this.apiServerUrl}/reservation/update`, etage);
+      public updateReservation(reservation : Reservation): Observable<Reservation> {
+        return this.http.put<Reservation>(`${this.apiServerUrl}/reservation/update`, reservation);
+      }
+      public updateReservation1(reservation : Reservation): Observable<Reservation> {
+        return this.http.put<Reservation>(`${this.apiServerUrl}/reservation/updateavecsuppression`, reservation);
       }
       
       public deleteReservation(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiServerUrl}/reservation/delete/${id}`);
       }
       
-
+      public deleteReservationByAnnonce(idannonce: number,id:number): Observable<void> {
+        return this.http.delete<void>(`${this.apiServerUrl}/reservation/delete_by_annonce/${idannonce}&${id}`);
+      }
 }

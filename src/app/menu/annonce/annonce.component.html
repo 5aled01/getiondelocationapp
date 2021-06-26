@@ -27,10 +27,11 @@
       <div *ngFor="let aE of annonceExternes" class="col-md-6 col-xl-3">
          <div class="card m-b-30">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Immobiliere : {{ aE?.idImmobilier}}</li>
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>id  : {{ aE?.id}}</li>
                <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de debut : {{aE?.dateDebut}}</li>
                <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de fin : {{aE?.dateFinAnnonce}}</li>
                <li class="list-group-item"><i class="fa fa-phone float-right"></i>Type : {{aE?.type}}</li>
+               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Etats : {{aE?.etats}}</li>
                <li class="list-group-item"><i class="fa fa-phone float-right"></i>Frais d'annonce : {{aE?.fraisAnnonce}}</li>
 
                <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prix de  {{aE?.type}}  : {{aE?.prxiImmobilier}}</li>
@@ -75,6 +76,7 @@
                <label for="dateFinAnnonce">Date de fins Annonce</label>
                <input type="date" ngModel name="dateFinAnnonce" class="form-control" id="dateFinAnnonce" placeholder="le Nom" required>
             </div>
+            
               <div class="form-group">
                  <label for="type">Type</label>
                  <select ngModel name="type" class="form-control" id="type" placeholder="type" required>
@@ -130,6 +132,13 @@
                   <label for="dateDebut">DATE DEBUT ANNONCE</label>
                   <input type="date" ngModel="{{editeAnnonceExterne?.dateDebut}}" name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>
                </div>
+               <div class="form-group">
+                  <label for="etats">etats</label>
+                  <select   ngModel="{{editeAnnonceExterne?.etats}}" name="etats" class="form-control" id="etats" placeholder="le Nom" required>
+                   <option value="Disponible">Disponible</option>
+                   <option value="indisponible">Indisponible</option>
+                     </select>
+                  </div>
                <div class="form-group">
                   <label for="dateFinAnnonce">DATE DE FINS</label>
                   <input type="date" ngModel="{{editeAnnonceExterne?.dateFinAnnonce}}" name="dateFinAnnonce" class="form-control" id="dateFinAnnonce" placeholder="le Nom" required>
@@ -209,7 +218,8 @@
            <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Immobiliere : {{ aI.idImmobilier}}</li>
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de debut : {{aI?.dateDebut}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Type : {{aI?.type}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Id Contrat  : {{aI?.idContrat}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Etats : {{aI?.etats}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Id Contrat  : {{aI?.idContrat}}</li>
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Description : {{aI?.description}}</li>
 
          </ul>
@@ -243,6 +253,7 @@
                      </option>
              </select>
                      </div>
+                     
                      <div class="form-group">
                         <label for="type">Type</label>
                         <select [(ngModel)]="type" name="type" class="form-control" id="type" placeholder="type" required>
@@ -307,7 +318,13 @@
               </select>
                       </div>
                       <input type="hidden" ngModel="{{editeAnnonceInterne?.id}}" name="id" class="form-control" id="id" placeholder="id">
-
+                      <div class="form-group">
+                      <label for="etats">etats</label>
+                      <select   ngModel="{{editeAnnonceInterne?.etats}}" name="etats" class="form-control" id="etats" placeholder="le Nom" required>
+                       <option value="Disponible">Disponible</option>
+                       <option value="indisponible">Indisponible</option>
+                         </select>
+                      </div>
                       <div class="form-group">
                          <label for="dateFinAnnonce">Type</label>
                          <select ngModel="{{editeAnnonceInterne?.type}}" name="type" class="form-control" id="type" placeholder="type" required>

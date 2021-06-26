@@ -1,15 +1,30 @@
  
+import { AnnonceInetrne } from 'src/app/models/annonceInterne';
+ 
  
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AnnonceExterne  } from "../models/annonceExterne";
-import { AnnonceInetrne } from "../models/annonceInterne";
+ 
  
 
 @Injectable({providedIn: 'root'})
 export class AnnonceService{
+
+  updateEtatsAnnonceInterne(idAnnonce: number) : Observable<AnnonceInetrne> {
+    return this.http.put<AnnonceInetrne>(`${this.apiServerUrl}/annonceinterne/updateetats`,idAnnonce);
+  }
+  updateEtatsAnnonceExtern(idAnnonce: number) : Observable<AnnonceExterne> {
+    return this.http.put<AnnonceExterne>(`${this.apiServerUrl}/annonceexterne/updateetats`,idAnnonce);
+  }
+  isAnnoncedExterne(id: number):Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/annonceexterne/isExist${id}`);
+  }
+  isAnnoncedInterne(id: number):Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/annonceinterne/isExist${id}`);
+  }
 
     private apiServerUrl = environment.apiBaseUrl;
 

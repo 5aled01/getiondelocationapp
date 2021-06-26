@@ -17,7 +17,17 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getReservation();
   }
-
+  public onDeleteReservation(userId: number): void {
+    this.reservationService.deleteReservation(userId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getReservation();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
   getReservation(){
     this.reservationService.getReservationIntern().subscribe(
       (response :Reservation[])=>{
@@ -30,5 +40,26 @@ export class HomeComponent implements OnInit {
     );
   }
   
+  deleteReservations(idannonce:number ,id:number) {
+    this.reservationService.deleteReservationByAnnonce( idannonce, id).subscribe(
+      (response)=>{
+        this.getReservation();
+      },(error :HttpErrorResponse)=>{
+        alert(error.message);
+      }
+    )
+  }
+   public onAccepte(resevation :Reservation){
+        resevation.etats="Accepte";
+        this.reservationService.updateReservation(resevation).subscribe(
+          (response :Reservation )=>{
 
+          },(eror:HttpErrorResponse)=>{
+            alert("La reservation n'est pas accepter")
+          }
+          );
+  
+          this.deleteReservations(resevation?.idAnnonce,resevation?.id);
+  
+   }
 }

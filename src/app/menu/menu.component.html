@@ -15,7 +15,7 @@
             <a routerLink="home" routerLinkActive="active">
                 <li tabindex="0" class="fa fa-home" aria-hidden="true"><span> Home </span></li>
             </a>
-            <a routerLink="users" routerLinkActive="active">
+            <a *ngIf="UserConnect?.role=='admin'"  routerLink="users" routerLinkActive="active">
                 <li tabindex="0" class="fa fa-user" aria-hidden="true" ><span> Getion utilisateur</span></li>
             </a>
         
@@ -35,7 +35,7 @@
             <li tabindex="0" class="fa fa-calendar" aria-hidden="true">  <span> Getion reservation</span></li>
          </a>
          <a routerLink="client" routerLinkActive="active">
-            <li tabindex="0" class="fa fa-calendar" aria-hidden="true">  <span> Getion Client</span></li>
+            <li tabindex="0" class="fa fa-check-square" aria-hidden="true">  <span> Getion Client</span></li>
          </a>
          
 
