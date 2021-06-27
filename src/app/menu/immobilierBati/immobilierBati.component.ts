@@ -387,7 +387,7 @@ public immobilierBatis!: ImmobilierBati[] ;
 
     
 
-  public onOpenModal(immobilierBatii: ImmobilierBati, mode: string): void {
+  public onOpenModal(immobilierBati: ImmobilierBati, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
@@ -397,20 +397,20 @@ public immobilierBatis!: ImmobilierBati[] ;
       button.setAttribute('data-target', '#addImmobilierBatiModal');
     }
     if(mode==='addAnnonce'){
-         if(immobilierBatii.typeProprietaire=='proc1'){
+         if(immobilierBati.typeProprietaire=='proc1'){
           button.setAttribute('data-target', '#addAIModal');
          }
-         if(immobilierBatii.typeProprietaire=='proc2'){
+         if(immobilierBati.typeProprietaire=='proc2'){
           button.setAttribute('data-target', '#addAEModal');
          }
-         this.currentImmob=immobilierBatii;
+         this.currentImmob=immobilierBati;
     }
     if (mode === 'edit') {
-      this.editImmobilierBati = immobilierBatii;
+      this.editImmobilierBati = immobilierBati;
       button.setAttribute('data-target', '#updateImmobilierBatiModal');
     }
     if (mode === 'delete') {
-      this.deleteImmobilierBati = immobilierBatii;
+      this.deleteImmobilierBati = immobilierBati;
       button.setAttribute('data-target', '#deleteImmobilierBatiModal');
     }
     container?.appendChild(button)

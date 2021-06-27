@@ -298,8 +298,8 @@
            <div class="modal-body">
               <form #addFormAE="ngForm" (ngSubmit)="onAddAE(addFormAE)">
                 <div class="form-group">
-                    <label for="idImmobilier">ID Immoblilier</label>
-                    <input type="hidden" value="currentImmob?.id" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
+                    <label for="idImmobilier">Immoblilier</label>
+                    <input type="number" ngModel="currentImmob?.id" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
                         </div>
               <div class="form-group">
                  <label for="dateDebut">Date debut annonce</label>
