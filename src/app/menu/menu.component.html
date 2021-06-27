@@ -15,7 +15,8 @@
             <a routerLink="home" routerLinkActive="active">
                 <li tabindex="0" class="fa fa-home" aria-hidden="true"><span> Home </span></li>
             </a>
-            <a *ngIf="UserConnect?.role=='admin'"  routerLink="users" routerLinkActive="active">
+            <!-- *ngIf="UserConnect?.role=='admin'"-->
+            <a     routerLink="users" routerLinkActive="active">
                 <li tabindex="0" class="fa fa-user" aria-hidden="true" ><span> Getion utilisateur</span></li>
             </a>
         

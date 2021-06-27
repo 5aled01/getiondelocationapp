@@ -26,7 +26,10 @@ export class ReservationService{
       public addReservation(newEtage :any): Observable<Reservation> {
         return this.http.post<Reservation>(`${this.apiServerUrl}/reservation/add`,newEtage);
       }
-      
+      getProC2Reservation(idproc2: number) {
+        return this.http.get<Reservation[]>(`${this.apiServerUrl}/reservation/allreservation/${idproc2}`);
+      }
+    
       public updateReservation(reservation : Reservation): Observable<Reservation> {
         return this.http.put<Reservation>(`${this.apiServerUrl}/reservation/update`, reservation);
       }

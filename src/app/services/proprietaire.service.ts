@@ -7,6 +7,7 @@ import { environment } from "src/environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class ProrietaireService {
+ 
   subscribe(arg0: (response: ProC1) => void, arg1: (error: import("@angular/common/http").HttpErrorResponse) => void): ProC1 | undefined {
     throw new Error('Method not implemented.');
   }
@@ -47,7 +48,7 @@ export class ProrietaireService {
   public getProC2s(): Observable<ProC2[]> {
     return this.http.get<ProC2[]>(`${this.apiServerUrl}/proc2/all`);
   }
-
+ 
   
   public addProC2( formdata :any): Observable<ProC2> {
     return this.http.post<ProC1>(`${this.apiServerUrl}/proc2/add`,formdata);

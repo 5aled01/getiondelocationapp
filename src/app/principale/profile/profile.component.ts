@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { ReservationService } from 'src/app/services/reservation.service';
+import { ProrietaireService } from './../../services/proprietaire.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import { ProC2 } from 'src/app/models/proc2';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
+import { Reservation } from 'src/app/models/reservation';
 
 
 @Component({
@@ -15,12 +18,13 @@ import { environment } from 'src/environments/environment';
 export class ProfileComponent implements OnInit {
   private apiServerUrl = environment.apiBaseUrl ;
   ProC2Connect!: ProC2;
-  constructor(private router: Router,public authservice : AuthService,private http: HttpClient) { }
+  public demandeReservation! :Reservation[];
+  constructor(private router: Router,public authservice : AuthService,private http: HttpClient,private reservationService :ReservationService) { }
 
   
   ngOnInit(): void {
     this.signInProC2(Cookie.get('username') ,Cookie.get('password'));
-  
+   
   }
 
   signInProC2(pronom: string, password: string) {
@@ -31,6 +35,7 @@ export class ProfileComponent implements OnInit {
           (response: ProC2) => {  
             
             this.ProC2Connect = response;
+            this.getReservation(response?.id);
           },
           (error) => {
             reject(error.message);
@@ -52,4 +57,15 @@ export class ProfileComponent implements OnInit {
     this.authservice.signOutProC2();
    }
 
+   getReservation(id :number){
+      this.reservationService.getProC2Reservation(id).subscribe(
+        (response :Reservation[])=>{
+          this.demandeReservation=response;
+          console.log(response);
+        },
+        (error:HttpErrorResponse)=>{
+          alert(error.message);
+        }
+      )
+   }
 }
