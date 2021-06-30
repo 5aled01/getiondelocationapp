@@ -30,7 +30,7 @@
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de reservation : {{reservation?.date}}</li>
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>etat de reservation : {{reservation?.etats}}</li>
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>type d'annonce  : {{reservation?.type}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>duree de reservation : {{reservation?.duree}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>date fin de reservation : {{reservation?.duree}}</li>
 
         </ul>
           <div class="card-body">
@@ -109,7 +109,7 @@
                 <label for="etats">etat</label>
                 <select ngModel name="etats" class="form-control" id="etats" placeholder="etats" required>
                     <option value="En attent"   selected>En Cours</option>    
-                    <option value="Accepte" disabled   >Accepte</option>    
+                    <option value="Accepte" disabled  >Accepte</option>    
                      
             </select>
               </div>
@@ -174,16 +174,13 @@
         
                  <div class="form-group">
                      <label for="duree">duree</label>
-                     <input type="date" ngModel="{{editeReservation?.duree }}" name="duree" class="form-control" id="duree" placeholder="date" required>
-                  </div>
-                  <div class="form-group">
-                     <label for="etats">etat</label>
-                     <select ngModel="{{editeReservation?.etats }}" name="etats" class="form-control" id="etats" placeholder="etats" required>
-                         <option value="En Cours"   selected>En Cours</option>    
-                         <option value="Accepte"   selected>Accepte</option>    
-      
-                 </select>
-                   </div>
+                     <select [(ngModel)]="dureeEnjour" name="duree" class="form-control" id="duree" placeholder="etats" required>
+                        <option [value]="1" selected>1</option>
+                        <option [value]="1" >2</option>
+                        <option [value]="3" >3</option>
+                     </select>
+                     </div>
+                
                 <div class="modal-footer">
                    <button type="button"  id="update-Reservation-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
                    <button (click)="onUpdateReservation(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>

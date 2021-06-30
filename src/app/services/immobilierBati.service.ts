@@ -32,6 +32,9 @@ export class ImmobilierBatiService {
   public getImmobilierBatispc2(): Observable<ImmobilierBati[]> {
     return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/immobilierbati/pc2`);
   }
+  public getImmobilierBatiscurentpc2(id :number): Observable<ImmobilierBati[]> {
+    return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/immobilierbati/curentpc2/${id}`);
+  }
   public getImmobilierBati(id : number): Observable<ImmobilierBati> {
     return this.http.get<ImmobilierBati>(`${this.apiServerUrl}/immobilierbati/find/${id}`);
   }

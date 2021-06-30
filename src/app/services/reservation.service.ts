@@ -37,7 +37,9 @@ export class ReservationService{
       public deleteReservation(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiServerUrl}/reservation/delete/${id}`);
       }
-      
+      getProC2Reservation(idproc2: number) {
+        return this.http.get<Reservation[]>(`${this.apiServerUrl}/reservation/allreservation/${idproc2}`);
+      }
       public deleteReservationByAnnonce(idannonce: number,id:number): Observable<void> {
         return this.http.delete<void>(`${this.apiServerUrl}/reservation/delete_by_annonce/${idannonce}&${id}`);
       }

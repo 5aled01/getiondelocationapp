@@ -27,7 +27,8 @@ export class ReservationComponent implements OnInit {
   public aExternes!:AnnonceExterne[];
   public clients! :Client[];
   public type :string ="interne";
- 
+  public dureeEnjour :number =1;
+  
 
   constructor(private prorietaireService: ProrietaireService ,private annonce :AnnonceService ,private clientService :ClientService ,private reservationService :ReservationService) {
    }
@@ -89,14 +90,24 @@ export class ReservationComponent implements OnInit {
     this.type =event.value;
     console.log(event.value)
   }
+  
   public onAddReservation(addForm: NgForm): void {
     document.getElementById('add-Reservation-form')?.click();
     const formvalue =addForm.value ;
-    let date =new Date()
+    let date =new Date();
+    console.log(date);
+    console.log(date.getDate());
+    let days :number = formvalue['duree'];
+    if(days== 3)
+    date.setDate(date.getDate()+ 3);
+    if(days== 2)
+    date.setDate(date.getDate()+ 2);
+    if(days== 1)
+    date.setDate(date.getDate()+ 1);
     const newuser = new Reservation(0,this.type, formvalue['idAnnonce'],
-    formvalue['idClient'],date,formvalue['etats'],formvalue['duree']);
+    formvalue['idClient'],new Date(),formvalue['etats'],date);
  
- 
+ console.log(date);
     this.reservationService.addReservation(newuser).subscribe(
       (response) => {
         
@@ -114,10 +125,20 @@ export class ReservationComponent implements OnInit {
   public onUpdateReservation(reser: Reservation): void {
     document.getElementById('update-Reservation-form')
     ?.click();
-   
+    let date =new Date();
+    console.log(date);
+    console.log(date.getDate());
+    let days :number = this.dureeEnjour;
+    if(days== 3)
+    date.setDate(date.getDate()+ 3);
+    if(days== 2)
+    date.setDate(date.getDate()+ 2);
+    if(days== 1)
+    date.setDate(date.getDate()+ 1);
+    reser.duree=date;
     this.reservationService.updateReservation(reser).subscribe(
       (response: Reservation) => {
-        console.log(response);
+        console.log(response.date);
         this.getReservation();
       },
       (error: HttpErrorResponse) => {
@@ -128,8 +149,8 @@ export class ReservationComponent implements OnInit {
   
     
   
-  public onDeleteReservation(userId: number): void {
-    this.reservationService.deleteReservation(userId).subscribe(
+  public onDeleteReservation(reservID: number): void {
+    this.reservationService.deleteReservation(reservID).subscribe(
       (response: void) => {
         console.log(response);
         this.getReservation();
@@ -190,10 +211,7 @@ export class ReservationComponent implements OnInit {
 updateEtats(type: string, idAnnonce: number) {
   this.getAnnoncesEx();
   if(type=="interne"){
-    for(let annonceInetrne of this.aInternes){
-        if(annonceInetrne.id == idAnnonce){
-          annonceInetrne.etats='Indisponible';
-    this.annonce.updateAnnonceInterne(annonceInetrne).subscribe(
+    this.annonce.updateAnnonceInterneEtats(idAnnonce).subscribe(
       (respons)=>{
 
       },
@@ -201,13 +219,11 @@ updateEtats(type: string, idAnnonce: number) {
         alert(error.message);
       }
         ); }
-      } }
+     
       
   if(type=="externe"){
-    for(let annonceExtern of this.aExternes){
-      if(annonceExtern.id == idAnnonce){
-        annonceExtern.etats='Indisponible';
-    this.annonce.updateAnnonceInterne(annonceExtern).subscribe(
+    
+    this.annonce.updateAnnonceExternEtats(idAnnonce).subscribe(
       (respons)=>{
 
       },
@@ -216,8 +232,7 @@ updateEtats(type: string, idAnnonce: number) {
       }
         );
   }}
-}
-}
+ 
  public onAccepte(resevation :Reservation){
       resevation.etats="Accepte";
       this.reservationService.updateReservation(resevation).subscribe(

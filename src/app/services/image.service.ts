@@ -7,6 +7,9 @@ import { Image } from "../models/image";
 
 @Injectable({providedIn: 'root'})
 export class ImageService {
+    getImagesBatiCurentProc2(id: number): Observable<Image[]> {
+      return this.http.get<Image[]>(`${this.apiServerUrl}/image/allbatiproc/${id}`);
+    }
 
     private apiServerUrl = environment.apiBaseUrl;
 
