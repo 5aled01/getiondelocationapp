@@ -23,6 +23,8 @@ import { AnnoncesService } from './services/annonces.service';
 import { PrincipaleComponent } from './principale/principale.component';
 import { ProfileComponent } from './principale/profile/profile.component';
 import { SignupComponent } from './principale/auth/signup/signup.component';
+import { AgmCircle, AgmCoreModule } from '@agm/core';
+import { AnnonceListComponent } from './principale/annonce-list/annonce-list.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { SignupComponent } from './principale/auth/signup/signup.component';
     ProfileComponent,
     SignupComponent,
     SignupComponent,
+    AnnonceListComponent
 
   ],
   imports: [
@@ -50,6 +53,10 @@ import { SignupComponent } from './principale/auth/signup/signup.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB09_DvINgl4P-McGBx_RsLd3pCggqvMkk',
+      libraries: ['places']
+    })
     
   ],
   providers: [

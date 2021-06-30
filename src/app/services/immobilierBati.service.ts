@@ -6,6 +6,7 @@ import { ImmobilierBati } from '../models/ImmobilierBati';
 
 @Injectable({providedIn: 'root'})
 export class ImmobilierBatiService {
+ 
 
   
   constructor(private http: HttpClient){}
@@ -21,7 +22,9 @@ export class ImmobilierBatiService {
 
   private apiServerUrl = environment.apiBaseUrl;
 
- 
+  getImmobilierBatisAnnonce(): Observable<ImmobilierBati[]> {
+    return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/immobilierbati/all-annonced`);
+  }
 
   public getImmobilierBatis(): Observable<ImmobilierBati[]> {
     return this.http.get<ImmobilierBati[]>(`${this.apiServerUrl}/immobilierbati/all`);

@@ -1,1 +1,75 @@
-<p>annonce-list works!</p>
+<div class="split left">
+    <div class="centered">
+
+  
+      <agm-map [latitude]='lat' [longitude]='long' [zoom]='zoom'>
+  
+          
+  
+          <agm-marker 
+  
+              *ngFor="let marker of markers" 
+  
+              [latitude]="marker.lat" 
+  
+                [longitude]="marker.lng" (markerClick)="showImmobilierBati(marker.label)" >    
+  
+                    <agm-info-window #infoWindow >
+  
+                        {{ marker.label }}
+  
+                  </agm-info-window>
+  
+          </agm-marker>
+  
+          
+  
+      </agm-map>
+  
+    </div>
+  
+  </div>
+
+
+  <div class="split right">
+    <div class="row" >
+        <div *ngFor="let immobilierBati of immobilierBatis"  class="col-md-6">
+            <div class="card m-b-30">
+    <div class="container">
+       <div class="post">
+                <div class="header_post">
+                    <img src="https://images.pexels.com/photos/2529973/pexels-photo-2529973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+                </div>
+        
+                <div class="body_post">
+                    <div class="post_content">
+        
+                        <h1>{{immobilierBati.nom}}</h1>
+                        <p>-----</p>
+        
+                        <div class="container_infos">
+                            <div class="postedBy">
+                                <span>----</span>
+                                -----
+                            </div>
+        
+                            <div class="container_tags">
+                                <span>----</span>
+                                <div class="tags">
+                                    <ul>
+                                        <li>----</li>
+                                        <li>----</li>
+                                    </ul>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  

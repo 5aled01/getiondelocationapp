@@ -15,20 +15,20 @@ import { ProC2 } from 'src/app/models/proc2';
 })
 export class ProprietairesComponent implements OnInit {
 
-  public proC1s: ProC1[];
-  public editeProC1: ProC1
-  public deleteProC1: ProC1;
+  public proC1s!: ProC1[];
+  public editeProC1!: ProC1
+  public deleteProC1!: ProC1;
 
   
-  public proC2s: ProC2[];
-  public editeProC2: ProC2;
-  public deleteProC2: ProC2;
+  public proC2s!: ProC2[];
+  public editeProC2!: ProC2;
+  public deleteProC2!: ProC2;
     
-  selectedFile: File;
+  selectedFile!: File;
   retrievedImage: any;
    base64Data: any;
     retrieveResonse: any;
-    message: string;
+    message!: string;
     imageName: any;
   static getProC1s: any;
 

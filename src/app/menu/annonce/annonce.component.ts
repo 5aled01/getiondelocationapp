@@ -33,7 +33,7 @@ export class AnnonceComponent implements OnInit {
  public immobilierBatis! :ImmobilierBati[] ;
  public immobilierBatispc1! :ImmobilierBati[] ;
  public immobilierBatispc2! :ImmobilierBati[] ;
- public contratLocations! :ContratLocation[] ;
+ public contratLocations! :ContratLocation[];
  public contratVentes! :ContratVente[] ;
 
  public type :string ="Location";
