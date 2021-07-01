@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" style="color:white;">Users  Manager</a>
+    <a class="navbar-brand" style="color:white;">Getion des utilisateur</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,10 +21,13 @@
   <div class="row">
     <div *ngFor="let user of users" class="col-md-6 col-xl-3">
        <div class="card m-b-30">
+
           <div class="card-body row">
-            <div class="col-6" >
-                <a href=""><img [src]="getImage(user?.image)"alt="" class="img-fluid rounded-circle w-60"></a>
-            </div>
+            <div class="col-6">
+               <div class="img">
+                <a href=""><img [src]="getImage(user?.image)"alt="" style="height: 60px; width: 60px;" class="img-fluid rounded-circle w-60"></a>
+               </div>
+               </div>
              <div class="col-6 card-title align-self-center mb-0">
                 <h5>{{user?.username}}</h5>
                 <p class="m-0">{{user?.role}}</p>
@@ -32,7 +35,7 @@
           </div>
           <ul class="list-group list-group-flush">
             
-             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{user?.phone}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Telephone : {{user?.phone}}</li>
           </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
@@ -49,7 +52,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="addUserModalLabel">Ajouter utlisateur</h5>
+            <h5 class="modal-title" id="addUserModalLabel">Ajouter un utlisateur</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -57,28 +60,31 @@
          <div class="modal-body">
             <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
             <div class="form-group">
-               <label for="name">USer Name</label>
+               <label for="name">Nom d'utilisateur</label>
                <input type="text" ngModel name="username" class="form-control" id="username" placeholder="user name" required>
             </div>
             <div class="form-group">
-               <label for="password">Password </label>
+               <label for="password">Mot de passe </label>
                <input type="password" ngModel name="password" class="form-control" id="password" placeholder="password" required>
             </div>
             <div class="form-group">
                <label for="role">Role</label>
-               <input type="text" ngModel name="role" class="form-control" id="role" placeholder="Job title" required>
+               <select ngModel name="role"  class="form-control" id="role" placeholder="Job title" required>
+                  <option>Admin</option>
+                  <option>User</option>
+               </select>
             </div>
             <div class="form-group">
-               <label for="phone">Phone</label>
-               <input type="number" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
+               <label for="phone">Numero Telephone</label>
+               <input type="number" ngModel name="phone" class="form-control" id="phone" placeholder="Numero Telephone" required>
             </div>
             <div class="form-group">
-               <label for="phone">Image </label>
+               <label for="phone">Image</label>
                <input type="file" (change)="onFileChanged($event)" ngModel name="image" class="form-control" id="image" placeholder="Image URL" >
             </div>
             <div class="modal-footer">
-               <button type="button" id="add-user-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+               <button type="button" id="add-user-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Sauvegarder les modification</button>
             </div>
             </form>
          </div>
@@ -91,7 +97,7 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="updateUserModalLabel">Modifier utilisateur {{editUser?.username}}</h5>
+             <h5 class="modal-title" id="updateUserModalLabel">Modifier l'utilisateur {{editUser?.username}}</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
              </button>
@@ -99,12 +105,12 @@
           <div class="modal-body">
              <form #editForm="ngForm">
                 <div class="form-group">
-                   <label for="name">Nom utlisateure</label>
+                   <label for="name">Nom d'utlisateure</label>
                    <input type="text" ngModel="{{editUser?.username}}" name="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="username">
                 </div>
                 <input type="hidden" ngModel="{{editUser?.id}}" name="id" class="form-control" id="id" placeholder="Email">
                    <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Mot de passw</label>
                     <input type="text" ngModel name="password" class="form-control" id="password" name="password" placeholder="password" required>
                  </div>
                 <div class="form-group">
@@ -113,7 +119,7 @@
                 </div>
                 
                 <div class="form-group">
-                   <label for="phone">Phone</label>
+                   <label for="phone">Numero telephone</label>
                    <input type="text" ngModel="{{editUser?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
                 </div>
               
@@ -136,16 +142,16 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="deleteModelLabel">Suprimer utilisateur</h5>
+             <h5 class="modal-title" id="deleteModelLabel">Suprimer un utilisateur</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
              </button>
           </div>
           <div class="modal-body">
-             <p>Vous etez sur de suprimer l'utilisateure {{deleteUser?.username}}?</p>
+             <p>Êtes-vous sûr de supprimer l'utilisateur portant le nom {{deleteUser?.username}}?</p>
              <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button (click)="onDeleteUser(deleteUser?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                <button (click)="onDeleteUser(deleteUser?.id)" class="btn btn-danger" data-dismiss="modal">Oui</button>
              </div>
           </div>
        </div>

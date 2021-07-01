@@ -3,4 +3,12 @@
     float: right;
     margin-top: 10px;
   }
+
+  .img {
+    margin: 0px auto;
+    display: block;
+    width: 100px;
+    border: 0px solid #2c2f3f;
+    border-radius: 5px 5px 5px 5px;
+  }
   

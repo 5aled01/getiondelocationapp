@@ -1,64 +1,44 @@
-<div class="split left">
-    <div class="centered">
-
-  
-      <agm-map [latitude]='lat' [longitude]='long' [zoom]='zoom'>
-  
-          
-  
-          <agm-marker 
-  
-              *ngFor="let marker of markers" 
-  
-              [latitude]="marker.lat" 
-  
-                [longitude]="marker.lng" (markerClick)="showImmobilierBati(marker.label)" >    
-  
-                    <agm-info-window #infoWindow >
-  
-                        {{ marker.label }}
-  
-                  </agm-info-window>
-  
-          </agm-marker>
-  
-          
-  
-      </agm-map>
-  
-    </div>
-  
-  </div>
-
 
   <div class="split right">
-    <div class="row" >
-        <div *ngFor="let immobilierBati of immobilierBatis"  class="col-md-6">
+          <!-- Notification for no employees -->
+  <div *ngIf="immobilierBatis?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <br>
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">!!</h4>
+    <p>No Annonce trouver</p>
+  </div>
+  </div>
+    <div class="row"  style="margin-bottom: 70px;">
+
+    
+
+        <div *ngFor="let immobilierBati of immobilierBatis"  class="col-md-6" >
             <div class="card m-b-30">
-    <div class="container">
-       <div class="post">
+    <div class="container" >
+        <a (click)="onViewImmobilierBati(immobilierBati?.id,immobilierBati.typeProprietaire)">
+            
+       <div class="post" id="{{immobilierBati.id}}">
                 <div class="header_post">
-                    <img src="https://images.pexels.com/photos/2529973/pexels-photo-2529973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+                    <img [src]="getImage(immobilierBati.id)" alt="">
                 </div>
         
                 <div class="body_post">
                     <div class="post_content">
         
                         <h1>{{immobilierBati.nom}}</h1>
-                        <p>-----</p>
-        
+                        <p>{{immobilierBati.adresse}}</p>
                         <div class="container_infos">
                             <div class="postedBy">
-                                <span>----</span>
-                                -----
+                                <span>{{getPrixImmobilierBati(immobilierBati.id,immobilierBati.typeProprietaire)}} UM</span>
+                              Prix  {{currentAnnonce}}
+                             
                             </div>
         
                             <div class="container_tags">
-                                <span>----</span>
+                                <span>Surface</span>
                                 <div class="tags">
                                     <ul>
-                                        <li>----</li>
-                                        <li>----</li>
+                                        <li>{{immobilierBati.longueurBati}} X {{immobilierBati.largeurBati}} m²</li> 
                                     </ul>
                                 </div>
         
@@ -67,9 +47,35 @@
                     </div>
                 </div>
             </div>
+            </a>
         </div>
     </div>
     </div>
     </div>
     </div>
-  
+
+
+    <div class="split left">
+        <div class="centered">
+            <agm-map [latitude]='lat' [longitude]='long' [zoom]='zoom'>          
+              <agm-marker 
+    
+                  *ngFor="let marker of markers" 
+      
+                  [latitude]="marker.lat" 
+      
+                    [longitude]="marker.lng" (markerClick)="showImmobilierBati(marker.id)" 
+                    iconUrl="../assets/img/icon1.png"
+                    class="map-icon">    
+                    <!--  iconUrl="../assets/img/maps-and-flags.png" -->
+      
+                        <agm-info-window #infoWindow>
+                            {{marker.label}}
+                      </agm-info-window>
+      
+              </agm-marker>  
+          </agm-map>
+      
+        </div>
+      </div>
+    

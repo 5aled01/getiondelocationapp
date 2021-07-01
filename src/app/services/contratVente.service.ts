@@ -10,6 +10,9 @@ import { ProC1 } from '../models/proc1';
   providedIn: 'root'
 })
 export class ContratVenteService {
+  getContratVentesNonAnnonced():Observable<ContratVente[]> {
+    return this.http.get<ContratVente[]>(`${this.apiServerUrl}/contratvente/allNonAnnonced`);
+  }
 
   private apiServerUrl = environment.apiBaseUrl;
 

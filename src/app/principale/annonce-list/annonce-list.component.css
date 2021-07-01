@@ -1,10 +1,11 @@
 agm-map{
   display: flex;
   top: 10px;
-  height: 500px;
-  width: 600px;
+  height: 560px;
+  width: 700px;
 
 }
+
 
 .card{
   margin-bottom: 10px;
@@ -13,6 +14,12 @@ agm-map{
   margin: 10px;
   
 }
+
+
+
+
+
+
 
 .split {
   height: 100%;

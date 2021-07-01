@@ -18,6 +18,10 @@ export class ImageService {
     public getImmages(): Observable<Image[]> {
       return this.http.get<Image[]>(`${this.apiServerUrl}/image/all`);
     }
+    public getImagesAnnonced(): Observable<Image[]> {
+      return this.http.get<Image[]>(`${this.apiServerUrl}/image/annonced`);
+    }
+    
     
     public getImages(id :number): Observable<Image[]> {
         return this.http.get<Image[]>(`${this.apiServerUrl}/image/finds/${id}`);

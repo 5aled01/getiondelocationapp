@@ -1,12 +1,25 @@
-<nav class="navbar navbar-light bg-light">
-  
-  <form class="form-inline">
-    <a class="nav-link" routerLink="proprietaires">List des proprietair qui over leur mai</a> |
-    <a class="nav-link" (click)="onOpenModal1(null, 'add')">niveaux Pro-C1</a> |
-    <a class="nav-link" (click)="onOpenModal2(null, 'add')">niveaux Pro-C2</a> |
-    
-  </form>
-</nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <a class="navbar-brand" style="color:white;">Getion Immobilier-Batiment</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+            <a class="btn btn-outline-secondary" (click)="onOpenModal1(null, 'add')"  style="color: white;" ><i class="fa fa-plus"></i> Ajouter un Pro-C1 <span class="sr-only">(current)</span></a> 
+         </li>  
+          <li class="nav-item active"> <a class="btn btn-outline-secondary" (click)="onOpenModal2(null, 'add')" style="color: white;" ><i class="fa fa-plus"></i> Ajouter un Pro-C2 <span class="sr-only">(current)</span></a>
+         </li>
+      </ul>
+      <div class="search-container">
+         <form class="form-inline my-2 my-lg-0" >
+            <input type="search" style="float: left; clear: both;"  #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere proprietaires..." required>
+         </form>
+        </div>
+   </div>
+ </nav>
+
 
 <div class="container" id="main-container">
    <div class="row"> 
@@ -16,11 +29,11 @@
     <div *ngFor="let proC1 of proC1s" class="col md-6 col-xl-6">
        <div class="card m-b-30">
           <div class="card-body row">
-            <div class="col-6" style="height: 55px;" >
-                <a href=""><img [src]="getImage(proC1?.img)" style="height: 50px;"  alt="" class="img-fluid rounded-circle w-60"></a>
-            </div>
+            <div class="col-6" >
+               <a href=""><img [src]="getImage(proC1?.img)" style="height: 60px; width: 60px;"  alt="" class="img-fluid rounded-circle w-60"></a>
+           </div>
              <div class="col-6 card-title align-self-center mb-0">
-                <h5>{{ proC1?.pronom}}</h5>
+                <h5>{{proC1?.pronom}}</h5>
              </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -193,7 +206,7 @@
       <div class="card m-b-30">
          <div class="card-body row">
            <div class="col-6" >
-               <a href=""><img [src]="getImage(proC2?.img)" alt="" class="img-fluid rounded-circle w-60"></a>
+               <a href=""><img [src]="getImage(proC2?.img)" style="height: 60px; width: 60px;"  alt="" class="img-fluid rounded-circle w-60"></a>
            </div>
             <div class="col-6 card-title align-self-center mb-0">
                <h5>{{proC2?.pronom}}</h5>
@@ -201,10 +214,10 @@
          </div>
          <ul class="list-group list-group-flush">
            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Nom : {{proC2?.nom}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.prenom}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.nni}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.telephone}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{proC2?.numcomp}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prenom : {{proC2?.prenom}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>NNI : {{proC2?.nni}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Telephone : {{proC2?.telephone}}</li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Compte : {{proC2?.numcomp}}</li>
           </ul>
          <div class="card-body">
             <div class="float-right btn-group btn-group-sm">

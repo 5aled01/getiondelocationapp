@@ -1,10 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AnnonceExterne } from 'src/app/models/annonceExterne';
 import { AnnonceInetrne } from 'src/app/models/annonceInterne';
+import { ContratLocation } from 'src/app/models/contratLocation';
+import { ContratVente } from 'src/app/models/contratVente';
+import { Image } from 'src/app/models/image';
 import { ImmobilierBati } from 'src/app/models/ImmobilierBati';
 import { AnnonceService } from 'src/app/services/annonce.service';
 import { AnnoncesService } from 'src/app/services/annonces.service';
+import { ContratLocationService } from 'src/app/services/contrat-location.service';
+import { ContratVenteService } from 'src/app/services/contratVente.service';
+import { ImageService } from 'src/app/services/image.service';
 import { ImmobilierBatiService } from 'src/app/services/immobilierBati.service';
 
 @Component({
@@ -25,7 +32,11 @@ export class AnnonceListComponent implements OnInit {
   public annonceInternes!: AnnonceInetrne[];
   public annonceExternes!: AnnonceExterne[];
   public immobilierBatis! :ImmobilierBati[] ;
- 
+  public contratLocations!: ContratLocation[];
+  public contratVentes!: ContratVente[];
+  public currentAnnonce! : String;
+  public typeAnnonce!: string;
+
   public markers = [
 
       {
@@ -34,35 +45,55 @@ export class AnnonceListComponent implements OnInit {
 
           lng: 0,
 
-          label: ''
+          label: '',
+
+          id: 0
 
       }
   ];
 
   
   
- public location!: { lat: number; lng: number; label: string; } ;
+ public location!: { lat: number; lng: number; label: string; id: number} ;
+  images!: Image[];
+  img!: any;
+  idTest!: string;
 
 
-  constructor(private immobilierBatiService :ImmobilierBatiService,private annonceService :AnnonceService ) { 
+  constructor(private immobilierBatiService :ImmobilierBatiService,
+    private annonceService :AnnonceService,
+    private imageService: ImageService ,
+    private contratLocationService:ContratLocationService,
+    private contratVenteService :ContratVenteService,private router :Router) { 
    
   }
+
  
   ngOnInit(): void {
 
-    this.getImmobilierBatisAnnonce();
- 
-  
+      this.getImmobilierBatisAnnonce();
+      this.getImagesAnnonced();
+      this.getAnnonceExternes();
+      this.getAnnonceInternes();
+      this.getContratLocations();
+      this.getContratVentes();
   }
 
-  public getImage(image:any){
 
-    const base64Data = image;
+  public getImage(id :number){
+for(let image of this.images){
+if(image.idCorespondance == id){
+  this.img = image.image ;
+}
+    }
+    const base64Data = this.img;
+    this.img = null;
     const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
     return retrievedImage;
-
+    
+    
   }
-
+//contra location , contra vente  
 
 
   getImmobilierBatisAnnonce() {
@@ -71,17 +102,20 @@ export class AnnonceListComponent implements OnInit {
       (response : ImmobilierBati[])=>{
         this.immobilierBatis =response ;
         for(let immobilierBati of this.immobilierBatis){
-          this.location = { lat: immobilierBati.localisation.x, lng: immobilierBati.localisation.y, label : immobilierBati.nom} ; 
+          this.location = { lat: immobilierBati.localisation.x,
+             lng: immobilierBati.localisation.y,
+             label : immobilierBati.nom,id :immobilierBati.id} ; 
           console.log(immobilierBati);
           this.markers.push(this.location);
           }
-          
       }, (error: HttpErrorResponse) => {
         alert(error.message);
       }
      );  
   }
   
+
+
 
   public getAnnonceExternes(): void {
     this.annonceService.getAllEx().subscribe(
@@ -108,9 +142,117 @@ export class AnnonceListComponent implements OnInit {
       }
     );
   }
+
+
+  getContratLocations() {
+    this.contratLocationService.getContratLocations().subscribe(
+
+     (response : ContratLocation[])=>{
+       this.contratLocations =response ;
+     },
+     (error: HttpErrorResponse) => {
+       alert(error.message);
+     }
+    );
+ }
+ getContratVentes() {
+   this.contratVenteService.getContratVentes().subscribe(
+
+    (response : ContratVente[])=>{
+      this.contratVentes =response ;
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    }
+   );
+}
  
-  public showImmobilierBati(label :string){
-console.log('ssss');
-  }
+  public showImmobilierBati(id: any){
+
+    document.getElementById(id)!.scrollIntoView({behavior: 'smooth'});
+    document.getElementById(id)!.style.boxShadow ='0 0 2px 1px rgba(1, 4, 5, 0.5)';
+    document.getElementById(this.idTest)!.style.removeProperty("boxShadow");
+    this.idTest = id;
+      }
+
+
+      getImagesAnnonced() : void{
+        this.imageService.getImagesAnnonced().subscribe(
+          (response: Image[]) => {
+            this.images = response;
+            console.log(response)
+            /*for(let img of response){
+              if(img.corespondance == "immobilierBati")
+                this.img = img;
+             
+            }
+           */
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
+      }
+
+      getPrixImmobilierBati(id : Number,typeProprietaire :string){
+        if(typeProprietaire == 'proc1'){
+          for(let annonceInterne of this.annonceInternes ){
+            if(annonceInterne.idImmobilier == id)
+              if(annonceInterne.type == 'Location')
+                for(let contratLocation of this.contratLocations){
+                 if(contratLocation.id == annonceInterne.idContrat){
+                   this.currentAnnonce = annonceInterne.type ;
+                   return contratLocation.prixLocation;
+
+                 }
+                }
+              else
+                for(let contratVente of this.contratVentes){
+                  if(contratVente.id == annonceInterne.idContrat){
+                    this.currentAnnonce = annonceInterne.type ;
+                  return contratVente.prixProprietaire;
+                }
+               }
+          
+              }
+          }
+        else 
+          for(let annonceExterne of this.annonceExternes ){
+            if(annonceExterne.idImmobilier == id){
+            this.currentAnnonce = annonceExterne.type ;
+                  return annonceExterne.prxiImmobilier; ;
+            }
+             
+
+          }
+          return 'ERROR';   
+      }
+
+      getIdAnnonceByIdImmobilier(id : Number,typeProprietaire :string){
+
+        if(typeProprietaire == 'proc1'){
+          for(let annonceInterne of this.annonceInternes ){
+            if(annonceInterne.idImmobilier == id)
+            return annonceInterne.id;
+
+      }}else{
+        for(let annonceExterne of this.annonceExternes ){
+          if(annonceExterne.idImmobilier == id)
+          return annonceExterne.id;
+      }
+      }
+      return 0;
+    }
+
+
+      onViewImmobilierBati(id : Number,typeProprietaire :string) {
+        const idAnnonce = this.getIdAnnonceByIdImmobilier(id,typeProprietaire);
+        if(typeProprietaire == 'proc1')
+        this.typeAnnonce = 'Externe';
+        else
+        this.typeAnnonce = 'Interne';
+
+     /*   this.router.navigate(['/princupal','singleannonce',id,idAnnonce,typeAnnonce]); */
+      }
 
 }

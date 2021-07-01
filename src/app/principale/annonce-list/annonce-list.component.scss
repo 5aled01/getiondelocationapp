@@ -39,8 +39,14 @@ body {
     grid-gap: 1rem;
 
     &:hover {
+      
+      box-shadow: 0 0 2px 1px rgba(1, 4, 5, 0.5);
+       
+      
+
       .header_post {
         margin-top: -20px;
+        
       }
 
       .body_post {

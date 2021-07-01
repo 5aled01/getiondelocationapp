@@ -26,7 +26,9 @@ export class ContratLocationService {
   public getContratLocations(): Observable<ContratLocation[]> {
     return this.http.get<ContratLocation[]>(`${this.apiServerUrl}/contratlocation/all`);
   }
-
+  public getContratLocationsNonAnnonced(): Observable<ContratLocation[]> {
+    return this.http.get<ContratLocation[]>(`${this.apiServerUrl}/contratlocation/allNonAnnonced`);
+  }
   public getContratLocation(id : number): Observable<ContratLocation> {
     return this.http.get<ContratLocation>(`${this.apiServerUrl}/contratlocation/find${id}`);
   }

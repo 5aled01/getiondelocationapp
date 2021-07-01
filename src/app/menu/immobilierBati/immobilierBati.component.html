@@ -244,6 +244,8 @@
         </div>
         <div class="modal-body">
            <form #addFormAI="ngForm" (ngSubmit)="onAddAI(addFormAI)">
+            <input type="number"hidden="" ngModel="{{currentImmob?.id}}" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
+
             <div class="form-group">
                         <label for="type">Type</label>
                         <select [(ngModel)]="type" name="type" class="form-control" id="type" placeholder="type" required>
@@ -297,10 +299,9 @@
            </div>
            <div class="modal-body">
               <form #addFormAE="ngForm" (ngSubmit)="onAddAE(addFormAE)">
-                <div class="form-group">
-                    <label for="idImmobilier">Immoblilier</label>
-                    <input type="number" ngModel="currentImmob?.id" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
-                        </div>
+                
+                    <input type="number"hidden="" ngModel="{{currentImmob?.id}}" name="idImmobilier" class="form-control" id="idImmobilier" placeholder="idImmobilier" required>
+                       
               <div class="form-group">
                  <label for="dateDebut">Date debut annonce</label>
                  <input type="date" ngModel name="dateDebut" class="form-control" id="dateDebut" placeholder="le Nom" required>

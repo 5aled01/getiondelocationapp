@@ -445,13 +445,7 @@ tbody tr:nth-child(even) {
 }
 
 
-  .profile img {
-  margin: 15px auto;
-  display: block;
-  width: 120px;
-  border: 8px solid #2c2f3f;
-  border-radius: 70px 70px 70px 70px;
-}
+  
  .profile h1 {
   font-size: 24px;
   margin: 0;

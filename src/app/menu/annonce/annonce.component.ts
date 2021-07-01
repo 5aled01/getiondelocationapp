@@ -51,7 +51,7 @@ export class AnnonceComponent implements OnInit {
     
   }
   getContratLocations() {
-     this.contratLocationService.getContratLocations().subscribe(
+     this.contratLocationService.getContratLocationsNonAnnonced().subscribe(
 
       (response : ContratLocation[])=>{
         this.contratLocations =response ;
@@ -62,7 +62,7 @@ export class AnnonceComponent implements OnInit {
      );
   }
   getContratVentes() {
-    this.contratVenteService.getContratVentes().subscribe(
+    this.contratVenteService.getContratVentesNonAnnonced().subscribe(
 
      (response : ContratVente[])=>{
        this.contratVentes =response ;
@@ -120,6 +120,7 @@ export class AnnonceComponent implements OnInit {
         
         console.log(response);
         this.getAnnonceExternes();
+        this.getImmobilierBatispc2();
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
@@ -136,6 +137,7 @@ export class AnnonceComponent implements OnInit {
       (response: AnnonceExterne) => {
         console.log(response);
         this.getAnnonceExternes();
+        this.getImmobilierBatispc2();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -149,6 +151,7 @@ export class AnnonceComponent implements OnInit {
       (response: void) => {
         console.log(response);
         this.getAnnonceExternes();
+        this.getImmobilierBatispc2();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -187,6 +190,9 @@ export class AnnonceComponent implements OnInit {
         
         console.log(response);
         this.getAnnonceInternes();
+        this.getImmobilierBatispc1();
+        this.getContratLocations();
+        this.getContratVentes();
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
@@ -204,6 +210,9 @@ export class AnnonceComponent implements OnInit {
       (response: AnnonceInetrne) => {
         console.log(response);
         this.getAnnonceInternes();
+        this.getImmobilierBatispc1();
+        this.getContratLocations();
+        this.getContratVentes();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -216,6 +225,9 @@ export class AnnonceComponent implements OnInit {
       (response: void) => {
         console.log(response);
         this.getAnnonceInternes();
+        this.getImmobilierBatispc1();
+        this.getContratLocations();
+        this.getContratVentes();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
