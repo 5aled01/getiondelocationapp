@@ -1,11 +1,11 @@
 <div class="container">
-    <div class="main-body">
+    <div class="main-container">
      <div class="row">
           <!-- /Breadcrumb -->
     <section class="col-md-4">
-          <div class="row gutters-sm">
-            <div class="col-md-7  ">
-              <div class="card">
+      <div class="row">
+       
+              <div class="card m-b-40 col-md-8">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <img [src]="getImage2()" alt="Admin" class="rounded-circle" width="150px">
@@ -20,9 +20,27 @@
                   </div>
                 </div>
               </div> 
-              <!---->
-            </div>
-            </div>
+             
+          </div>
+          <div class="row">
+            <div class="card m-b-30 col-md-8">
+              <h5>Information du Proprietaire</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"> Nom D'autentification : {{ProC2Connect?.pronom}}</li>
+                <li class="list-group-item"> Nom : {{ProC2Connect?.nom}}</li>
+                 <li class="list-group-item"> Prenom : {{ProC2Connect?.prenom}}</li>
+                 <li class="list-group-item"> NNi : {{ProC2Connect?.nni}}</li>
+                 <li class="list-group-item"> telephone : {{ProC2Connect?.telephone}}</li>
+                 <li class="list-group-item"> NumCompte : {{ProC2Connect?.numcomp}}</li>
+               </ul>
+              <div class="card-body">
+                 <div class="float-right btn-group btn-group-sm">
+                    <a (click)="onOpenModal2(ProC2Connect, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i>Edite </a>
+                  </div>
+              </div>
+           </div>
+
+          </div>
 
             </section>
             <section class="col-md-8">
@@ -31,8 +49,8 @@
   
                 <form class="form-inline">
               
-                  <a class="nav-link" (click)="opendemande(true)" >LISTE DE DEMANDE</a> |
-                  <a class="nav-link"  (click)="opendemande(false)" >LISTE IMMOBILIER </a> 
+                  <a class="nav-link" (click)="opendemande(true)" >LISTE DE DEMANDE <span class="badge bg-primary">{{demandeReservations.length - nbrDemande}}</span></a> |
+                  <a class="nav-link"  (click)="opendemande(false)" >LISTE IMMOBILIER <span class="badge bg-secondary">{{immobilierCurentProc2.length }}</span> </a> 
                   
                 </form>
               </nav>
@@ -41,9 +59,9 @@
               <div  *ngFor="let demandeReservation of demandeReservations" class="col-md-6 col-xl-4">
                 <div class="card mb-30"  style="border-radius: 7px; border-color: rgb(65, 127, 151);border-width: 2px;">
                    <div class="card-body row">
-                     
+                     {{setcurrentAnnonce(demandeReservation)}}
                       <div class="col-12 card-title align-self-center mb-0">
-                         <p style="color: rgba(58, 8, 54, 0.938); size: 20px;text-shadow: greenyellow; "><b>Demande de reservation </b></p>
+                         <p style="color: rgba(58, 8, 54, 0.938); size: 20px;text-shadow: greenyellow; "><b>Demande de {{currentAnnonce?.type}} </b></p>
                          <h4 style="color: rgb(34, 44, 34);">Le : {{ demandeReservation?.date}}</h4>
                          <h4 style="color: rgb(34, 44, 34);">date fin : {{ demandeReservation?.date}}{{getimmob(demandeReservation?.idAnnonce)}}</h4>
                       </div>
@@ -65,12 +83,13 @@
                 </div>
              </div>
               </div>
+
              <div   *ngIf="!onAfficheDemande">
               <div *ngFor="let immobilierBati of immobilierCurentProc2"  class="col-md-4 col-xl-6">
                 <div class="card-group" style="width: 22rem; ">
                   <div class="card md-4"  style="border-radius: 7px; border-color: rgb(65, 127, 151);border-width: 2px;"   >
-                     {{getImage(immobilierBati?.id)}}
-                    <img class="card-img-top" [src]="this.curentimage"  style="width: 20rem;height: 19rem;" alt="Card image cap" />
+                   
+                    <img class="card-img-top" [src]="getImage(immobilierBati?.id)"  style="width: 21rem;height: 19rem;" alt="Card image cap" />
                 
               
                   <div class="card-body" >
@@ -92,6 +111,61 @@
  
             </div>
           </section>
+          </div>
+          <div class="modal fade" id="updateProC2Modal" tabindex="-1" role="dialog" aria-labelledby="ProC2EditModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="ProC2EditModalLabel">Modifier Proprietaire {{editeProC2?.pronom}}</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form #editFormProC2="ngForm">
+                        <div class="form-group">
+                           <label for="nom">Nom </label>
+                           <input type="text" ngModel="{{editeProC2?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="nom" placeholder="username">
+                        </div>
+                        <input type="hidden" ngModel="{{editeProC2?.id}}" name="id" class="form-control" id="id"  >
+                        <div class="form-group">
+                          <label for="prenom">Prenom</label>
+                          <input type="text" ngModel="{{editeProC2?.prenom }}" name="prenom" class="form-control" id="prenom"   placeholder="prenom" required>
+                       </div>
+                       <div class="form-group">
+                          <label for="pronom">nom d'autentification</label>
+                          <input type="text" ngModel="{{editeProC2?.pronom }}" name="pronom" class="form-control" id="pronom"  placeholder="prenom" required>
+                       </div>
+                        <div class="form-group">
+                          <label for="nni">NNI</label>
+                          <input type="text" ngModel="{{editeProC2?.nni }}" name="nni" class="form-control" id="nni"   placeholder="password" required>
+                       </div>
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="text" ngModel="{{editeProC2?.password }}" name="password" class="form-control" id="password"   placeholder="password" required>
+                       </div> 
+                        <div class="form-group">
+                            <label for="numcomp">numero du compte</label>
+                            <input type="text" ngModel="{{editeProC2?.numcomp }}" name="numcomp" class="form-control" id="numcomp"   placeholder="password" required>
+                         </div>
+                       
+                        <div class="form-group">
+                           <label for="telephone">Telephone</label>
+                           <input type="text" ngModel="{{editeProC2?.telephone}}" name="telephone" class="form-control" id="telephone"   placeholder="Phone">
+                        </div>
+                      
+                        <div class="form-group">
+                          <label for="phone">Image </label>
+                          <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" >
+                       </div>
+                        <div class="modal-footer">
+                           <button type="button"  id="update-ProC2-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                           <button (click)="onUpdateProC2(editFormProC2.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
     </div>

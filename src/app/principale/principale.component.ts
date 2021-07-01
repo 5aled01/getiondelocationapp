@@ -14,7 +14,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class PrincipaleComponent implements OnInit {
   ProConnect!: ProC2;
-  isAuth: boolean = true;
+  isAuth!: boolean ;
 
   private apiServerUrl = environment.apiBaseUrl ;
 

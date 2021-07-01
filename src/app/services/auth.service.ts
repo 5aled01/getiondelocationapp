@@ -47,7 +47,7 @@ export class AuthService {
             Cookie.set('isAuth', 'true');
             this.isAuth = true;
             this.ProConnect = response;
-            this.router.navigate(['/principale','profile']);
+            this.router.navigate(['/principale','profile',response.id]);
           },
           (error) => {
             reject(error.message);

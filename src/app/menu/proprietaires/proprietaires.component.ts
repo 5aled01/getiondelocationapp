@@ -39,7 +39,6 @@ export class ProprietairesComponent implements OnInit {
     this.getProC2s();
   }
   public onFileChanged(event:any) {
-  
     this.selectedFile = event.target.files[0];
   }
   public getImage(image:any){

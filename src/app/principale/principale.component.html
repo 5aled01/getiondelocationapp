@@ -19,7 +19,7 @@
       </li>
 
       <li *ngIf="isAuth">
-          <a routerLink="profile"  style="cursor:pointer">
+          <a routerLink="profile/{{ProConnect?.id}}"  style="cursor:pointer">
              <img alt="profile-image" class="special-img"
              [src]="getImage(ProConnect?.img)" />
             </a>

@@ -1,3 +1,4 @@
+import { AnnonceListComponent } from './principale/annonce-list/annonce-list.component';
 import { UserService } from './services/user.service';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,8 +24,7 @@ import { AnnoncesService } from './services/annonces.service';
 import { PrincipaleComponent } from './principale/principale.component';
 import { ProfileComponent } from './principale/profile/profile.component';
 import { SignupComponent } from './principale/auth/signup/signup.component';
-import { AgmCircle, AgmCoreModule } from '@agm/core';
-import { AnnonceListComponent } from './principale/annonce-list/annonce-list.component';
+import { SingleAnnonceComponent } from './principale/single-annonce/single-annonce.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { AnnonceListComponent } from './principale/annonce-list/annonce-list.com
     ProfileComponent,
     SignupComponent,
     SignupComponent,
-    AnnonceListComponent
+    AnnonceListComponent,
+    SingleAnnonceComponent,
 
   ],
   imports: [

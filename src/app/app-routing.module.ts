@@ -1,3 +1,4 @@
+import { SingleAnnonceComponent } from './principale/single-annonce/single-annonce.component';
 import { ReservationComponent } from './menu/reservation/reservation.component';
 import { Reservation } from 'src/app/models/reservation';
 import { NgModule } from '@angular/core';
@@ -28,7 +29,8 @@ const routes : Routes= [
     {path :'auth/signin' , component: SigninComponent},
     {path :'auth/signin/:sms' , component: SigninComponent},
     {path :'auth/signup' , component: SignupComponent},
-    {path :'profile'  ,component: ProfileComponent},
+    {path :'profile/:id'  ,component: ProfileComponent},
+    {path :'singleannonce/:idImmobilier&idAnnonce&typeAnnonce'  ,component: SingleAnnonceComponent},
      {path :'' ,redirectTo: 'annonce-list', pathMatch: 'full'}
   ]},
   {path :'menu' ,component: MenuComponent, children:[

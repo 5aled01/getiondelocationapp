@@ -1,0 +1,56 @@
+<div class="movie_card" id="bright">
+  <div class="info_section">
+    <div class="movie_header">
+      <img class="locandina" [src]="getImage(imageCurentImmobilier)"/>
+      <h1>{{immobilierBati?.nom}}</h1>
+      <h4>{{immobilierBati?.adresse}}</h4>
+      <h4>SURFACE DU TERRAIN :{{(+immobilierBati?.longueur*+immobilierBati?.largeur)}}m²</h4>
+      <h4>SURFACE DU BATIMENT :{{(immobilierBati?.longueurBati*immobilierBati?.largeurBati)}}m²</h4>
+       
+    </div>
+    <div class="movie_desc">
+      <p class="text">
+           {{annonceExetrne?.description}}
+      </p>
+      <button class="btn btn-success " data-toggle='Model' data-target='#createReservationModal'> Reserve l'immobilier</button>
+    </div>
+  
+  </div>
+  <div class="blur_back bright_back"></div>
+</div>
+ 
+    <div *ngFor="let etage of etages">
+      <div class="row">
+        <section class="col-md-3">
+          <div>
+          {{getImageEtage(etage?.id)}}
+       <h3><p> Etage  {{etage?.numEtage}}</p></h3> 
+        <div style="height: 60px; ; width:70px;float: left;margin:2px; background-color: rgb(197, 206, 214);align-content: center;"> Chambre<P style="text-align: center;"> {{etage?.nbrChambre}} </P> </div>
+        <div style="height: 60px;width: 70px;float: left;margin:2px;background-color: rgb(197, 206, 214);align: center;">Cuisin <p style="text-align: center;"> {{etage?.nbrCuisin}} </p></div>
+        <div style="height: 60px;width: 70px;float: left;margin:2px;background-color: rgb(197, 206, 214);align: center;">  <i class="fa fa-bath fa-3x" style="  color: black;" aria-hidden="true"></i><p style="text-align: center;">{{etage?.nbrDouche }}</p>  </div> 
+      
+        <div style="height: 60px;width: 70px;float: left;margin:10px;background-color: rgb(197, 206, 214);">Salle <p style="text-align: center;">  {{etage?.nbrSalle }} </p></div>
+          <div style="height: 60px;width: 70px;float: left;margin:10px;background-color:rgb(197, 206, 214);"> <i class="fa fa-car fa-3x" style="  color: black;"></i><p style="text-align: center;">{{etage?.nbrGarage }} Place</p>   </div>
+       </div></section>
+       <section  class="col-md-9">
+    <div *ngFor="let img of imagesEtage ">
+        <div  class="col-md-3">
+     <img [src]="getImage(img?.image)" style="width: 26rem;height: 26rem;padding: 30px; " alt="">
+        </div>
+    </div> 
+  </section>
+    </div>
+</div>
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+

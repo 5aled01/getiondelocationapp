@@ -72,7 +72,7 @@ export class SingleImmoblierBatiComponent implements OnInit {
   }
   
   getImages(id : number) : void{
-    this.imageService.getImages(id).subscribe(
+    this.imageService.getImagesOfBatiment(id).subscribe(
       (response: Image[]) => {
         this.images = response;
         for(let img of response){
@@ -89,7 +89,7 @@ export class SingleImmoblierBatiComponent implements OnInit {
   }
    
   getImagesEtage(id : number) : void{
-    this.imageService.getImages(id).subscribe(
+    this.imageService.getImagesOfBatiment(id).subscribe(
       (response: Image[]) => {
      this.imagesEtage =response;
         

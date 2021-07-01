@@ -34,8 +34,8 @@ export class AnnonceService{
         return this.http.get<AnnonceExterne[]>(`${this.apiServerUrl}/annonceexterne/all`);
       }
       
-      public getAnnonceExterne(id :number): Observable<AnnonceExterne[]> {
-          return this.http.get<AnnonceExterne[]>(`${this.apiServerUrl}/annonceexterne/find${id}`);
+      public getAnnonceExterne(id :number): Observable<AnnonceExterne> {
+          return this.http.get<AnnonceExterne>(`${this.apiServerUrl}/annonceexterne/find/${id}`);
         }
         
       public addAnnoncExterne(newannonce :any): Observable<AnnonceExterne> {
@@ -55,8 +55,8 @@ export class AnnonceService{
         return this.http.get<AnnonceInetrne[]>(`${this.apiServerUrl}/annonceinterne/all`);
       }
       
-      public getAnnonceInterne(id :number): Observable<AnnonceInetrne[]> {
-          return this.http.get<AnnonceInetrne[]>(`${this.apiServerUrl}/annonceinterne/find${id}`);
+      public getAnnonceInterne(id :number): Observable<AnnonceInetrne> {
+          return this.http.get<AnnonceInetrne>(`${this.apiServerUrl}/annonceinterne/find${id}`);
         }
         
       public addAnnoncInterne(newannonce :any): Observable<AnnonceInetrne> {
