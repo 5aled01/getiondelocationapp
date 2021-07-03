@@ -1,3 +1,4 @@
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="movie_card" id="bright">
   <div class="info_section">
     <div class="movie_header">
@@ -6,15 +7,25 @@
       <h4>{{immobilierBati?.adresse}}</h4>
       <h4>SURFACE DU TERRAIN :{{(+immobilierBati?.longueur*+immobilierBati?.largeur)}}m²</h4>
       <h4>SURFACE DU BATIMENT :{{(immobilierBati?.longueurBati*immobilierBati?.largeurBati)}}m²</h4>
-       
+          <h3>Prix de {{annonceExetrne?.type}}{{annonceInetrne?.type}}  {{prixCurentImmobilier}}</h3>
     </div>
     <div class="movie_desc">
       <p class="text">
-           {{annonceExetrne?.description}}
+           {{annonceExetrne?.description}} 
+           {{annonceInetrne?.description}} 
       </p>
-      <button class="btn btn-success " data-toggle='Model' data-target='#createReservationModal'> Reserve l'immobilier</button>
+      <button class="btn btn-success " data-toggle='modal' data-target='#addClientModal'> Reserve l'immobilier</button>
     </div>
-  
+
+
+
+    
+
+
+
+
+
+
   </div>
   <div class="blur_back bright_back"></div>
 </div>
@@ -39,6 +50,53 @@
         </div>
     </div> 
   </section>
+  <div class="modal fade" id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addProC1ModalLabel">Remplissez  les champs s'il vous plait </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddClient(addForm)">
+            <div class="form-group">
+               <label for="Nom">Nom</label>
+               <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="le Nom" required>
+            </div>
+            <div class="form-group">
+               <label for="prenom">Prenom</label>
+               <input type="text" ngModel name="prenom" class="form-control" id="prenom" placeholder="le Prenom" required>
+            </div>
+         
+            <div class="form-group">
+               <label for="nni">NNI </label>
+               <input type="number" ngModel name="nni" class="form-control" id="nni" placeholder=" " required>
+            </div>
+          
+            <div class="form-group">
+               <label for="telephone">Telephone</label>
+               <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="telephone " required>
+            </div>
+         
+            <div class="form-group">
+              <label for="telephone">Duree de réservation</label>
+              <select type="number" [(ngModel)]="this.dureeDeReservation"  class="form-control"  placeholder="telephone " required>
+             <option value="1">1</option>
+             <option value="2">2</option>
+             <option value="3">3</option>
+              </select>
+              </div>
+            <div class="modal-footer">
+               <button type="button" id="add-Client-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Envoi demande</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
     </div>
 </div>
  

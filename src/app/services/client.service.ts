@@ -21,7 +21,9 @@ export class ClientService{
       public addClient(newClient :any): Observable<Client> {
         return this.http.post<Client>(`${this.apiServerUrl}/client/add`,newClient);
       }
-      
+      public addClient1(newClient :Client): Observable<Client> {
+        return this.http.post<Client>(`${this.apiServerUrl}/client/add1`,newClient);
+      }
       public updateClient(etage : any): Observable<Client> {
         return this.http.put<Client>(`${this.apiServerUrl}/client/update`, etage);
       }

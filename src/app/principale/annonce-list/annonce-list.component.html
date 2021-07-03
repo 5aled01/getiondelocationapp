@@ -15,7 +15,7 @@
         <div *ngFor="let immobilierBati of immobilierBatis"  class="col-md-6" >
             <div class="card m-b-30">
     <div class="container" >
-        <a (click)="onViewImmobilierBati(immobilierBati?.id,immobilierBati.typeProprietaire)">
+        <a (click)="this.onViewImmobilierBati(immobilierBati?.id,immobilierBati.typeProprietaire)">
             
        <div class="post" id="{{immobilierBati.id}}">
                 <div class="header_post">

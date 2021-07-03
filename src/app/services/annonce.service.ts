@@ -56,7 +56,7 @@ export class AnnonceService{
       }
       
       public getAnnonceInterne(id :number): Observable<AnnonceInetrne> {
-          return this.http.get<AnnonceInetrne>(`${this.apiServerUrl}/annonceinterne/find${id}`);
+          return this.http.get<AnnonceInetrne>(`${this.apiServerUrl}/annonceinterne/find/${id}`);
         }
         
       public addAnnoncInterne(newannonce :any): Observable<AnnonceInetrne> {
