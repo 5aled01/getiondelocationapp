@@ -136,10 +136,7 @@ export class ProfileComponent implements OnInit {
         .toPromise()
         .then(
           (response: ProC2) => {  
-            
             this.ProC2Connect = response;
-
-          
             this.imgcurentproc2=response.img;
           },
           (error) => {

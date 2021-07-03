@@ -245,14 +245,14 @@ if(image.idCorespondance == id){
     }
 
 
-      onViewImmobilierBati(id : Number,typeProprietaire :string) {
+   public   onViewImmobilierBati(id : Number,typeProprietaire :string) {
         const idAnnonce = this.getIdAnnonceByIdImmobilier(id,typeProprietaire);
         if(typeProprietaire == 'proc1')
-        this.typeAnnonce = 'Externe';
-        else
         this.typeAnnonce = 'Interne';
-
-     /*   this.router.navigate(['/princupal','singleannonce',id,idAnnonce,typeAnnonce]); */
+        else
+        this.typeAnnonce = 'Externe';
+        console.log("cliked")
+       this.router.navigate(['/principale','singleannonce',id,idAnnonce,this.typeAnnonce]); 
       }
 
 }

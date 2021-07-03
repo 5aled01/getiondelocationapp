@@ -30,7 +30,7 @@ const routes : Routes= [
     {path :'auth/signin/:sms' , component: SigninComponent},
     {path :'auth/signup' , component: SignupComponent},
     {path :'profile/:id'  ,component: ProfileComponent},
-    {path :'singleannonce/:idImmobilier&idAnnonce&typeAnnonce'  ,component: SingleAnnonceComponent},
+    {path :'singleannonce/:idImmobilier/:idAnnonce/:typeAnnonce'  ,component: SingleAnnonceComponent},
      {path :'' ,redirectTo: 'annonce-list', pathMatch: 'full'}
   ]},
   {path :'menu' ,component: MenuComponent, children:[
