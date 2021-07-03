@@ -6,20 +6,36 @@
 
 .special-img{
   position: relative;
-  top: -5px;
+  top: 9px;
   float: left;
-  left: -5px;
+  left: 40px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
              }
 
-@media (min-width: 768px){
+
+
+@media (min-width: 208px){
   .navbar-nav{
-      margin: 0 auto;
-      padding: 0 auto;
+      margin: 10 auto;
+      padding: 10 auto;
       display: table;
       table-layout: fixed;
       float:none;
+      
   }
-}
+  .navbar-nav > li{
+    margin-left:10px;
+    margin-right:10px;
+    
+  }
+
+  img{
+  position: relative;
+  top: -12px;
+  float: left; 
+  right: 15px;
+  position: relative;
+  }
+  }

@@ -24,6 +24,7 @@ import { AnnoncesService } from './services/annonces.service';
 import { PrincipaleComponent } from './principale/principale.component';
 import { ProfileComponent } from './principale/profile/profile.component';
 import { SignupComponent } from './principale/auth/signup/signup.component';
+import { AgmCircle, AgmCoreModule } from '@agm/core';
 import { SingleAnnonceComponent } from './principale/single-annonce/single-annonce.component';
 
 @NgModule({

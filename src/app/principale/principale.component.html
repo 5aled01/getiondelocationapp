@@ -1,34 +1,37 @@
 
 
+<!-- NAVBAR-->
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a href="#" class="navbar-brand">
+      <!-- Logo Image -->
+      <img src="../assets/img/mdpi.png" alt="" class="d-inline-block align-middle mr-2">
+      <!-- Logo Text -->
+      <span class="text-uppercase font-weight-bold">3a9aration neber ono</span>
+    </a>
+<br>
+    <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav navbar-left">
-      <li routerLinkActive="active">
-        <a routerLink="annonce-list">Annonces</a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-        
-      <li *ngIf="!isAuth"routerLinkActive="active">
-        <a routerLink="auth/signup">Créer un compte</a>
-      </li>
-
-      <li *ngIf="!isAuth" routerLinkActive="active">
-        <a routerLink="auth/signin">Connexion</a>
-      </li>
-
-      <li *ngIf="isAuth">
-          <a routerLink="profile/{{ProConnect?.id}}"  style="cursor:pointer">
+    <div id="navbarSupportedContent" class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"  routerLinkActive="active"><a class="nav-link" routerLink="annonce-list">Annonces</a></li>
+        <li class="nav-item" *ngIf="!isAuth" routerLinkActive="active" ><a class="nav-link" class="nav-link" routerLink="auth/signup">Créer un compte</a></li>
+        <li class="nav-item"  *ngIf="!isAuth" routerLinkActive="active" ><a class="nav-link" routerLink="auth/signin">Connexion</a></li>
+        <li  class="nav-item" *ngIf="isAuth"  routerLinkActive="active">
+          <a routerLink="profile/{{ProConnect?.id}}" >
              <img alt="profile-image" class="special-img"
              [src]="getImage(ProConnect?.img)" />
             </a>
         </li>
-
-
-    </ul>
+      </ul>
+    </div>
   </div>
 </nav>
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+
+
+<!-- FOR DEMO PURPOSE-->
+<section class="py-5">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</section>
