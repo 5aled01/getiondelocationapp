@@ -137,6 +137,7 @@ export class ProfileComponent implements OnInit {
         .then(
           (response: ProC2) => {  
             this.ProC2Connect = response;
+            this.editeProC2=this.ProC2Connect;
             this.imgcurentproc2=response.img;
           },
           (error) => {
@@ -254,21 +255,7 @@ this.clientService.getClients().subscribe(
 public onFileChanged(event:any) {
   this.selectedFile = event.target.files[0];
 }
-public onOpenModal2(proC2: ProC2, mode: string): void {
-  const container = document.getElementById('main-container');
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.style.display = 'none';
-  button.setAttribute('data-toggle', 'modal');
-   
-  if (mode === 'edit') {
-    this.editeProC2 = proC2;
-    button.setAttribute('data-target', '#updateProC2Modal');
-  }
-  
-  container?.appendChild(button)
-  button.click();
-}
+ 
 public onUpdateProC2(proC2: ProC2): void {
   document.getElementById('update-ProC2-form')?.click();
   const uploadImage = new FormData()

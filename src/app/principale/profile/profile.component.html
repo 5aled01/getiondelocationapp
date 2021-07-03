@@ -23,8 +23,8 @@
              
           </div>
           <div class="row">
-            <div class="card m-b-30 col-md-8">
-              <h5>Information du Proprietaire</h5>
+            <div class="card m-b-30 col-md-8"style="margin-top: 30px;">
+              <h5 style="margin-top: 9px;">  Information du Proprietaire</h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"> Nom D'autentification : {{ProC2Connect?.pronom}}</li>
                 <li class="list-group-item"> Nom : {{ProC2Connect?.nom}}</li>
@@ -35,7 +35,7 @@
                </ul>
               <div class="card-body">
                  <div class="float-right btn-group btn-group-sm">
-                    <a (click)="onOpenModal2(ProC2Connect, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i>Edite </a>
+                    <button class="btn btn-primary tooltips" data-placement="top"data-toggle='modal' data-target='#updateProC2Modal' data-original-title="Edit"><i class="fa fa-pencil"></i>Edite </button>
                   </div>
               </div>
            </div>
@@ -75,7 +75,7 @@
                        
                      </ul>
                    <div class="card-body" >
-                      <div class="float-center btn-group btn-group-sm" style="margin: auto;" >
+                      <div class="float-center btn-group btn-group-sm" style="margin: auto;color: antiquewhite;" >
                          <a  (click)="onAccepte(demandeReservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit" > Accepter </a>
                          <a (click)="onDeleteReservation(demandeReservation?.id)" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"  >Reffuser </a>
                         </div>
@@ -142,7 +142,7 @@
                        </div>
                         <div class="form-group">
                           <label for="password">Password</label>
-                          <input type="text" ngModel="{{editeProC2?.password }}" name="password" class="form-control" id="password"   placeholder="password" required>
+                          <input type="text" ngModel="" name="password" class="form-control" id="password"   placeholder="password" required>
                        </div> 
                         <div class="form-group">
                             <label for="numcomp">numero du compte</label>
