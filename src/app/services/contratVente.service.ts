@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
  
 import { ProC1 } from '../models/proc1';
+import { Vente } from '../models/vente';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class ContratVenteService {
   }
 
   public getContratVente(id : number): Observable<ContratVente> {
-    return this.http.get<ContratVente>(`${this.apiServerUrl}/contratvente/find${id}`);
+    return this.http.get<ContratVente>(`${this.apiServerUrl}/contratvente/find/${id}`);
   }
   
   public addContratVente( formdata :any): Observable<ContratVente > {

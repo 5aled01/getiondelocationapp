@@ -1,3 +1,5 @@
+ 
+ 
   
 import { NgForm } from '@angular/forms';
 import { ContratVenteService } from './../../services/contratVente.service';
@@ -12,6 +14,9 @@ import { Reservation } from 'src/app/models/reservation';
 import { ContratLocation } from 'src/app/models/contratLocation';
 import { Location } from 'src/app/models/Location';
 import { LocationService } from 'src/app/services/location.service';
+import { ContratVente } from 'src/app/models/contratVente';
+import { Vente } from 'src/app/models/vente';
+import { VenteService } from 'src/app/services/vente.service';
  
 
 @Component({
@@ -23,23 +28,54 @@ export class HomeComponent implements OnInit {
 
   public reservationinternes! :Reservation[];
   public currentReservation!: Reservation;
-  public AnnonceExtene!:AnnonceExterne;
-  public AnnonceInterne!:AnnonceInetrne;
+ 
+  public annonceInterne!:AnnonceInetrne;
   public currentContratLocation!: ContratLocation;
-
-  constructor(private reservationService :ReservationService ,private locationService:LocationService, private annonceService:AnnonceService ,private contratLocationService:ContratLocationService,private contratVenteService:ContratVenteService) { }
+  public currentContratVente!: ContratVente;
+  constructor(private venteService:VenteService, private reservationService :ReservationService ,private locationService:LocationService, private annonceService:AnnonceService ,private contratLocationService:ContratLocationService,private contratVenteService:ContratVenteService) { }
 
   ngOnInit(): void {
     this.getReservation();
     
   }
-  
+  PasserAuVente(reservation :Reservation){
+    this.currentReservation=reservation
+    this.getContratVente();
+    const newVente= new Vente(0,new Date(),this.currentContratVente?.id ,0,this.currentReservation.idClient,this.annonceInterne.idImmobilier)
+    this.venteService.addVente(newVente).subscribe(
+      (response:Vente)=>{
+      alert("vente est bien effectuer");
+          },(error:HttpErrorResponse)=>{
+        alert(error.message)
+      }
+    )
+  }
+  getContratVente() {
+    this.annonceService.getAnnonceInterne(this.currentReservation.idAnnonce).subscribe(
+      (response:AnnonceInetrne)=>{
+        console.log(response)
+        this.annonceInterne=response
+          this.contratVenteService.getContratVente(response.idContrat).subscribe(
+            (response:ContratVente)=>{
+              console.log(response);
+              this.currentContratVente=response;
+            }
+          ),(error:HttpErrorResponse)=>{
+            alert(error.message);
+          }
+        },(error:HttpErrorResponse)=>{
+          alert(error.message);
+        }
+      
+    )
+  }
+
   public passerAuLocation(form :NgForm){
     document.getElementById('add-Location-form')?.click();
       this.getContratLocation();
       const FormValue=form.value;
       console.log(FormValue['dateDebut'],this.currentReservation.idClient);
-      const newLocation= new Location(0,this.currentReservation.idClient,FormValue['dateDebut'],FormValue['dateFin'],FormValue['montEncais'],this.currentContratLocation.id)
+      const newLocation= new Location(0,this.currentReservation.idClient,FormValue['dateDebut'],FormValue['dateFin'],FormValue['montEncais'],this.currentContratLocation.id,this.annonceInterne.idImmobilier)
       this.locationService.addLocation(newLocation).subscribe(
         (response:Location)=>{
           alert("la location est bien ajouter")
@@ -52,6 +88,7 @@ export class HomeComponent implements OnInit {
   public getContratLocation(){
     this.annonceService.getAnnonceInterne(this.currentReservation.idAnnonce).subscribe(
       (response:AnnonceInetrne)=>{
+        this.annonceInterne=response;
           this.contratLocationService.getContratLocation(response.idContrat).subscribe(
             (response:ContratLocation)=>{
               this.currentContratLocation=response;
