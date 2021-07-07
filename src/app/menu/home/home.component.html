@@ -17,9 +17,9 @@
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
                  <a   class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                <a (click)="onAccepte(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Accepter</a>
-                <button (click)="onOpenModal(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au location</button>
-                <button (click)="PasserAuVente(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au vente</button>
+                <a *ngIf="reservation.etats=='En attent'" (click)="onAccepte(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Accepter</a>
+                <button  *ngIf="gettypeAnnonce(reservation.idAnnonce)=='Location' && reservation?.etats!='traite' && reservation?.etats=='Accepte'" (click)="onOpenModal(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au location</button>
+                <button  *ngIf="gettypeAnnonce(reservation.idAnnonce)=='Vente' && reservation?.etats!='traite' && reservation?.etats=='Accepte'" (click)="PasserAuVente(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au vente</button>
 
                </div>
           </div>
