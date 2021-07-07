@@ -18,6 +18,7 @@
              <div class="float-right btn-group btn-group-sm">
                  <a   class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
                 <a (click)="onAccepte(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Accepter</a>
+                <button (click)="onOpenModal(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au location</button>
 
                </div>
           </div>
@@ -27,6 +28,42 @@
   
  </div>  
 
+  <!-- Add Employee Modal -->
+  <div class="modal fade" id="addLocationModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="addUserModalLabel">Ajouter Reservation</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #addLocation="ngForm" (ngSubmit)="passerAuLocation(addLocation)">
+              <div class="form-group">
+                 <label for="dateDebut">Deta de debut</label>
+            <input type="date" ngModel name="dateDebut" id="dateDebut">
+               </div>
+           <div class="form-group">
+              <label for="dateFin">Date De fint </label>
+              <input type="date" ngModel name="dateFin" id="dateFin">
+            </div>
+          
+           <div class="form-group">
+              <label for="montEncais">montant an caisser</label>
+              <input type="number"ngModel name="montEncais" id="montEncais">               
+            </div>
+        
+           <div class="modal-footer">
+              <button type="button" id="add-Location-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addLocation.invalid" type="submit" class="btn btn-primary" >valider La location</button>
+           </div>
+           </form>
+        </div>
+     </div>
+   </div>
+   </div>
+ 
   <!-- Notification for no employees -->
   <div *ngIf="reservationinternes?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
      <br>
