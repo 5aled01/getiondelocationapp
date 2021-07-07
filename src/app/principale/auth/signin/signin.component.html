@@ -13,13 +13,13 @@
 			<input type="password" formControlName="password" placeholder="password" required/>
 			<select formControlName="type" placeholder="Type utilisateur" required>
 			<option  value="proprietaire" selected>Proprietaire</option>
-			<option value="user">Amployer</option>	
+			<option value="user">Employée</option>	
 			</select>
 
 			<p class="text-danger"  ng-if="errorMessage" >{{errorMessage}}</p>
 			<button   type="submit"  [disabled]="signInForm.invalid" >
 				connection</button>
-				<a href="#">mot de pass oublier?</a>
+				
 		</form>
 		
 	</div>
