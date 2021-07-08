@@ -31,7 +31,7 @@ const routes : Routes= [
     {path :'auth/signup' , component: SignupComponent},
     {path :'profile/:id'  ,component: ProfileComponent},
     {path :'singleannonce/:idImmobilier/:idAnnonce/:typeAnnonce'  ,component: SingleAnnonceComponent},
-     {path :'' ,redirectTo: 'annonce-list', pathMatch: 'full'}
+    {path :'' ,redirectTo: 'annonce-list', pathMatch: 'full'}
   ]},
   {path :'menu' ,component: MenuComponent, children:[
     {path :'' ,redirectTo: 'home', pathMatch: 'full'},

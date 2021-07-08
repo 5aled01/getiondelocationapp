@@ -2,7 +2,7 @@ import { AnnonceExterne } from 'src/app/models/annonceExterne';
 
  
 import { EtageService } from './../../services/etage.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ContratVente } from './../../models/contratVente';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -21,6 +21,8 @@ import { ReservationService } from 'src/app/services/reservation.service';
 import { NgForm } from '@angular/forms';
 import { Client } from 'src/app/models/client';
 import { Reservation } from 'src/app/models/reservation';
+import { Cookie } from 'ng2-cookies';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-single-annonce',
@@ -28,7 +30,7 @@ import { Reservation } from 'src/app/models/reservation';
   styleUrls: ['./single-annonce.component.css']
 })
 export class SingleAnnonceComponent implements OnInit {
-
+  private apiServerUrl = environment.apiBaseUrl ;
   public immobilierBati! : ImmobilierBati;
   public annonceInetrne! : AnnonceInetrne;
   public annonceExetrne! : AnnonceExterne;
@@ -43,22 +45,47 @@ export class SingleAnnonceComponent implements OnInit {
   public idAnnonce!:number;
   selectedFile: any | Blob;
   public dureeDeReservation! :number;
+  isAuth: boolean = false;
+  clientconncte!: Client;
 
   constructor(private route :ActivatedRoute ,private contratLocationService:ContratLocationService ,private contratVenteService :ContratVenteService,
              private immageService :ImageService, private immobilierBatiService:ImmobilierBatiService,private annonceService:AnnonceService ,private etageService :EtageService,
-             private clientService:ClientService,private reservationService:ReservationService) { }
+             private clientService:ClientService,private reservationService:ReservationService,private http: HttpClient) { }
 
   ngOnInit(): void {
       const idImmobilier =this.route.snapshot.params["idImmobilier"];
         this.idAnnonce =this.route.snapshot.params["idAnnonce"];
         this.typeAnnonce =this.route.snapshot.params["typeAnnonce"];
-       console.log(this.typeAnnonce);
+       
       this.getImmobilier(idImmobilier);
       this.getAnnonce(this.idAnnonce,this.typeAnnonce);
       this.getImages(idImmobilier);
-      
-      
+      if(Cookie.get('isAuth') == 'false')
+         this.isAuth = false;
+      else
+       if(Cookie.get('isAuth') == 'true'){
+          this.isAuth = true;
+            this.signInClient(Cookie.get('nom') ,Cookie.get('password'));
+      }else
+        this.isAuth = false;
   }
+
+  signInClient(username: string, password: string) {  
+      return new Promise <void>((response, reject) => {
+        this.http.get<Client>(`${this.apiServerUrl}/client/find/${username}&${password}`)
+          .toPromise()
+          .then(
+            (response: Client) => {  
+          
+              this.clientconncte = response;
+            },
+            (error) => {
+              reject(error.message);
+              
+            }
+          );
+      });
+    }
   
   public getImageEtage(id :number){
     const results: Image[] = [];
@@ -77,7 +104,7 @@ export class SingleAnnonceComponent implements OnInit {
      (response:Image[])=>{
        this.images=response;
        this.imageCurentImmobilier=response[0].image
-       console.log(response)
+       
      },(error:HttpErrorResponse)=>{
        alert(error.message);
      }
@@ -85,7 +112,7 @@ export class SingleAnnonceComponent implements OnInit {
   }
   public getImage(image :any) {
     const retrievedImag = 'data:image/jpeg;base64,' + image;
-    console.log(retrievedImag);
+  
     return retrievedImag;
   }
 
@@ -95,7 +122,7 @@ export class SingleAnnonceComponent implements OnInit {
           (response :AnnonceExterne)=>{
              this.annonceExetrne=response;
              this.prixCurentImmobilier=this.annonceExetrne.prxiImmobilier;
-             console.log("annonce afected")
+             
           },(error:HttpErrorResponse)=>{
             alert(error.message);
           }
@@ -105,7 +132,7 @@ export class SingleAnnonceComponent implements OnInit {
         this.annonceService.getAnnonceInterne(idAnnonce).subscribe(
           (response :AnnonceInetrne)=>{
             this.annonceInetrne=response;
-            console.log("annonce afected");
+            
             if(response.type=='Location'){
                this.getcontratLocation(response.idContrat);
             }
@@ -164,14 +191,7 @@ export class SingleAnnonceComponent implements OnInit {
   public onAddClient(addForm: NgForm): void {
     document.getElementById('add-Client-form')?.click();
     const formvalue =addForm.value ;
-    const newuser = new  Client(0,formvalue['nom'],formvalue['prenom'],formvalue['nni'],
-    formvalue['telephone'],formvalue['password'], [0]);
- 
-     newuser.image= null;
   
-    this.clientService.addClient1(newuser).subscribe(
-      (response :Client) => {
-        console.log("client ajouter");
         let date =new Date();
         if(this.dureeDeReservation== 3)
         date.setDate(date.getDate()+ 3);
@@ -180,7 +200,7 @@ export class SingleAnnonceComponent implements OnInit {
         if( this.dureeDeReservation== 1)
         date.setDate(date.getDate()+ 1);
     
-        const reservation = new Reservation(0,this.typeAnnonce ,this.idAnnonce,response?.id,new Date(),"en attente",date)
+        const reservation = new Reservation(0,this.typeAnnonce ,this.idAnnonce,this.clientconncte?.id,new Date(),"en attente",date)
          this.reservationService.addReservation(reservation).subscribe(
            (response)=>{
              alert("La demande a été envoiyée avec succes ");
@@ -189,14 +209,10 @@ export class SingleAnnonceComponent implements OnInit {
            }
          );
         addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
+     
+          }
   
   
 
   }
-}
+

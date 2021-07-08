@@ -23,11 +23,12 @@ export class SigninComponent implements OnInit {
   public password : any;
   public type : any;
   isValide : boolean = false;
+  sms!: string;
   
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-              private router: Router) {
+              private router: Router,private route :ActivatedRoute ) {
 /*
                 this.router.events.subscribe(event =>{
                   if(Cookie.get('isUserAuth') == 'true'){ 
@@ -44,6 +45,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+   this.sms = this.route.snapshot.params["sms"];
    }
     
    
@@ -94,8 +96,22 @@ if(type == 'proprietaire'){
   );
 }
 
-if(type != 'proprietaire' && type !='user')
-console.log('erurrrr')
+if(type == 'client'){
+
+  const username = this.signInForm.get('username')?.value ;
+  const password = this.signInForm.get('password')?.value ;
+  this.authService.signInClient(username, password).then(
+    () => {
+    
+    },
+    (error) => {
+      this.errorMessage = "mot de pass ou user nom incorrect";
+      this.isValide = false;
+    }
+  );
+  
+}
+
 }
 
 }

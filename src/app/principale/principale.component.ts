@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import { environment } from 'src/environments/environment';
+import { Client } from '../models/client';
 import { ProC2 } from '../models/proc2';
 import { AuthService } from '../services/auth.service';
 
@@ -17,15 +18,15 @@ export class PrincipaleComponent implements OnInit {
   isAuth!: boolean ;
 
   private apiServerUrl = environment.apiBaseUrl ;
+  clientconncte! : Client;
+  type!: string;
 
   constructor(private router: Router,public authservice : AuthService,private http: HttpClient,private sanitizer: DomSanitizer) { 
     this.ProConnect = authservice.ProConnect;
     this.router.events.subscribe(event =>{
       if(Cookie.get('isAuth') == 'true'){
         this.isAuth = true;
-        this.signInProC2(Cookie.get('username') ,Cookie.get('password'));
-      }
-
+    }
       if(Cookie.get('isAuth') == 'false'){
         this.isAuth = false;
       } 
@@ -34,9 +35,13 @@ export class PrincipaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.isAuth)
-    this.signInProC2(Cookie.get('username') ,Cookie.get('password'));
-  }
+    if(this.isAuth){
+      if(Cookie.get('type') == 'client')
+        this.signInClient(Cookie.get('nom') ,Cookie.get('password'));
+      else
+       this.signInProC2(Cookie.get('username') ,Cookie.get('password'));  
+       this.type = Cookie.get('type');
+      }}
 
   signInProC2(pronom: string, password: string) {
     return new Promise <void>((response, reject) => {
@@ -52,6 +57,29 @@ export class PrincipaleComponent implements OnInit {
           }
         );
     });}
+
+
+    onSignOut() {
+      this.authservice.signOutClient();
+     }
+
+
+    signInClient(username: string, password: string) { 
+      return new Promise <void>((response, reject) => {
+        this.http.get<Client>(`${this.apiServerUrl}/client/find/${username}&${password}`)
+          .toPromise()
+          .then(
+            (response: Client) => {  
+              this.clientconncte = response;
+            },
+            (error) => {
+              reject(error.message);
+              
+            }
+          );
+      });
+      
+    }
     
 public getImage(image:any){
     
