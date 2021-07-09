@@ -76,8 +76,9 @@
                      </ul>
                    <div class="card-body" >
                       <div class="float-center btn-group btn-group-sm" style="margin: auto;color: antiquewhite;" >
-                         <a  (click)="onAccepte(demandeReservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit" > Accepter </a>
-                         <a (click)="onDeleteReservation(demandeReservation?.id)" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"  >Reffuser </a>
+                         <a *ngIf="demandeReservation?.etats!='Accepte'" (click)="onAccepte(demandeReservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit" > Accepter </a>
+                         <a *ngIf="demandeReservation?.etats!='Accepte'" (click)="onDeleteReservation(demandeReservation?.id)" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"  >Reffuser </a>
+                         <p *ngIf="demandeReservation?.etats=='Accepte'" style="color: green;"><b>Demande accpeter</b></p>
                         </div>
                    </div>
                 </div>
