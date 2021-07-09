@@ -49,7 +49,6 @@ export class AuthService {
             Cookie.set('username', response.pronom.toString());
             Cookie.set('password', password);
             Cookie.set('isAuth', 'true');
-            
             Cookie.set('type', 'proc1');
             this.isAuth = true;
             this.ProConnect = response;

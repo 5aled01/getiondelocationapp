@@ -31,7 +31,7 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Adresse : {{immobilierBati?.adresse}} </li>
-             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Localisation : {{immobilierBati.localisation?.x}} | {{immobilierBati.localisation?.y}}</li>
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>Localisation :{{immobilierBati.localisation?.x}} | {{immobilierBati.localisation?.y}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Numero Permie : {{immobilierBati?.numeroPermie}}</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Longueur : {{immobilierBati?.longueur}} M</li>
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Largeur : {{immobilierBati?.largeur}} M</li>
@@ -40,10 +40,10 @@
             </ul>
           <div class="card-body row">
              <div class="float-right btn-group btn-group-sm">
-                <a (click)="onOpenModal(immobilierBati, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+               <a (click)="onOpenModal(immobilierBati, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                 <a (click)="onOpenModal(immobilierBati, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
                 <a (click)="onViewImmobilierBati(immobilierBati?.id)"  ngModel class="btn btn-success tooltips" data-placement="top" data-original-title="Update" style="color: white;"><i class="fa fa-plus"></i></a>
-                <a (click)="onOpenModal(immobilierBati,'addAnnonce')" *ngIf="annoced(immobilierBati?.id, immobilierBati?.typeProprietaire) == false" ngModel class="btn btn-danger tooltips" data-placement="top" data-original-title="Update" style="color: white;"> ajouter annonce </a> 
+                <a (click)="onOpenModal(immobilierBati,'addAnnonce')" *ngIf="annoced(immobilierBati?.id, immobilierBati?.typeProprietaire) == false" ngModel class="btn btn-danger tooltips" data-placement="top" data-original-title="" style="color: white;"> ajouter annonce</a> 
                </div>
           </div>
        </div>
