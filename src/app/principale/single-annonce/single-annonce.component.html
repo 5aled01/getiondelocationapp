@@ -11,12 +11,16 @@
     </div>
     <div class="movie_desc">
       <p class="text">
-           {{annonceExetrne?.description}} 
+         {{annonceExetrne?.description}} 
            {{annonceInetrne?.description}} 
-      </p>
-      <button class="btn btn-success " data-toggle='modal' data-target='#addClientModal'> Reserve l'immobilier</button>
-    </div>
-
+         </p>
+      <button *ngIf="isAuth" class="btn btn-success " data-toggle='modal' data-target='#addClientModal'> Reserve l'immobilier</button>
+  
+      <button *ngIf="!isAuth" class="btn btn-success " data-toggle='modal' disabled> Reserve l'immobilier</button> <br/>
+  
+      <a routerLink="/principale/auth/signin"  *ngIf="!isAuth" style=" color: blue;">Connecte pour reserve un l'immobilier ?</a>
+  
+   </div>
 
 
     
@@ -37,7 +41,7 @@
           {{getImageEtage(etage?.id)}}
        <h3><p> Etage  {{etage?.numEtage}}</p></h3> 
         <div style="height: 60px; ; width:70px;float: left;margin:2px; background-color: rgb(197, 206, 214);align-content: center;"> Chambre<P style="text-align: center;"> {{etage?.nbrChambre}} </P> </div>
-        <div style="height: 60px;width: 70px;float: left;margin:2px;background-color: rgb(197, 206, 214);align: center;">Cuisin <p style="text-align: center;"> {{etage?.nbrCuisin}} </p></div>
+        <div style="height: 60px;width: 70px;float: left;margin:2px;background-color: rgb(197, 206, 214); align: center;">Cuisin <p style="text-align: center;"> {{etage?.nbrCuisin}} </p></div>
         <div style="height: 60px;width: 70px;float: left;margin:2px;background-color: rgb(197, 206, 214);align: center;">  <i class="fa fa-bath fa-3x" style="  color: black;" aria-hidden="true"></i><p style="text-align: center;">{{etage?.nbrDouche }}</p>  </div> 
       
         <div style="height: 60px;width: 70px;float: left;margin:10px;background-color: rgb(197, 206, 214);">Salle <p style="text-align: center;">  {{etage?.nbrSalle }} </p></div>
@@ -50,35 +54,20 @@
         </div>
     </div> 
   </section>
+
+  
   <div class="modal fade" id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="addProC1ModalLabel">Remplissez  les champs s'il vous plait </h5>
+            <h5 class="modal-title" id="addProC1ModalLabel">Remplissez la duree de réservation </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
          <div class="modal-body">
             <form #addForm="ngForm" (ngSubmit)="onAddClient(addForm)">
-            <div class="form-group">
-               <label for="Nom">Nom</label>
-               <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="le Nom" required>
-            </div>
-            <div class="form-group">
-               <label for="prenom">Prenom</label>
-               <input type="text" ngModel name="prenom" class="form-control" id="prenom" placeholder="le Prenom" required>
-            </div>
-         
-            <div class="form-group">
-               <label for="nni">NNI </label>
-               <input type="number" ngModel name="nni" class="form-control" id="nni" placeholder=" " required>
-            </div>
-          
-            <div class="form-group">
-               <label for="telephone">Telephone</label>
-               <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="telephone " required>
-            </div>
+           
          
             <div class="form-group">
               <label for="telephone">Duree de réservation</label>
@@ -96,7 +85,9 @@
          </div>
       </div>
     </div>
-    </div>
+   </div>
+
+
     </div>
 </div>
  

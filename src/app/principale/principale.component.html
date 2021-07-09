@@ -18,10 +18,18 @@
         <li class="nav-item" *ngIf="!isAuth" routerLinkActive="active" ><a class="nav-link" class="nav-link" routerLink="auth/signup">Créer un compte</a></li>
         <li class="nav-item"  *ngIf="!isAuth" routerLinkActive="active" ><a class="nav-link" routerLink="auth/signin">Connexion</a></li>
         <li  class="nav-item" *ngIf="isAuth"  routerLinkActive="active">
-          <a routerLink="profile/{{ProConnect?.id}}" >
+          <a routerLink="profile/{{ProConnect?.id}}" *ngIf ="type == 'proc1'">
              <img alt="profile-image" class="special-img"
              [src]="getImage(ProConnect?.img)" />
             </a>
+             <nav class="nav" *ngIf ="type == 'client'">
+              <div class="navicon">
+               <div></div>
+              </div>
+              <a class="a" (click)="onSignOut()">Deconnection</a>
+            
+            </nav>
+
         </li>
       </ul>
     </div>

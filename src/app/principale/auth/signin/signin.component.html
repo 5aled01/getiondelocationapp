@@ -1,17 +1,22 @@
 
 
-
+<div class="alert alert-success" *ngif="sms" role="alert">
+	{{this.sms}} !!
+  </div>
 
 <div class="container" id="container">
+
 		
 	<div class="form-container sign-in-container" >
 		<form  [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="form-group" >
 			<h1>Connection</h1>
 			<div class="social-container">
+				
 			</div>
 			<input type="text" placeholder="username" formControlName="username"  required/>	
 			<input type="password" formControlName="password" placeholder="password" required/>
 			<select formControlName="type" placeholder="Type utilisateur" required>
+			<option  value="client" selected>Client</option>
 			<option  value="proprietaire" selected>Proprietaire</option>
 			<option value="user">Employée</option>	
 			</select>
@@ -19,10 +24,12 @@
 			<p class="text-danger"  ng-if="errorMessage" >{{errorMessage}}</p>
 			<button   type="submit"  [disabled]="signInForm.invalid" >
 				connection</button>
-				
 		</form>
-		
 	</div>
+	
+	
+
+	
 	<div class="overlay-container">
 		<div class="overlay">
 			<div class="overlay-panel overlay-right">
