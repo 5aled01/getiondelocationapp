@@ -1,10 +1,13 @@
 <div class="container" id="main-container">
  <br>
-  <div class="card-group" style="width: 50rem;">
+  <div class="card-group" style="width: 600px;">
     <div class="card"  >
       <ng-container *ngIf="getBatiImageEx() == true " >
       <a (click)="onOpenModal2(img?.id, 'delete')">
-      <img class="card-img-top" [src]="getImage2()"  style="width: 50rem;" alt="Card image cap" />
+      <img class="card-img-top" [src]="getImage2()"   style=" width:595px;
+      height:400px;
+      object-fit:cover;
+      object-position:50% 50%" alt="Card image cap" />
      </a>
 </ng-container>
 <ng-container *ngIf="getBatiImageEx() == false " >
@@ -17,7 +20,7 @@
   </ng-container>
 
     <div class="card-body">
-        <h5 class="card-title">{{immobilierBati?.nom}}</h5>
+        <h5 class="card-title" style="font-size: 20px;">{{immobilierBati?.nom}}</h5>
      </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -44,6 +47,73 @@
       
     </div>
   </div>
+
+
+  
+<!--view etage-->
+<div *ngFor="let etage of etages">
+   <div class="row">
+      <div class="col-12" >
+         <table class="table table-image">
+            <tbody>
+               <tr class="row">
+                  <section class="col col-md-3">
+            <td class="w-25">
+                  <div class="card m-b-30">
+                     <div class="card-body" > 
+                        <div class="col-6 card-title align-self-center mb-0">
+                     <h5>{{etage?.numEtage}}</h5>
+                        </div>
+                     </div>
+                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><p>Nombre de chambre : {{etage?.nbrChambre}}</p></li>
+                        <li class="list-group-item"><i class="fa fa-phone float-right"></i><p>Nombre de quisin : {{etage?.nbrCuisin}}</p></li>
+                      <li class="list-group-item"><i class="fa fa-phone float-right"></i><p>Nombre de douche : {{etage?.nbrDouche}}</p></li>
+                             <li class="list-group-item"><i class="fa fa-phone float-right"></i><p>Nombre de salle : {{etage?.nbrSalle}}</p></li>
+                          <li class="list-group-item"><i class="fa fa-phone float-right"></i><p>Nombre de garage : {{etage?.nbrGarage}}</p></li>
+                                 
+                  <li class="list-group-item"><i class="fa fa-phone float-right"></i><p>Description : {{etage?.description}}</p></li>
+                 
+   </ul>
+      
+           
+   
+                  
+               <div class="card-body">
+                     <div class="float-right btn-group btn-group-sm">
+                        <a (click)="onOpenModal(etage, 'editEtage')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a (click)="onOpenModal(etage, 'deleteEtage')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                       <ng-container *ngIf="getNombreImage(etage?.id) < 3" >
+                        <a *ngIf="this.images?.length != 0" (click)="onOpenModal2(etage?.id, 'addImageEtage')" class="btn btn-success tooltips" data-placement="top" data-original-title="addImageEtage" style="color: white;"> Ajouter Images </a>
+                     </ng-container>
+                     </div>
+                </div>
+            </div>
+             </td>
+            </section>
+            <section class="col"> 
+             <ng-container *ngFor="let image of images" >
+               <ng-container *ngIf="image?.corespondance == etage?.id.toString();" >
+                <div  class="col-md-4">
+                    <td class="w-25" >
+                     <a  (click)="onOpenModal2(image?.id, 'delete')">
+                       <img id="imgEtage"  class="img-fluid img-thumbnail" [src]="getImage(image?.image)" alt="Snow"> 
+                     </a>
+                    </td>
+                </div>
+               </ng-container>
+             </ng-container>
+      </section>
+   </tr>
+     </tbody>
+     </table>
+   
+   </div>
+     
+   
+   </div>
+   </div>
+
    
     <!--add image bati-->
     <div class="card mb-3">
@@ -216,99 +286,9 @@
 </div>
 
 
-<!--view etage-->
-<div *ngFor="let etage of etages">
-<div class="row">
-   <div class="col-12" >
-		<table class="table table-image">
-         <tbody>
-            <tr class="row">
-               <section class="col col-md-3">
-         <td class="w-25">
-               <div class="card m-b-30">
-                  <div class="card-body" > 
-                     <div class="col-6 card-title align-self-center mb-0">
-                  <h5>{{etage?.numEtage}}</h5>
-                     </div>
-                  </div>
-                  <ul class="list-group list-group-flush">
-                     <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de chambre : {{etage?.nbrChambre}}</h5></li>
-                     <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de quisin : {{etage?.nbrCuisin}}</h5></li>
-                   <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de douche : {{etage?.nbrDouche}}</h5></li>
-                          <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de salle : {{etage?.nbrSalle}}</h5></li>
-                       <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Nombre de garage : {{etage?.nbrGarage}}</h5></li>
-                              
-               <li class="list-group-item"><i class="fa fa-phone float-right"></i><h5>Description : {{etage?.description}}</h5></li>
-              
-</ul>
-   
-        
-
-               
-            <div class="card-body">
-                  <div class="float-right btn-group btn-group-sm">
-                     <a (click)="onOpenModal(etage, 'editEtage')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                     <a (click)="onOpenModal(etage, 'deleteEtage')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                    <ng-container *ngIf="getNombreImage(etage?.id) < 3" >
-                     <a *ngIf="this.images?.length != 0" (click)="onOpenModal2(etage?.id, 'addImageEtage')" class="btn btn-success tooltips" data-placement="top" data-original-title="addImageEtage" style="color: white;"> Ajouter Images </a>
-                  </ng-container>
-                  </div>
-             </div>
-         </div>
-          </td>
-         </section>
-         <section class="col"> 
-          <ng-container *ngFor="let image of images" >
-            <ng-container *ngIf="image?.corespondance == etage?.id.toString();" >
-             <div  class="col-md-4">
-                 <td class="w-25" >
-                  <a  (click)="onOpenModal2(image?.id, 'delete')">
-                    <img id="imgEtage"  class="img-fluid img-thumbnail" [src]="getImage(image?.image)" alt="Snow"> 
-                  </a>
-                 </td>
-             </div>
-            </ng-container>
-          </ng-container>
-   </section>
-</tr>
-  </tbody>
-  </table>
-
-</div>
-  
-
-</div>
-</div>
 
 
-  <!--add image Etage-->
-  <div class="card mb-3"> 
-   <div class="modal fade" id="addImageEtageModal" tabindex="-1" role="dialog" aria-labelledby="addImageEtageModalLabel" aria-hidden="true">
-     <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="addImageEtageModalLabel" >Ajouter un image Etage </h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <form #addFormImageEtage="ngForm" (ngSubmit)="onAddImageEtage(addFormImageEtage); addFormImageEtage.resetForm(); ">
-         
-             <div class="form-group">
-                <label for="img">Image </label>
-                <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" placeholder="Image URL" required>
-             </div>
-             <div class="modal-footer">
-                <button type="button" id="add-ImageEtage-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button  [disabled]="addFormImageEtage.invalid" type="submit" class="btn btn-primary" >Save changes</button>
-             </div>
-             </form>
-          </div>
-       </div>
-     </div>
-   </div>
- </div>
+ 
 
 
 

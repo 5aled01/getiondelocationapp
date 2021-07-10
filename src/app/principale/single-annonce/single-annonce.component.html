@@ -3,16 +3,10 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" style=" width:400px;
-      height:400px;
-      object-fit:cover;
-      object-position:50% 50%;"   [src]="getImage(imageCurentImmobilier)" alt="First slide">
+      <img class="d-block w-100"    [src]="getImage(imageCurentImmobilier)" alt="First slide">
     </div>
-    <div class="carousel-item"*ngFor="let img of imagesEtage ">
-      <img [src]="getImage(img?.image)" style=" width:400px;
-      height:400px;
-      object-fit:cover;
-      object-position:50% 50%;"   class="d-block w-100" >
+    <div class="carousel-item" *ngFor="let img of imagesEtage ">
+      <img [src]="getImage(img?.image)"    class="d-block w-100" >
    </div>
  </div>
     
@@ -43,25 +37,20 @@
           <h2>{{(immobilierBati?.longueurBati*immobilierBati?.largeurBati)}}m²</h2>
          </td>
          <td>
-          <h2>{{etages?.length}}</h2>
+          <h2>&nbsp;{{etages?.length}}</h2>
          </td>
          <td rowspan="2" style="text-align: center;
     vertical-align: center;">
-           <agm-map [latitude]='lat' [longitude]='long' [zoom]='zoom'
-   [draggable]= 'false'
-   [scrollwheel]='false'>          
-            <agm-marker 
-                [latitude]="lat" 
-                  [longitude]="long"
-                  iconUrl="../assets/img/icon1.png"
-                  class="map-icon">    
-                   <agm-info-window #infoWindow>
-                          {{label}}
-                    </agm-info-window>
-    
-            </agm-marker>  
-        </agm-map>
-         </td>
+
+
+<a data-toggle='modal' data-target='#showOnMapModal'>
+  <img src="../assets/img/11.gif" alt="Visualis en card"   id="test"  class="d-inline-block align-middle mr-2">
+</a>
+  
+
+    <!--
+           
+         --></td>
       </tr>
       <tr>
         <td>
@@ -106,33 +95,55 @@
        
 <br/>
 
-    <div  *ngFor="let etage of etages">
+    <div *ngFor="let etage of etages" >
 {{getImageEtage(etage.id)}}
-  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item" *ngFor="let img of imagesEtage" >
-        <img  [src]="getImage(img?.image)" style=" width:200px;
-        height:200px;
-        object-fit:cover;
-        object-position:50% 50%;"   class="d-block w-100" >
-      
-     </div>
-   </div>
-      
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-  <br>
 
-  <table style="width: 100%; border-top: 1px solid rgb(184, 184, 184);">
+<div class="responsive">
+<div class="gallery">
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+
+<div class="carousel-inner">
+  <div class="carousel-item active" *ngIf="imagesEtage.length>0">
+      <img  [src]="getImage(imagesEtage[0]?.image)" style=" width:600px;
+      height:400px;
+      object-fit:cover;
+      object-position:50% 50%" alt="First slide">
+</div>
+
+<div  class="carousel-item" *ngIf="imagesEtage.length>1">
+  <img  [src]="getImage(imagesEtage[1]?.image)" style=" width:600px;
+  height:400px;
+  object-fit:cover;
+  object-position:50% 50%" width="600px" height="400px" alt="Second slide">
+</div>
+
+<div  class="carousel-item" *ngIf="imagesEtage.length>2">
+  <img  [src]="getImage(imagesEtage[2]?.image)"  style=" width:600px;
+  height:400px;
+  object-fit:cover;
+  object-position:50% 50%" width="600px" height="400px" alt="Third slide">
+</div>
+   
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> <br><div style="margin-right: 10px; margin-left: 10px;">
+  <p style="font-size: 15px;">
+  Etage numero {{etage?.numEtage}} : {{etage?.description}}
+  </p>
+</div>
+  <br>
+  <table style="width: 100%; ">
     
-    <tr style="vertical-align: bottom;  height: 70px; text-align: center;" >
+    <tr style="vertical-align: bottom; text-align: center;" >
       <td>
         <img src="../assets/img/livingroom.png" alt="" class="d-inline-block align-middle mr-2">
       </td>
@@ -152,15 +163,18 @@
   </tr>
     
     <tr style="vertical-align: bottom;  height: 40px; text-align: center;">
-      <td><h4>{{etage?.nbrChambre}}</h4></td>
-          <td><h4>{{etage?.nbrCuisin}}</h4></td>
-        <td><h4>{{etage?.nbrDouche }}</h4></td>   
-      <td> <h4>{{etage?.nbrSalle }} </h4></td>
-          <td><h4>{{etage?.nbrGarage }} </h4></td> 
+      <td><p >{{etage?.nbrChambre}} Chambre</p></td>
+          <td><p>{{etage?.nbrCuisin}} Cuisin</p></td>
+        <td><p>{{etage?.nbrDouche }} Douche</p></td>   
+      <td> <p>{{etage?.nbrSalle }} Salle</p></td>
+          <td><p>{{etage?.nbrGarage }} Garage</p></td> 
    
   </tr>
   </table>
 
+</div>
+
+</div>
 </div>
     <!--  -->
   
@@ -190,6 +204,38 @@
                <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Envoi demande</button>
             </div>
             </form>
+         </div>
+      </div>
+    </div>
+   </div>
+
+
+   <div class="modal fade" id="showOnMapModal" tabindex="-1" role="dialog" aria-labelledby="showOnMapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="showOnMapModalLabel">Location</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+          
+          <agm-map [latitude]='lat' [longitude]='long' [zoom]='zoom'
+   [draggable]= 'false'
+   [scrollwheel]='false'>          
+            <agm-marker 
+                [latitude]="lat" 
+                  [longitude]="long"
+                  iconUrl="../assets/img/icon1.png"
+                  class="map-icon">    
+                   <agm-info-window #infoWindow>
+                          {{label}}
+                    </agm-info-window>
+    
+            </agm-marker>  
+        </agm-map>
+
          </div>
       </div>
     </div>

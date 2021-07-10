@@ -51,7 +51,7 @@ export class SingleAnnonceComponent implements OnInit {
   public lat = 0;
   public long = 0;
   public label = '';
-  public zoom=5;
+  public zoom=7;
 
   constructor(private route :ActivatedRoute ,private contratLocationService:ContratLocationService ,private contratVenteService :ContratVenteService,
              private immageService :ImageService, private immobilierBatiService:ImmobilierBatiService,private annonceService:AnnonceService ,private etageService :EtageService,
@@ -100,15 +100,13 @@ export class SingleAnnonceComponent implements OnInit {
     }
   
   public getImageEtage(id :number){
-    const results: Image[] = [];
+    this.imagesEtage = [];
       
-      for(let imag of this.images){
-        if(imag.corespondance==''+id){
-          results.push(imag);
+      for(let img of this.images){
+        if(img.corespondance==''+id){
+          this.imagesEtage.push(img);
         }
       }
-      this.imagesEtage=results;
-      
   }
 
   getImages(idImmobilier: any) {
