@@ -1,0 +1,21 @@
+u {
+    text-decoration: blue underline;
+}
+.top{
+    background-color: white;
+}
+
+agm-map{
+    height: 100px;
+    width: 100px;
+  }
+
+h4{
+    color: rgb(124, 124, 124);
+
+}
+
+p{
+    font-family: verdana;
+  font-size: 200%;
+}

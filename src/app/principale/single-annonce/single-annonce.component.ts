@@ -47,6 +47,11 @@ export class SingleAnnonceComponent implements OnInit {
   public dureeDeReservation! :number;
   isAuth: boolean = false;
   clientconncte!: Client;
+  
+  public lat = 0;
+  public long = 0;
+  public label = '';
+  public zoom=5;
 
   constructor(private route :ActivatedRoute ,private contratLocationService:ContratLocationService ,private contratVenteService :ContratVenteService,
              private immageService :ImageService, private immobilierBatiService:ImmobilierBatiService,private annonceService:AnnonceService ,private etageService :EtageService,
@@ -68,7 +73,14 @@ export class SingleAnnonceComponent implements OnInit {
             this.signInClient(Cookie.get('nom') ,Cookie.get('password'));
       }else
         this.isAuth = false;
+
+        
+        
   }
+
+
+
+  
 
   signInClient(username: string, password: string) {  
       return new Promise <void>((response, reject) => {
@@ -170,6 +182,11 @@ export class SingleAnnonceComponent implements OnInit {
     this.immobilierBatiService.getImmobilierBati(idImmobilier).subscribe(
       (response : ImmobilierBati)=>{
         this.immobilierBati=response;
+
+        this.lat = this.immobilierBati.localisation.x;
+        this.long = this.immobilierBati.localisation.y;
+        this.label = this.immobilierBati.nom;
+
         this.getEtage(this.immobilierBati.id);
       },
       (error :HttpErrorResponse)=>{

@@ -1,60 +1,168 @@
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<div class="movie_card" id="bright">
-  <div class="info_section">
-    <div class="movie_header">
-      <img class="locandina" [src]="getImage(imageCurentImmobilier)"/>
-      <h1>{{immobilierBati?.nom}}</h1>
-      <h4>{{immobilierBati?.adresse}}</h4>
-      <h4>SURFACE DU TERRAIN :{{(+immobilierBati?.longueur*+immobilierBati?.largeur)}}m²</h4>
-      <h4>SURFACE DU BATIMENT :{{(immobilierBati?.longueurBati*immobilierBati?.largeurBati)}}m²</h4>
-          <h3>Prix de {{annonceExetrne?.type}}{{annonceInetrne?.type}}  {{prixCurentImmobilier}}</h3>
+
+<div class="top" >
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" style=" width:400px;
+      height:400px;
+      object-fit:cover;
+      object-position:50% 50%;"   [src]="getImage(imageCurentImmobilier)" alt="First slide">
     </div>
-    <div class="movie_desc">
-      <p class="text">
-         {{annonceExetrne?.description}} 
-           {{annonceInetrne?.description}} 
-         </p>
-      <button *ngIf="isAuth" class="btn btn-success " data-toggle='modal' data-target='#addClientModal'> Reserve l'immobilier</button>
-  
-      <button *ngIf="!isAuth" class="btn btn-success " data-toggle='modal' disabled> Reserve l'immobilier</button> <br/>
-  
-      <a routerLink="/principale/auth/signin"  *ngIf="!isAuth" style=" color: blue;">Connecte pour reserve un l'immobilier ?</a>
-  
+    <div class="carousel-item"*ngFor="let img of imagesEtage ">
+      <img [src]="getImage(img?.image)" style=" width:400px;
+      height:400px;
+      object-fit:cover;
+      object-position:50% 50%;"   class="d-block w-100" >
    </div>
-
-
+ </div>
     
-
-
-
-
-
-
-  </div>
-  <div class="blur_back bright_back"></div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
- 
-    <div *ngFor="let etage of etages">
-      <div class="row">
-        <section class="col-md-3">
-          <div>
-          {{getImageEtage(etage?.id)}}
-       <h3><p> Etage  {{etage?.numEtage}}</p></h3> 
-        <div style="height: 60px; ; width:70px;float: left;margin:2px; background-color: rgb(197, 206, 214);align-content: center;"> Chambre<P style="text-align: center;"> {{etage?.nbrChambre}} </P> </div>
-        <div style="height: 60px;width: 70px;float: left;margin:2px;background-color: rgb(197, 206, 214); align: center;">Cuisin <p style="text-align: center;"> {{etage?.nbrCuisin}} </p></div>
-        <div style="height: 60px;width: 70px;float: left;margin:2px;background-color: rgb(197, 206, 214);align: center;">  <i class="fa fa-bath fa-3x" style="  color: black;" aria-hidden="true"></i><p style="text-align: center;">{{etage?.nbrDouche }}</p>  </div> 
-      
-        <div style="height: 60px;width: 70px;float: left;margin:10px;background-color: rgb(197, 206, 214);">Salle <p style="text-align: center;">  {{etage?.nbrSalle }} </p></div>
-          <div style="height: 60px;width: 70px;float: left;margin:10px;background-color:rgb(197, 206, 214);"> <i class="fa fa-car fa-3x" style="  color: black;"></i><p style="text-align: center;">{{etage?.nbrGarage }} Place</p>   </div>
-       </div></section>
-       <section  class="col-md-9">
-    <div *ngFor="let img of imagesEtage ">
-        <div  class="col-md-3">
-     <img [src]="getImage(img?.image)" style="width: 26rem;height: 26rem;padding: 30px; " alt="">
-        </div>
-    </div> 
-  </section>
 
+<div class="card">
+  <div class="card-header">
+  <h3> {{immobilierBati?.nom}}, {{immobilierBati?.adresse}}</h3> 
+  </div>
+  <div class="card-body">
+    <table style="width: 100%;">
+      <tr>
+        <td>
+         <h2>{{prixCurentImmobilier}} UM</h2>
+        </td>
+        <td>
+          <h2>{{(+immobilierBati?.longueur*+immobilierBati?.largeur)}}m²</h2>
+         </td>
+         <td>
+          <h2>{{(immobilierBati?.longueurBati*immobilierBati?.largeurBati)}}m²</h2>
+         </td>
+         <td>
+          <h2>{{etages?.length}}</h2>
+         </td>
+         <td rowspan="2" style="text-align: center;
+    vertical-align: center;">
+           <agm-map [latitude]='lat' [longitude]='long' [zoom]='zoom'
+   [draggable]= 'false'
+   [scrollwheel]='false'>          
+            <agm-marker 
+                [latitude]="lat" 
+                  [longitude]="long"
+                  iconUrl="../assets/img/icon1.png"
+                  class="map-icon">    
+                   <agm-info-window #infoWindow>
+                          {{label}}
+                    </agm-info-window>
+    
+            </agm-marker>  
+        </agm-map>
+         </td>
+      </tr>
+      <tr>
+        <td>
+          <h4>Prix {{annonceExetrne?.type}}{{annonceInetrne?.type}}</h4>
+        </td>  
+        <td>
+         <h4>Surface terrain</h4>
+        </td> 
+        <td>
+          <h4>Surface batiment</h4>
+         </td>  
+        <td>
+          <h4>étage<ng-container *ngIf="etages?.length > 1">s</ng-container> </h4>
+         </td>  
+         <td>
+          <h4></h4>
+         </td>  
+         
+      </tr>
+
+  </table>
+  </div>
+
+</div> <br> <br>
+  <table style="width: 100%; border-top: 1px solid rgb(184, 184, 184);">
+  <tr>
+    <td style="vertical-align: bottom;  height: 80px; width: 70%;" ><p>
+ {{annonceExetrne?.description}} 
+ {{annonceInetrne?.description}} 
+</p></td>
+    <td style="text-align: center;
+    vertical-align: bottom;" >
+      <button *ngIf="isAuth" class="btn btn-success " data-toggle='modal' data-target='#addClientModal'>  Reserve l'immobilier</button>
+  
+      <button *ngIf="!isAuth" class="btn btn-success " data-toggle='modal' disabled> Reserve l'immobilier</button>
+  
+      <a routerLink="/principale/auth/signin"  *ngIf="!isAuth" style=" color: blue;"><h6> Connecte pour reserve un l'immobilier ?</h6></a>
+  
+         </td>
+  </tr>
+  </table>
+       
+<br/>
+
+    <div  *ngFor="let etage of etages">
+{{getImageEtage(etage.id)}}
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let img of imagesEtage" >
+        <img  [src]="getImage(img?.image)" style=" width:200px;
+        height:200px;
+        object-fit:cover;
+        object-position:50% 50%;"   class="d-block w-100" >
+      
+     </div>
+   </div>
+      
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+
+  <table style="width: 100%; border-top: 1px solid rgb(184, 184, 184);">
+    
+    <tr style="vertical-align: bottom;  height: 70px; text-align: center;" >
+      <td>
+        <img src="../assets/img/livingroom.png" alt="" class="d-inline-block align-middle mr-2">
+      </td>
+          <td>
+            <img src="../assets/img/kitchen.png" alt="" class="d-inline-block align-middle mr-2">
+          </td>
+        <td>
+          <img src="../assets/img/shower.png" alt="" class="d-inline-block align-middle mr-2">
+        </td>   
+      <td>
+        <img src="../assets/img/living-room.png" alt="" class="d-inline-block align-middle mr-2">
+      </td>
+          <td>
+            <img src="../assets/img/garage.png" alt="" class="d-inline-block align-middle mr-2">
+          </td> 
+   
+  </tr>
+    
+    <tr style="vertical-align: bottom;  height: 40px; text-align: center;">
+      <td><h4>{{etage?.nbrChambre}}</h4></td>
+          <td><h4>{{etage?.nbrCuisin}}</h4></td>
+        <td><h4>{{etage?.nbrDouche }}</h4></td>   
+      <td> <h4>{{etage?.nbrSalle }} </h4></td>
+          <td><h4>{{etage?.nbrGarage }} </h4></td> 
+   
+  </tr>
+  </table>
+
+</div>
+    <!--  -->
   
   <div class="modal fade" id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addProC1ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -89,10 +197,7 @@
 
 
     </div>
-</div>
- 
 
- 
 
 
 
