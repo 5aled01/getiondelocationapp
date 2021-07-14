@@ -28,7 +28,7 @@
     <table style="width: 100%;">
       <tr>
         <td>
-         <h2>{{prixCurentImmobilier}} UM</h2>
+         <h2>{{this.prixCurentImmobilier}} UM</h2>
         </td>
         <td>
           <h2>{{(+immobilierBati?.longueur*+immobilierBati?.largeur)}}m²</h2>
@@ -95,13 +95,13 @@
        
 <br/>
 
-    <div *ngFor="let etage of etages" >
+    <div *ngFor="let etage of etages index as i" >
 {{getImageEtage(etage.id)}}
 
 <div class="responsive">
 <div class="gallery">
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleIndicators{{i}}" class="carousel slide" data-ride="carousel">
 
 
 <div class="carousel-inner">
@@ -127,11 +127,11 @@
 </div>
    
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+  <a class="carousel-control-prev" href="#carouselExampleIndicators{{i}}" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#carouselExampleIndicators{{i}}" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>

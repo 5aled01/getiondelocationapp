@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
 
        
-    this.signInUser(Cookie.get('username') ,Cookie.get('password'));
+    this.signInUser(localStorage.getItem('username') ,localStorage.getItem('password'));
     console.log(this.UserConnect);
 
     
@@ -43,9 +43,9 @@ export class MenuComponent implements OnInit {
         .toPromise()
         .then(
           (response: User) => {  
-            Cookie.set('islogin', 'true');
-            Cookie.set('username', response.username.toString());
-            Cookie.set('password', password);
+            localStorage.setItem('islogin', 'true');
+            localStorage.setItem('username', response.username.toString());
+            localStorage.setItem('password', password);
             this.UserConnect = response;
           },
           (error: HttpErrorResponse) => {

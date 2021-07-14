@@ -1,13 +1,13 @@
+import { Cookie } from 'ng2-cookies';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Cookie } from 'ng2-cookies';
  
 import { Observable } from 'rxjs';
  
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AuthGuardService  implements CanActivate  {
+export class MenuGuardService  implements CanActivate  {
 
   
   constructor(
@@ -18,17 +18,13 @@ export class AuthGuardService  implements CanActivate  {
    
     return new Promise(
       (resolve, reject) =>{
-               
-        if(localStorage.getItem('isAuthp') =='true') {
+        const isAuthe = localStorage.getItem('isAuthe') ;
+        if(isAuthe==='true')  {
          resolve(true);
         }else{
-          const isAuthe = localStorage.getItem('isAuthe') 
-           if(isAuthe==='true'){
-           this.router.navigate(['/menu']);
-           }else{
-          this.router.navigate(['/principale','auth/signin']);
+        
+          this.router.navigate(['/principale']);
           resolve(false);
-           }
            }
       }
          );

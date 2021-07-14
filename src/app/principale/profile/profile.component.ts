@@ -1,10 +1,11 @@
+import { PrincipaleComponent } from './../principale.component';
 
 import { ImmobilierBatiService } from './../../services/immobilierBati.service';
 import { AnnonceService } from './../../services/annonce.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cookie } from 'ng2-cookies';
+ 
 import { ProC2 } from 'src/app/models/proc2';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
@@ -43,22 +44,36 @@ export class ProfileComponent implements OnInit {
  public  nbrDemande!: number;
   public currentAnnonce!: AnnonceExterne;
   constructor(private proprietaireService :ProrietaireService ,  private clientService :ClientService ,private route :ActivatedRoute, private router: Router,public authservice : AuthService,private http: HttpClient,private reservationService :ReservationService ,
-    private annonceService :AnnonceService ,private immobilierBatiService:ImmobilierBatiService ,private imageService :ImageService  ) { 
-      this.nbrDemande = +(Cookie.get('nbrDemande'));
+    private annonceService :AnnonceService ,private immobilierBatiService:ImmobilierBatiService ,private imageService :ImageService ,private principale:PrincipaleComponent  ) { 
+      this.nbrDemande = +(localStorage.getItem('nbrDemande'));
+      this.principale.ngOnInit();
       
     }
 
   
   ngOnInit(): void {
-          this.signInProC2(Cookie.get('username') ,Cookie.get('password'));
+    this.principale.ngOnInit();
+          this.signInProC2(localStorage.getItem('proname') ,localStorage.getItem('password'));
           const id = this.route.snapshot.params['id'];
           this.getReservation(id);
           this.getimmobilierbatiProc2( id);
           this.getImages( id);
           this.getAnnonce( id);
           this.getClients();  
-    this.nbrDemande = +(Cookie.get('nbrDemande'));
+    this.nbrDemande = +(localStorage.getItem('nbrDemande'));
          
+  }
+  styleOject1(){
+    if(this.onAfficheDemande==true)
+     return {color : 'blue',fontWeight : 'bold',fontSize:'18px'};
+      else 
+      return {color : 'black',fontSize:'16px'};
+  }
+  styleOject2(){
+    if(this.onAfficheDemande==false)
+     return {color : 'blue' , fontWeight : 'bold',fontSize:'18px'};
+     else 
+     return {color : 'black',fontSize:'16px'};
   }
   getimmob(id:number){
     for(let annonce of this.annonceImmobProc2){
@@ -115,7 +130,7 @@ export class ProfileComponent implements OnInit {
   }
   opendemande(bo :boolean){
     if(bo==true){
-         Cookie.set('nbrDemande',''+this.demandeReservations.length);
+         localStorage.setItem('nbrDemande',''+this.demandeReservations.length);
         this.nbrDemande=this.demandeReservations.length;
     } 
       

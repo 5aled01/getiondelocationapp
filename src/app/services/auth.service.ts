@@ -1,3 +1,4 @@
+import { PrincipaleComponent } from './../principale/principale.component';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -20,8 +21,9 @@ export class AuthService {
 
   
     private apiServerUrl = environment.apiBaseUrl ;
-    isAuth: boolean = false;
-     
+    isAuthc: boolean = false;
+    isAuthe: boolean = false;
+    isAuthp: boolean = false; 
     public userconncte!:  User;
   
  
@@ -29,7 +31,7 @@ export class AuthService {
   ProConnect! : ProC2;
   clientconncte!: Client;
  
-  constructor(private http: HttpClient,private router :Router) {
+  constructor(private http: HttpClient,private router :Router  ) {
     
    }
 
@@ -45,13 +47,15 @@ export class AuthService {
       this.http.get<ProC2>(`${this.apiServerUrl}/proc2/find/${pronom}&${password}`)
         .toPromise()
         .then(
-          (response: ProC2) => {  
-            Cookie.set('username', response.pronom.toString());
-            Cookie.set('password', password);
-            Cookie.set('isAuth', 'true');
-            Cookie.set('type', 'proc1');
-            this.isAuth = true;
+          (response: ProC2) => { 
+             localStorage.setItem('proname',response.pronom.toString());
+             localStorage.setItem('password', password);
+             localStorage.setItem('type', "proc2");
+             localStorage.setItem('isAuthp', "true");
+          
+            this.isAuthp = true;
             this.ProConnect = response;
+           
             this.router.navigate(['/principale','profile',response.id]);
           },
           (error) => {
@@ -63,11 +67,12 @@ export class AuthService {
   }
 
   signOutProC2() {
-    Cookie.set('isAuth', 'false');
-    Cookie.set('username', '');
-    Cookie.set('password', '');
-    Cookie.set('type', '');
-    this.isAuth=false;
+    localStorage.removeItem('isAuthp');
+    localStorage.removeItem('proname');
+    localStorage.removeItem('password');
+    localStorage.removeItem('type');
+    
+    this.isAuthp=false;
     this.router.navigate(['/principale','auth','signin']);
 }
 
@@ -94,11 +99,11 @@ public addClient(uploadImage: any): Observable<Client> {
           .toPromise()
           .then(
             (response: User) => {  
-              Cookie.set('isAuth', 'true');
-              Cookie.set('type', 'user');
-              Cookie.set('username', response.username.toString());
-              Cookie.set('password', password);
-              this.isAuth = true;
+              localStorage.setItem('isAuthe', 'true');
+              localStorage.setItem('type', 'user');
+              localStorage.setItem('username', response.username.toString());
+              localStorage.setItem('password', password);
+              this.isAuthe = true;
               this.userconncte = response;
              this.router.navigate(['/menu']);
             },
@@ -118,11 +123,11 @@ public addClient(uploadImage: any): Observable<Client> {
           .then(
             (response: Client) => {  
               console.log('--------');
-              Cookie.set('isAuth', 'true');
-              Cookie.set('type', 'client');
-              Cookie.set('nom', response.nom.toString());
-              Cookie.set('password', password);
-              this.isAuth = true;
+              localStorage.setItem('isAuthc', 'true');
+              localStorage.setItem('type', 'client');
+              localStorage.setItem('authnom', response.nom.toString());
+              localStorage.setItem('password', password);
+              this.isAuthc = true;
               this.clientconncte = response;
               this.router.navigate(['/principale']);
             },
@@ -136,23 +141,23 @@ public addClient(uploadImage: any): Observable<Client> {
     }
 
     signOutUser() {
-      Cookie.set('isAuth', 'false');
-      Cookie.set('username', '');
-      Cookie.set('password', '');
-      Cookie.set('type', '');
-      console.log(this.isAuth);
-      this.isAuth=false;
+      localStorage.removeItem('isAuthe');
+      localStorage.removeItem('username');
+      localStorage.removeItem('password');
+      localStorage.removeItem('type');
+      console.log(this.isAuthe);
+      this.isAuthe=false;
     this.router.navigate(['/auth','signin']);
   }
 
 
   signOutClient() {
-    Cookie.set('isAuth', 'false');
-    Cookie.set('nom', '');
-    Cookie.set('password', '');
-    Cookie.set('type', '');
-    console.log(this.isAuth);
-    this.isAuth=false;
+    localStorage.removeItem('isAuthc');
+    localStorage.removeItem('authnom');
+    localStorage.removeItem('password');
+    localStorage.removeItem('type');
+    console.log(this.isAuthc);
+    this.isAuthc=false;
   this.router.navigate(['/auth','signin']);
 }
 

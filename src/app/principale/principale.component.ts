@@ -19,28 +19,47 @@ export class PrincipaleComponent implements OnInit {
 
   private apiServerUrl = environment.apiBaseUrl ;
   clientconncte! : Client;
-  type!: string;
+  public type!: string;
 
   constructor(private router: Router,public authservice : AuthService,private http: HttpClient,private sanitizer: DomSanitizer) { 
     this.ProConnect = authservice.ProConnect;
     this.router.events.subscribe(event =>{
-      if(Cookie.get('isAuth') == 'true'){
+      if(localStorage.getItem('isAuthp') == 'true'){
         this.isAuth = true;
     }
-      if(Cookie.get('isAuth') == 'false'){
+     else{ 
+           this.isAuth = false;
+      } 
+      if(localStorage.getItem('isAuthc') == 'true'){
+        this.isAuth = true;
+    }
+      else{ 
         this.isAuth = false;
       } 
+      this.type = localStorage.getItem('type');
     }
     )
   }
 
   ngOnInit(): void {
+ 
+      if(localStorage.getItem('isAuthp') == 'true'){
+        this.isAuth = true;
+    }
+     
+      if(localStorage.getItem('isAuthc') == 'true'){
+        this.isAuth = true;
+    }
+      
+      this.type = localStorage.getItem('type');
+   
     if(this.isAuth){
-      if(Cookie.get('type') == 'client')
-        this.signInClient(Cookie.get('nom') ,Cookie.get('password'));
+      
+      if(this.type == 'client')
+        this.signInClient(localStorage.getItem('authnom') ,localStorage.getItem('password'));
       else
-       this.signInProC2(Cookie.get('username') ,Cookie.get('password'));  
-       this.type = Cookie.get('type');
+       this.signInProC2(localStorage.getItem('proname') ,localStorage.getItem('password'));  
+       
       }}
 
   signInProC2(pronom: string, password: string) {
@@ -60,6 +79,7 @@ export class PrincipaleComponent implements OnInit {
 
 
     onSignOut() {
+      this.isAuth=false;
       this.authservice.signOutClient();
      }
 
