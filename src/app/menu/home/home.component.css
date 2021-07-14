@@ -1,7 +1,8 @@
 #all{
-    background-image: url('src/assets/img/intro-bg.jpg');
+   /* background-image: url('src/assets/img/intro-bg.jpg');
     height:100%;
     width:100%;
     overflow:auto; /* or overflow:auto; if you want scrollbars */
+     
   }
   

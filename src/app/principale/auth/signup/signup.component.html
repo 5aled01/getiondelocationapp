@@ -3,45 +3,55 @@
     <h1>Créer un compte</h1>
   
     <div class="form-row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <label for="nom">Nom </label>
                  <input type="text"  class="form-control" placeholder="nom" formControlName="nom"  required/>	
         </div>
     
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
                  <label for="Prenom">Prenom </label>
                  <input type="text"  class="form-control" formControlName="prenom" placeholder="prenom" required/>
         </div>
-    
 
-    <div class="form-group col-md-4">
-        <label for="NNI">NNI </label>
+</div>
+<div class="form-row">
+
+    <div class="form-group col-md-3">
+        <label for="authNom">Auth nom</label>
+        <input type="text"  class="form-control" formControlName="authNom" placeholder="authNom" required/>
+     </div>
+
+
+    <div class="form-group col-md-3">
+        <label for="NNI">NNI</label>
     <input type="number"  class="form-control" placeholder="nni" formControlName="nni"  required/>	
     </div>
 
 </div>
+
 <div class="form-row">
-<div class="form-group col-md-2">
-        <label for="nom">telephone </label>
+    <div class="form-group col-md-3">
+        <label for="nom">Telephone </label>
     <input type="number"  class="form-control" formControlName="telephone" placeholder="telephone" required/>
     </div>
 
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
         <label for="Password">Password </label>
             <input type="password"  class="form-control" formControlName="password" placeholder="password" required/>
         </div>
-    
-    <div class="form-group col-md-2">
+</div>
+    <div class="form-row">
+    <div class="form-group col-md-3">
         <label for="img">Image</label>
-        <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" required>
+        <input type="file" (change)="onFileChanged($event)" ngModel name="img" class="form-control" id="img" required />
     </div>
-  </div>
-
   
-
-    <p class="text-danger"  *ngIf="errorMessage" >{{errorMessage}}</p>
+</div>
+    <p class="text-danger"  *ngIf="errorMessage" >{{errorMessage}} le nom d'authentification existe déjà</p>
     <button [disabled]="signUpForm.invalid"  type="submit" class="btn btn-primary" >
         Créer un compte </button> <br>
         <a href="#" style="color: blue;">mot de pass oublier?</a>
+
+
 </form>
 

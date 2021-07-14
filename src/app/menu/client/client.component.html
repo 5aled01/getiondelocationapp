@@ -35,6 +35,7 @@
            <ul class="list-group list-group-flush">
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Nom : {{ client?.nom}}</li>
               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prenom : {{client?.prenom}}</li>
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prenom : {{client?.authnom}}</li>
               <li class="list-group-item"><i class="fa fa-phone float-right"></i>NNI : {{client?.nni}}</li>
               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Telephone : {{client?.telephone}}</li>
              </ul>
@@ -67,6 +68,11 @@
                 <label for="prenom">Prenom</label>
                 <input type="text" ngModel name="prenom" class="form-control" id="prenom" placeholder="le Prenom" required>
              </div>
+
+             <div class="form-group">
+               <label for="authnom">Auth nom</label>
+               <input type="text" ngModel name="authnom" class="form-control" id="authnom" placeholder="le authnom" required>
+            </div>
           
              <div class="form-group">
                 <label for="nni">NNI </label>

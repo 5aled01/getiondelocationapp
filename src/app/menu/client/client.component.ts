@@ -61,7 +61,7 @@ export class ClientComponent implements OnInit {
   public onAddClient(addForm: NgForm): void {
     document.getElementById('add-Client-form')?.click();
     const formvalue =addForm.value ;
-    const newuser = new  Client(0,formvalue['nom'],formvalue['prenom'],formvalue['nni'],
+    const newuser = new  Client(0,formvalue['nom'],formvalue['prenom'],formvalue['authnom'],formvalue['nni'],
     formvalue['telephone'],formvalue['password'], [0]);
 
 

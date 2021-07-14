@@ -56,6 +56,7 @@ export class SignupComponent implements OnInit {
     this.signUpForm = this.formBuilder.group({
       nom: ['',[Validators.required]],
       prenom: ['', [Validators.required]],
+      authNom: ['', [Validators.required]],
       nni: ['',[Validators.required]],
       telephone: ['',[Validators.required]],
       password: ['', [Validators.required]],
@@ -68,12 +69,13 @@ export class SignupComponent implements OnInit {
 
     const nom = this.signUpForm?.get('nom')?.value ;
     const prenom = this.signUpForm?.get('prenom')?.value ;
+    const authNom = this.signUpForm?.get('authNom')?.value ;
     const nni = this.signUpForm?.get('nni')?.value ;
     const telephone = this.signUpForm?.get('telephone')?.value ;
     const password = this.signUpForm?.get('password')?.value ;
     
     const newClient = new Client(0,nom,
-      prenom,nni,telephone,password,[0]);
+      prenom,authNom,nni,telephone,password,[0]);
 
     console.log(newClient);
     newClient.image= null;
@@ -91,12 +93,12 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['/principale','auth','signin',this.sms]);
       },
       (error) => {
-        this.errorMessage = "inpossible de cree un complte";
+        this.errorMessage = "Impossible de créer un compte:";
         this.isAuth = false;
       }
     );
 
-  }
+    }
 
 
 
