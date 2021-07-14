@@ -1,3 +1,5 @@
+import { VenteComponent } from './menu/vente/vente.component';
+ 
 import { SingleAnnonceComponent } from './principale/single-annonce/single-annonce.component';
 import { ReservationComponent } from './menu/reservation/reservation.component';
 import { Reservation } from 'src/app/models/reservation';
@@ -19,6 +21,7 @@ import { ProfileComponent } from './principale/profile/profile.component';
 import { AnnonceListComponent } from './principale/annonce-list/annonce-list.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { MenuGuardService } from './services/menu-guad.service';
+import { LocationComponent } from './menu/location/location.component';
 
  
  
@@ -43,6 +46,8 @@ const routes : Routes= [
     {path :'annonce' , component: AnnonceComponent},
     {path :'contrat' , component: ContratLocationComponent},
     {path :'client',component:ClientComponent},
+    {path :'location',component:LocationComponent},
+    {path :'vente',component:VenteComponent},
     {path :'reservation',component:ReservationComponent},
     {path :'immobilierBati' , component: ImmobilierBatiComponent},
     {path :'detail/:id' , component: SingleImmoblierBatiComponent}
