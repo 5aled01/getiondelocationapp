@@ -1,3 +1,4 @@
+import { PrincipaleComponent } from './../principale.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -64,13 +65,14 @@ export class AnnonceListComponent implements OnInit {
     private annonceService :AnnonceService,
     private imageService: ImageService ,
     private contratLocationService:ContratLocationService,
-    private contratVenteService :ContratVenteService,private router :Router) { 
+    private contratVenteService :ContratVenteService,private router :Router,
+    private principale :PrincipaleComponent) { 
    
   }
 
  
   ngOnInit(): void {
-
+     this.principale.ngOnInit();
       this.getImmobilierBatisAnnonce();
       this.getImagesAnnonced();
       this.getAnnonceExternes();

@@ -5,9 +5,9 @@
     <section class="col-md-4">
       <div class="row">
        
-              <div class="card m-b-40 col-md-8">
+              <div class="card m-b-40 col-md-8 "  >
                 <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
+                  <div class="d-flex flex-column align-items-center text-center" style="margin: auto;">
                     <img [src]="getImage2()" alt="Admin" class="rounded-circle" width="150px">
                     <div class="mt-3">
                       <h4>{{ProC2Connect?.nom}} {{ProC2Connect?.prenom}}</h4>
@@ -49,8 +49,8 @@
   
                 <form class="form-inline">
               
-                  <a class="nav-link" (click)="opendemande(true)" >LISTE DE DEMANDE <span class="badge bg-primary">{{demandeReservations.length - nbrDemande}}</span></a> |
-                  <a class="nav-link"  (click)="opendemande(false)" >LISTE IMMOBILIER <span class="badge bg-secondary">{{immobilierCurentProc2.length }}</span> </a> 
+                  <a class="nav-link" (click)="opendemande(true)"  [ngStyle]="styleOject1()"  >LISTE DE DEMANDE <span class="badge bg-primary" *ngIf="demandeReservations.length - nbrDemande>0">{{demandeReservations.length - nbrDemande}}</span></a> |
+                  <a class="nav-link"  (click)="opendemande(false)"  [ngStyle]="styleOject2()">LISTE IMMOBILIER <span class="badge bg-secondary">{{immobilierCurentProc2.length }}</span> </a> 
                   
                 </form>
               </nav>

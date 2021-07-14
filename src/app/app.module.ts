@@ -28,6 +28,7 @@ import { SignupComponent } from './principale/auth/signup/signup.component';
 import { AgmCircle, AgmCoreModule } from '@agm/core';
 import { AnnonceListComponent } from './principale/annonce-list/annonce-list.component';
 import { SingleAnnonceComponent } from './principale/single-annonce/single-annonce.component';
+import { MenuGuardService } from './services/menu-guad.service';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { SingleAnnonceComponent } from './principale/single-annonce/single-annon
     UserService,
     ProrietaireService,
     AnnoncesService,
+    MenuGuardService
   ],
   bootstrap: [AppComponent]
 })

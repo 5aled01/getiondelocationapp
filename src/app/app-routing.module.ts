@@ -18,6 +18,7 @@ import { SignupComponent } from './principale/auth/signup/signup.component';
 import { ProfileComponent } from './principale/profile/profile.component';
 import { AnnonceListComponent } from './principale/annonce-list/annonce-list.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { MenuGuardService } from './services/menu-guad.service';
 
  
  
@@ -29,11 +30,11 @@ const routes : Routes= [
     {path :'auth/signin' , component: SigninComponent},
     {path :'auth/signin/:sms' , component: SigninComponent},
     {path :'auth/signup' , component: SignupComponent},
-    {path :'profile/:id'  ,component: ProfileComponent},
+    {path :'profile/:id' ,canActivate:[AuthGuardService] ,component: ProfileComponent},
     {path :'singleannonce/:idImmobilier/:idAnnonce/:typeAnnonce'  ,component: SingleAnnonceComponent},
     {path :'' ,redirectTo: 'annonce-list', pathMatch: 'full'}
   ]},
-  {path :'menu' ,component: MenuComponent, children:[
+  {path :'menu' ,canActivate:[MenuGuardService],component: MenuComponent, children:[
     {path :'' ,redirectTo: 'home', pathMatch: 'full'},
     {path :'home' , component: HomeComponent},
     {path :'users' , component: UsersComponent},
