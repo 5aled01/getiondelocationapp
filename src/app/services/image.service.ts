@@ -21,6 +21,9 @@ export class ImageService {
     public getImmages(): Observable<Image[]> {
       return this.http.get<Image[]>(`${this.apiServerUrl}/image/all`);
     }
+    public getImmagesBatiment(): Observable<Image[]> {
+      return this.http.get<Image[]>(`${this.apiServerUrl}/image/allBati`);
+    }
     public getImagesAnnonced(): Observable<Image[]> {
       return this.http.get<Image[]>(`${this.apiServerUrl}/image/annonced`);
     }

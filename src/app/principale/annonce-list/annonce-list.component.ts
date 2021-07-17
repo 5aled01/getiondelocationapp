@@ -183,12 +183,7 @@ if(image.idCorespondance == id){
           (response: Image[]) => {
             this.images = response;
             console.log(response)
-            /*for(let img of response){
-              if(img.corespondance == "immobilierBati")
-                this.img = img;
-             
-            }
-           */
+           
           },
           (error: HttpErrorResponse) => {
             alert(error.message);
