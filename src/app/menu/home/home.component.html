@@ -1,3 +1,22 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <a class="navbar-brand" style="color:white;">LISTE DE DEMANDE DE RESERVATION</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+          </li>
+      </ul>
+      <div class="search-container">
+      <form class="form-inline my-2 my-lg-0" >
+         <input type="search" style="float: left; clear: both;" (ngModelChange)="searchDemande(key.value)" #key="ngModel" ngModel
+          name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere immobilier..." required>
+      </form>
+     </div>
+   </div>
+ </nav>
 <div id="all">
 
 <div class="container" id="main-container" >
