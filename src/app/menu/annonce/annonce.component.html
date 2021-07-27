@@ -23,8 +23,11 @@
  </nav>
   
   <div class="container" id="main-container">
-    <div class="row" id="mainProcc">
-      <div *ngFor="let aE of annonceExternes" class="col-md-6 col-xl-3"style="margin-top: 30px;">
+   <div class="row"> 
+       <section class="col-md-5"> 
+     <div><h3 class="row" style="margin:auto ; background-color: grey;color: aliceblue;text-align: center;">Liste des annonces externe</h3>
+    </div> 
+      <div *ngFor="let aE of annonceExternes" class="col-md-6"style="margin-top: 30px;">
          <div class="card m-b-30">
             <ul class="list-group list-group-flush">
                <li class="list-group-item"> id  : {{ aE?.id}}</li>
@@ -204,16 +207,19 @@
          <p>No annonnce trouver</p>
        </div>
     </div>
-   </div>
+    </section>
+    
   
   
   
-  
+
    <!-- Patie du deuxieme catogorie de proprietaire-->
   
-  
-  <div class="row" id="mainProC">
-   <div *ngFor="let aI of annonceInternes" class="col-md-6 col-xl-3" style="margin-top: 30px;">
+  <section class="col-md-5"> 
+  <div>
+   <h3 class="row" style="margin:auto ; background-color: grey;color: aliceblue;text-align: center;">Liste des annonces interne</h3>
+</div>
+   <div *ngFor="let aI of annonceInternes" class="col-md-6 " style="margin-top: 30px;">
       <div class="card m-b-30">
          <ul class="list-group list-group-flush">
            <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Immobiliere : {{ aI.idImmobilier}}</li>
@@ -391,9 +397,9 @@
    </div>
    
     </div>
-   </div>
   
-  
+  </section>
+  </div>
   </div>
   
   

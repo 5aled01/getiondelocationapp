@@ -65,12 +65,12 @@ export class SingleAnnonceComponent implements OnInit {
       this.getImmobilier(idImmobilier);
       this.getAnnonce(this.idAnnonce,this.typeAnnonce);
       this.getImages(idImmobilier);
-      if(Cookie.get('isAuthc') == 'false')
+      if(localStorage.getItem('isAuthc') == 'false')
          this.isAuth = false;
       else
-       if(Cookie.get('isAuthc') == 'true'){
+       if(localStorage.getItem('isAuthc') == 'true'){
           this.isAuth = true;
-            this.signInClient(Cookie.get('nom') ,Cookie.get('password'));
+            this.signInClient(localStorage.getItem('authnom') ,localStorage.getItem('password'));
       }else
         this.isAuth = false;
 

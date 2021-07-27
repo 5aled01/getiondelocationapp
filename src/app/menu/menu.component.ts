@@ -45,7 +45,7 @@ export class MenuComponent implements OnInit {
         .toPromise()
         .then(
           (response: User) => {  
-            localStorage.setItem('islogin', 'true');
+            localStorage.setItem('isAuthe', 'true');
             localStorage.setItem('username', response.username.toString());
             localStorage.setItem('password', password);
             this.UserConnect = response;

@@ -124,6 +124,7 @@ public immobilierBatis!: ImmobilierBati[] ;
         console.log(response);
        
         addForm.reset();
+        this.getImmobilierBatis();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -142,6 +143,7 @@ public immobilierBatis!: ImmobilierBati[] ;
       (response) => {
         console.log(response);
         addForm.reset();
+        this.getImmobilierBatis()
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

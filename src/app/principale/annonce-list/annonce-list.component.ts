@@ -191,7 +191,7 @@ if(image.idCorespondance == id){
         );
       }
 
-      getPrixImmobilierBati(id : Number,typeProprietaire :string){
+      getPrixImmobilierBati(id : number,typeProprietaire :string){
         if(typeProprietaire == 'proc1'){
           for(let annonceInterne of this.annonceInternes ){
             if(annonceInterne.idImmobilier == id)
@@ -213,16 +213,16 @@ if(image.idCorespondance == id){
           
               }
           }
-        else 
+        else{ 
           for(let annonceExterne of this.annonceExternes ){
             if(annonceExterne.idImmobilier == id){
             this.currentAnnonce = annonceExterne.type ;
-                  return annonceExterne.prxiImmobilier; ;
+               return annonceExterne?.prxiImmobilier;  
             }
-             
-
           }
-          return 'ERROR';   
+         
+        }
+            return 'ERROR'; 
       }
 
       getIdAnnonceByIdImmobilier(id : Number,typeProprietaire :string){

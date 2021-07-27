@@ -1,19 +1,19 @@
  
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" style="color:white;">ImmobilierBati  Manager</a>
+    <a class="navbar-brand" style="color:white;">Gestion des bâtiments </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor02">
        <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-             <a class="btn btn-outline-secondary"  (click)="onOpenModal(null, 'add')" style="color: white;"><i class="fa fa-plus"></i> Ajouter un  ImmobilierBati <span class="sr-only">(current)</span></a>
+             <a class="btn btn-outline-secondary"  (click)="onOpenModal(null, 'add')" style="color: white;"><i class="fa fa-plus"></i> Ajouter un bâtiment <span class="sr-only">(current)</span></a>
           </li>
        </ul>
        <div class="search-container">
        <form class="form-inline my-2 my-lg-0" >
           <input type="search" style="float: left; clear: both;" (ngModelChange)="searchImmobilierBatis(key.value)" #key="ngModel" ngModel
-           name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere immobilier..." required>
+           name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere Bâtiment..." required>
        </form>
       </div>
     </div>
@@ -35,12 +35,12 @@
              </div>
           </div>
           <ul class="list-group list-group-flush"> 
-            <li class="list-group-item"> Id de Proprietaire : {{immobilierBati?.idProprietaire}} </li>
+            <li class="list-group-item"> Id du proprietaire : {{immobilierBati?.idProprietaire}} </li>
             <li class="list-group-item"> Adresse : {{immobilierBati?.adresse}} </li>
              <li class="list-group-item"> Localisation :{{immobilierBati?.localisation?.x}} | {{immobilierBati?.localisation?.y}}</li>
-             <li class="list-group-item"> Numero Permie : {{immobilierBati?.numeroPermie}}</li>
-             <li class="list-group-item"> Surface de terrain : {{+immobilierBati?.longueur*+immobilierBati?.largeur}}  m²</li>
-             <li class="list-group-item"> surfac de bâtiment : {{+immobilierBati?.longueurBati*immobilierBati?.longueurBati}} m²</li>
+             <li class="list-group-item"> Numero du Permie : {{immobilierBati?.numeroPermie}}</li>
+             <li class="list-group-item"> Surface du terrain : {{+immobilierBati?.longueur*+immobilierBati?.largeur}}  m²</li>
+             <li class="list-group-item"> Surface du bâtiment : {{+immobilierBati?.longueurBati*immobilierBati?.longueurBati}} m²</li>
  
             </ul>
           <div class="card-body row">
@@ -165,7 +165,7 @@
                      </select>
                      </div>
                      <div class="form-group">
-                     <select *ngif="typep=='proc1'" ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
+                     <select *ngIf="typep =='proc1'" ngModel name="idProprietaire" class="form-control" id="idProprietaire" placeholder="Proprietaire" required>
                     <option ngModel="{{editImmobilierBati?.idProprietaire}}"> {{editImmobilierBati?.idProprietaire}} </option>    
                     <option *ngFor="let Proprietaire of proC1s" value="{{Proprietaire?.id}}">
                         {{Proprietaire?.nom}} 

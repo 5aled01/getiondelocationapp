@@ -24,8 +24,9 @@
 <div class="container" id="main-container">
    <div class="row"> 
    <section class="col md-6"> 
+      <h3 class="row" style="margin:auto ; background-color: grey;color: aliceblue;text-align: center;">Liste de proprietaire categorie 1</h3>
   <div class="row" id="mainProcc">
-     
+       
     <div *ngFor="let proC1 of proC1s" class="col md-6 col-xl-6" style="margin-top: 30px;">
        <div class="card m-b-30">
           <div class="card-body row">
@@ -83,7 +84,7 @@
                <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="telephone" required>
             </div>
             <div class="form-group">
-               <label for="numComp">num Copmte</label>
+               <label for="numComp">Num Copmte</label>
                <input type="text" ngModel name="numcomp" class="form-control" id="numcomp" placeholder="num compte" required>
             </div>
             <div class="form-group">
@@ -105,7 +106,7 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="updateUserModalLabel">Modifier Proprietaire {{editeProC1?.nom}}{{editeProC1?.prenom}}</h5>
+             <h5 class="modal-title" id="updateUserModalLabel">Modifier proprietaire {{editeProC1?.nom}}{{editeProC1?.prenom}}</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
              </button>
@@ -128,7 +129,7 @@
                </div>
                
                 <div class="form-group">
-                    <label for="numcomp">numero du compte</label>
+                    <label for="numcomp">Numero du compte</label>
                     <input type="text" ngModel="{{editeProC1?.numcomp }}" name="numcomp" class="form-control" id="numcomp"   placeholder="password" required>
                  </div>
                
@@ -156,7 +157,7 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="deleteModelLabel">Suprimer Proprietaire</h5>
+             <h5 class="modal-title" id="deleteModelLabel">Suprimer proprietaire</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
              </button>
@@ -188,8 +189,10 @@
  <!-- Patie du deuxieme catogorie de proprietaire-->
 
 </section>
-<section class="col md-6"> 
+<section class="col md-6">
+   <h3 class="row" style="margin :auto ; background-color: grey;color: aliceblue;text-align: center;">Liste de proprietaire categorie 2</h3>  
 <div class="row" id="mainProC">
+   
    <div *ngFor="let proC2 of proC2s" class="col md-6 col-xl-6" style="margin-top: 30px;">
       <div class="card m-b-30">
          <div class="card-body row">
@@ -203,9 +206,10 @@
          <ul class="list-group list-group-flush">
            <li class="list-group-item">Nom : {{proC2?.nom}}</li>
             <li class="list-group-item"> Prenom : {{proC2?.prenom}}</li>
+            <li class="list-group-item"> Nom D'autentification : {{proC2?.pronom}}</li>
             <li class="list-group-item"> NNi : {{proC2?.nni}}</li>
-            <li class="list-group-item"> telephone : {{proC2?.telephone}}</li>
-            <li class="list-group-item"> numCompte : {{proC2?.numcomp}}</li>
+            <li class="list-group-item"> Telephone : {{proC2?.telephone}}</li>
+            <li class="list-group-item"> NumCompte : {{proC2?.numcomp}}</li>
           </ul>
          <div class="card-body">
             <div class="float-right btn-group btn-group-sm">
@@ -237,7 +241,7 @@
               <input type="text" ngModel name="prenom" class="form-control" id="prenom" placeholder="le Prenom" required>
            </div>
            <div class="form-group">
-              <label for="prenom">nom d'authentification</label>
+              <label for="prenom">Nom d'authentification</label>
               <input type="text" ngModel name="pronom" class="form-control" id="pronom" placeholder=" " required>
            </div>
            <div class="form-group">
@@ -253,7 +257,7 @@
               <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="Telephone" required>
            </div>
            <div class="form-group">
-              <label for="numcomp">num Copmte</label>
+              <label for="numcomp">Num Copmte</label>
               <input type="text" ngModel name="numcomp" class="form-control" id="numcomp" placeholder="numcomp" required>
            </div>
            <div class="form-group">
@@ -275,7 +279,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="ProC2EditModalLabel">Modifier Proprietaire {{editeProC2?.pronom}}</h5>
+            <h5 class="modal-title" id="ProC2EditModalLabel">Modifier proprietaire {{editeProC2?.pronom}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -292,7 +296,7 @@
                  <input type="text" ngModel="{{editeProC2?.prenom }}" name="prenom" class="form-control" id="prenom"   placeholder="prenom" required>
               </div>
               <div class="form-group">
-                 <label for="pronom">nom d'autentification</label>
+                 <label for="pronom">Nom d'autentification</label>
                  <input type="text" ngModel="{{editeProC2?.pronom }}" name="pronom" class="form-control" id="pronom"  placeholder="prenom" required>
               </div>
                <div class="form-group">
@@ -301,10 +305,10 @@
               </div>
                <div class="form-group">
                  <label for="password">Password</label>
-                 <input type="text" ngModel="{{editeProC2?.password }}" name="password" class="form-control" id="password"   placeholder="password" required>
+                 <input type="text" ngModel  name="password" class="form-control" id="password"   placeholder="password" required>
               </div> 
                <div class="form-group">
-                   <label for="numcomp">numero du compte</label>
+                   <label for="numcomp">Numero du compte</label>
                    <input type="text" ngModel="{{editeProC2?.numcomp }}" name="numcomp" class="form-control" id="numcomp"   placeholder="password" required>
                 </div>
               

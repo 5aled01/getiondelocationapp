@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-   <a class="navbar-brand" style="color:white;">LISTE DE DEMANDE DE RESERVATION</a>
+   <a class="navbar-brand" style="color:white;">Liste de demande de réservation</a>
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
    <span class="navbar-toggler-icon"></span>
    </button>
@@ -9,10 +9,10 @@
          <li class="nav-item active">
           </li>
       </ul>
-      <div class="search-container">
+      <div class="search-container" style="float: right; margin-right: 40px;">
       <form class="form-inline my-2 my-lg-0" >
-         <input type="search" style="float: left; clear: both;" (ngModelChange)="searchDemande(key.value)" #key="ngModel" ngModel
-          name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere immobilier..." required>
+         <input type="search" style="float: right; clear: both;" (ngModelChange)="searchDemande(key.value)" #key="ngModel" ngModel
+          name="key" id="searchName" class="form-control mr-sm-2" placeholder="chercher demande de reservation..." required>
       </form>
      </div>
    </div>
@@ -26,19 +26,19 @@
           
           <ul class="list-group list-group-flush">
             
-             <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Annonce : {{reservation?.idAnnonce}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>id  Client : {{reservation?.idClient}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>date de reservation : {{reservation?.date}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>etat de reservation : {{reservation?.etats}}</li>
-            <li class="list-group-item"><i class="fa fa-phone float-right"></i>duree de reservation : {{reservation?.duree}}</li>
+             <li class="list-group-item"> id Annonce : {{reservation?.idAnnonce}}</li>
+            <li class="list-group-item"> id  Client : {{reservation?.idClient}}</li>
+            <li class="list-group-item"> date de reservation : {{reservation?.date}}</li>
+            <li class="list-group-item"> etat de reservation : {{reservation?.etats}}</li>
+            <li class="list-group-item"> duree de reservation : {{reservation?.duree}}</li>
 
         </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
-                 <a   class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                <a *ngIf="reservation.etats=='En attent'" (click)="onAccepte(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Accepter</a>
-                <button  *ngIf="gettypeAnnonce(reservation.idAnnonce)=='Location' && reservation?.etats!='traite' && reservation?.etats=='Accepte'" (click)="onOpenModal(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au location</button>
-                <button  *ngIf="gettypeAnnonce(reservation.idAnnonce)=='Vente' && reservation?.etats!='traite' && reservation?.etats=='Accepte'" (click)="PasserAuVente(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au vente</button>
+               <button *ngIf="reservation?.etats!='Accepte'" (click)="onDeleteReservation(reservation?.id)" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"  >Refuser </button>
+               <button *ngIf="reservation.etats=='En attent'" (click)="onAccepte(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Accepter</button>
+                <button  *ngIf="gettypeAnnonce(reservation.idAnnonce)=='Location' && reservation?.etats!='traite' && reservation?.etats==='Accepte'" (click)="onOpenModal(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au location</button>
+                <button  *ngIf="gettypeAnnonce(reservation.idAnnonce)=='Vente' && reservation?.etats!='traite' && reservation?.etats==='Accepte'" (click)="PasserAuVente(reservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Passer au vente</button>
 
                </div>
           </div>

@@ -1,5 +1,8 @@
 <div class="container">
     <div class="main-container">
+      <div class="row" style="margin: auto;">
+      <h3 >Espace de proprietaire </h3>
+     </div>
      <div class="row">
           <!-- /Breadcrumb -->
     <section class="col-md-4">
@@ -49,8 +52,8 @@
   
                 <form class="form-inline">
               
-                  <a class="nav-link" (click)="opendemande(true)"  [ngStyle]="styleOject1()"  >LISTE DE DEMANDE <span class="badge bg-primary" *ngIf="demandeReservations.length - nbrDemande>0">{{demandeReservations.length - nbrDemande}}</span></a> |
-                  <a class="nav-link"  (click)="opendemande(false)"  [ngStyle]="styleOject2()">LISTE IMMOBILIER <span class="badge bg-secondary">{{immobilierCurentProc2.length }}</span> </a> 
+                  <a class="nav-link" (click)="opendemande(true)"  [ngStyle]="styleOject1()"  >Liste des demandes <span class="badge bg-primary" *ngIf="demandeReservations.length - nbrDemande>0">{{demandeReservations.length - nbrDemande}}</span></a> |
+                  <a class="nav-link"  (click)="opendemande(false)"  [ngStyle]="styleOject2()">Liste des immobiliers <span class="badge bg-secondary">{{immobilierCurentProc2.length }}</span> </a> 
                   
                 </form>
               </nav>
@@ -77,7 +80,7 @@
                    <div class="card-body" >
                       <div class="float-center btn-group btn-group-sm" style="margin: auto;color: antiquewhite;" >
                          <a *ngIf="demandeReservation?.etats!='Accepte'" (click)="onAccepte(demandeReservation)" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit" > Accepter </a>
-                         <a *ngIf="demandeReservation?.etats!='Accepte'" (click)="onDeleteReservation(demandeReservation?.id)" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"  >Reffuser </a>
+                         <a *ngIf="demandeReservation?.etats!='Accepte'" (click)="onDeleteReservation(demandeReservation?.id)" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"  >Refuser </a>
                          <p *ngIf="demandeReservation?.etats=='Accepte'" style="color: green;"><b>Demande accpeter</b></p>
                         </div>
                    </div>
