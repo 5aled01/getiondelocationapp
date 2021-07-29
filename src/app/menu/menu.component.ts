@@ -36,14 +36,16 @@ export class MenuComponent implements OnInit {
 
     
   }
-
+  styleOject(){
+    return {color :'blue'}
+  }
   signInUser(username: string, password: string) {
     return new Promise <void>((response, reject) => {
       this.http.get<User>(`${this.apiServerUrl}/user/find/${username}&${password}`)
         .toPromise()
         .then(
           (response: User) => {  
-            localStorage.setItem('islogin', 'true');
+            localStorage.setItem('isAuthe', 'true');
             localStorage.setItem('username', response.username.toString());
             localStorage.setItem('password', password);
             this.UserConnect = response;

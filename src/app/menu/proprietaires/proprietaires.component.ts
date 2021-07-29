@@ -73,7 +73,7 @@ export class ProprietairesComponent implements OnInit {
     const formvalue =addForm.value ;
  
     const newProC1 = new ProC1(0,formvalue['telephone'],[0],formvalue['nom'],
-    formvalue['prenom'],formvalue['nni'],formvalue['numcomp'],formvalue['pronom'],formvalue['password']);
+    formvalue['prenom'],formvalue['nni'],formvalue['numcomp'] );
 
     newProC1.img= null;
 

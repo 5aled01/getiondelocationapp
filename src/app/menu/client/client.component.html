@@ -35,7 +35,7 @@
            <ul class="list-group list-group-flush">
              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Nom : {{ client?.nom}}</li>
               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prenom : {{client?.prenom}}</li>
-              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Prenom : {{client?.authnom}}</li>
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>authnom : {{client?.authnom}}</li>
               <li class="list-group-item"><i class="fa fa-phone float-right"></i>NNI : {{client?.nni}}</li>
               <li class="list-group-item"><i class="fa fa-phone float-right"></i>Telephone : {{client?.telephone}}</li>
              </ul>
@@ -120,9 +120,12 @@
                  <input type="hidden" ngModel="{{editeClient?.id}}" name="id" class="form-control" id="id"  >
                  <div class="form-group">
                    <label for="prenom">Prenom</label>
-                   <input type="text" ngModel="{{editeClient?.prenom }}" name="prenom" class="form-control" id="prenom" name="prenom" placeholder="prenom" required>
+                   <input type="text" ngModel="{{editeClient?.prenom }}" name="prenom" class="form-control" id="prenom"   placeholder="prenom" required>
                 </div>
-                
+                <div class="form-group">
+                  <label for="authnom">nom d'authentification</label>
+                  <input type="text" ngModel="{{editeClient?.authnom }}" name="authnom" class="form-control" id="authnom"   placeholder="prenom" required>
+               </div>
                  <div class="form-group">
                    <label for="nni">NNI</label>
                    <input type="text" ngModel="{{editeClient?.nni }}" name="nni" class="form-control" id="nni"   placeholder="nni" required>

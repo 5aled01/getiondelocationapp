@@ -1,0 +1,219 @@
+ 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a href="menu/client" class="navbar-brand" style="color:white;"> Gestion Des Ventes  </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+       <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+             <a class="btn btn-outline-secondary" (click)="onOpenModal(null, 'add')" style="color: white;"> <i class="fa fa-plus"></i>  Ajouter vente <span class="sr-only">(current)</span></a>
+          </li>
+       </ul>
+       <div class="search-container">
+       <form class="form-inline my-2 my-lg-0">
+          <input type="search" style="float: left; clear: both;"  #key="ngModel" ngModel
+           name="key" id="searchName" class="form-control mr-sm-2" placeholder="cherchere client..." required>
+       </form>
+    </div>
+   </div>
+</nav>
+<div class="container" id="main-container">
+     
+   
+      
+     <div *ngFor="let vente of ventes" class="col-md-6 col-xl-3" style="margin-top: 30px;">
+        <div class="card m-b-30">
+           <div class="card-body row">
+              
+              <div class="col-6 card-title align-self-center mb-0">
+                 <h5>{{ vente?.date_vente}}</h5>
+              </div>
+           </div>
+           <ul class="list-group list-group-flush">
+             <li class="list-group-item"><i class="fa fa-phone float-right"></i>id contrat de vente : {{ vente?.idcontrat_vent}}</li>
+ 
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Client: {{vente?.id_Client}}</li>
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>id Immobilier : {{vente?.id_immobilier}}</li>
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>description : {{vente?.id_decision}}</li>
+            </ul>
+           <div class="card-body">
+              <div class="float-right btn-group btn-group-sm">
+                 <a (click)="onOpenModal(vente, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                 <a (click)="onOpenModal(vente, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+              </div>
+           </div>
+        </div>
+     </div>
+   
+   <!-- Add Vente Modal -->
+   <div class="modal fade" id="addVenteModal" tabindex="-1" role="dialog" aria-labelledby="addVenteModalLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="addVenteModalLabel">Ajouter Vente</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #addForm="ngForm" (ngSubmit)="onAddVente(addForm)">
+             <div class="form-group">
+                <label for="date_vente">date de vente</label>
+                <input type="date" ngModel name="date_vente" class="form-control" id="date_vente" placeholder="date de vente" required>
+             </div>
+             <div class="form-group">
+                <label for="idcontrat_vent">id contrat de vent</label>
+                <select ngModel   name="idcontrat_vent" class="form-control" id="idcontrat_vent" placeholder="Proprietaire" required>
+                  <option value="" disabled selected>contrat vente</option>    
+                  <option *ngFor="let contratVente of contratVentes" value="{{contratVente?.id}}">
+                      {{contratVente?.id}}
+                  </option>
+               </select>
+               </div>
+               <div class="form-group">
+                  <label for="id_Client">id  Client</label>
+                  <select ngModel   name="id_Client" class="form-control" id="id_Client" placeholder="Proprietaire" required>
+                       
+                    <option *ngFor="let client of clients" value="{{client?.id}}">
+                        {{client?.nom}}
+                        {{client?.prenom}}
+                    </option>
+                 </select>
+                 </div>
+                   
+                 <div class="form-group">
+                  <label for="type">Type</label>
+                  <select [(ngModel)]="type" name="type" class="form-control" id="type" placeholder="type" required>
+                     <option value="batiment" >Batiment</option>    
+                     <option   value="terrian"> Terrain</option>
+                  </select>
+                 </div>
+               <div class="form-group">
+                  <label for="id_immobilier">id {{ type }}  </label>
+                  <select ngModel *ngIf="type=='batiment'" name="id_immobilier" class="form-control" id="id_immobilier" placeholder="batiment" required>
+                      <option value="" disabled selected>id batiment</option>    
+                      <option *ngFor="let batiment of batiments" value="{{batiment?.id}}">
+                          {{batiment?.id}}
+                      </option>
+                   </select>
+                   <select ngModel *ngIf="type=='terrain'" name="id_immobilier" class="form-control" id="id_immobilier" placeholder="terrian" required>
+                     <option value="" disabled selected>id terrain</option>    
+                     <option *ngFor="let terrain of terrains" value="{{terrain?.id}}">
+                         {{terrain?.id}}
+                     </option>
+                  </select>
+               </div>
+            
+             <div class="modal-footer">
+                <button type="button" id="add-Vente-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+             </div>
+             </form>
+          </div>
+       </div>
+     </div>
+     </div> 
+   
+   <!-- Edit Modal -->
+   <div class="modal fade" id="updateVenteModal" tabindex="-1" role="dialog" aria-labelledby="VenteEditModalLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="VenteEditModalLabel">Modifier le Vente {{editeVente?.id}} </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #editFormVente="ngForm">
+               <div class="form-group">
+                  <label for="date_vente">date de vente</label>
+                  <input type="date" ngModel="{{ editeVente?.date_vente}}" name="date_vente" class="form-control" id="date_vente" placeholder="date de vente" required>
+               </div>
+               <input type="hidden" ngModel="{{ editeVente?.id}}" name="id" class="form-control" id="id" placeholder="date de vente" required>
+
+               <div class="form-group">
+                  <label for="idcontrat_vent">id contrat de vent</label>
+                  <select ngModel="{{editeVente?.idcontrat_vent}}"   name="idcontrat_vent" class="form-control" id="idcontrat_vent" placeholder="Proprietaire" required>  
+                    <option *ngFor="let contratVente of contratVentes" value="{{contratVente?.id}}">
+                        {{contratVente?.id}}
+                    </option>
+                 </select>
+                 </div>
+                 <div class="form-group">
+                    <label for="id_Client">id  Client</label>
+                    <select ngModel="{{editeVente?.id_Client }}"   name="id_Client" class="form-control" id="id_Client" placeholder="Proprietaire" required>
+                       
+                      <option *ngFor="let client of clients" value="{{client?.id}}">
+                          {{client?.nom}}
+                          {{client?.prenom}}
+                      </option>
+                   </select>
+                   </div>
+                     
+                   <div class="form-group">
+                    <label for="type">Type</label>
+                    <select [(ngModel)]="type" name="type" class="form-control" id="type" placeholder="type" required>
+                       <option value="batiment" selected>Batiment</option>    
+                       <option   value="terrian"> Terrain</option>
+                    </select>
+                   </div>
+                 <div class="form-group">
+                    <label for="id_immobilier">id {{type}}   </label>
+                    <select ngModel="{{ editeVente?.id_immobilier}}" *ngIf=" type =='batiment'" name="id_immobilier" class="form-control" id="id_immobilier" placeholder="Proprietaire" required>
+                    
+                        <option *ngFor="let batiment of batiments" value="{{batiment?.id}}">
+                            {{batiment?.id}}
+                        </option>
+                     </select>
+                     <select ngModel="{{ editeVente?.id_immobilier}}" *ngIf=" type=='terrain'" name="id_immobilier" class="form-control" id="id_immobilier" placeholder="Proprietaire" required>
+                  
+                       <option *ngFor="let terrain of terrains" value="{{terrain?.id}}">
+                           {{terrain?.id}}
+                       </option>
+                    </select>
+                 </div>
+                 <div class="modal-footer">
+                    <button type="button"  id="update-Vente-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                    <button (click)="onUpdateVente(editFormVente.value)" data-dismiss="modal" class="btn btn-primary" >Enregistre utilisateur</button>
+                 </div>
+              </form>
+           </div>
+        </div>
+     </div>
+   </div> 
+   
+   <!-- Delete Modal -->
+   <div class="modal fade" id="deleteVenteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="deleteModelLabel">Suprimer Vente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <p>Vous etez sur de suprimer le vente {{deleteVente?.id}}?</p>
+              <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                 <button (click)="onDeleteVente(deleteVente?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+              </div>
+           </div>
+        </div>
+     </div>
+    </div> 
+   
+   
+   <!-- Notification for no vente -->
+   <div *ngIf="ventes?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+      <div class="alert alert-info" role="alert">
+       <h4 class="alert-heading">NON Vente   !!</h4>
+        <p>Non Vente trouver</p>
+      </div>
+   </div>
+ 
+ 
+ 
+</div>

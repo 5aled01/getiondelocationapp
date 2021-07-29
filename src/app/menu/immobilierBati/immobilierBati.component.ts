@@ -1,3 +1,4 @@
+ 
 
  
 import { ContratLocationService } from './../../services/contrat-location.service';
@@ -21,6 +22,9 @@ import { ContratVenteService } from 'src/app/services/contratVente.service';
 import { ContratLocation } from 'src/app/models/contratLocation';
 import { ContratVente } from 'src/app/models/contratVente';
 import { AnnonceService } from 'src/app/services/annonce.service';
+import { ThrowStmt } from '@angular/compiler';
+import { Image } from 'src/app/models/image';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-immobilier',
@@ -29,38 +33,60 @@ import { AnnonceService } from 'src/app/services/annonce.service';
 })
 export class ImmobilierBatiComponent implements OnInit {
 
-public annonceInternes! :AnnonceInetrne[];
-public annonceExternes! : AnnonceExterne[];
-public immobilierBatisAnnocedEx: ImmobilierBati[] = [];
-public immobilierBatisAnnocedIn: ImmobilierBati[] = [];  
+ 
+public immobilierBatisAnnoced: ImmobilierBati[] = [];
+  
 public immobilierBatis!: ImmobilierBati[] ;
   public proC1s! : ProC1[]  ;
-  public proC1! :ProC1;
+ 
   public proC2s! : ProC2[]  ;
-  public proC2!:ProC2;
+  images!: Image[];
+  img!: any;
   public editImmobilierBati: ImmobilierBati | undefined ;
   public deleteImmobilierBati: ImmobilierBati | undefined ;
-  public nProprietaire :  ProC1 | undefined ;
-  public type :string  ="proc1";
+  public typep :string  ="proc1";
+  public type :string  ="Vente";
   public currentImmob! :ImmobilierBati;  
-   public  prom!:string;
+   public  nomproprietaire:string='undefined';
   public annonced: boolean = false ;
   public contratLocations!: ContratLocation[];
   public contratVentes!: ContratVente[];
+   
 
-  constructor(private immobilierBatiService: ImmobilierBatiService,private etageService:EtageService ,
+  constructor(private imageService :ImageService, private immobilierBatiService: ImmobilierBatiService,private etageService:EtageService ,
     private proprietaireService: ProrietaireService,private serviceAnnonce:  AnnonceService,
     private contratLocationService:ContratLocationService,private contratVenteService :ContratVenteService,private router :Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    
     this.getImmobilierBatis();
     this.getProC1s();
     this.getProC2s();
-    this.prom="";
-    this.getContratLocations();
-    this.getContratVentes();
-    this.getAnnonceExternes();
-    this.getAnnonceInternes();
+    this.getImmobilierBatisAnnoced();
+    this.getImages();
+   
+  }
+  public getImage(id :number){
+    for(let image of this.images){
+    if(image.idCorespondance === id){
+        const retrievedImage = 'data:image/jpeg;base64,' +  image.image;
+        return retrievedImage;
+    }
+        }
+        return '../assets/img/livingroom.png';
+        
+      }
+  getImages() : void{
+    this.imageService.getImmagesBatiment().subscribe(
+      (response: Image[]) => {
+        this.images = response;
+        console.log(response)
+       
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
   getContratLocations() {
     this.contratLocationService.getContratLocations().subscribe(
@@ -84,17 +110,7 @@ public immobilierBatis!: ImmobilierBati[] ;
     }
    );
 }
-  public getAnnonceExternes()  {
-    this.serviceAnnonce.getAllEx().subscribe(
-      (response: AnnonceExterne[]) => {
-        this.annonceExternes = response;
-        console.log(response);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
+   
   public onAddAE(addForm: NgForm): void {
     document.getElementById('add-AE-form')?.click();
     const formvalue =addForm.value ;
@@ -106,8 +122,9 @@ public immobilierBatis!: ImmobilierBati[] ;
       (response) => {
         
         console.log(response);
-        this.getAnnonceExternes();
+       
         addForm.reset();
+        this.getImmobilierBatis();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -124,10 +141,9 @@ public immobilierBatis!: ImmobilierBati[] ;
  
     this.serviceAnnonce.addAnnoncInterne(newAI).subscribe(
       (response) => {
-        
         console.log(response);
-        this.getAnnonceInternes();
         addForm.reset();
+        this.getImmobilierBatis()
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -135,59 +151,30 @@ public immobilierBatis!: ImmobilierBati[] ;
       }
     );
   }
+ 
 
-  public getAnnonceInternes() {
-    this.serviceAnnonce.getAllIn().subscribe(
-      (response: AnnonceInetrne[]) => {
-        this.annonceInternes = response;
-        console.log(response)
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
-  public annoced(id :number, type : string){
-    this.getImmobilierBatisAnnoced();
-    if(type === 'proc1' ){
-   for(let annoced of this.immobilierBatisAnnocedIn){
-     if(annoced.id == id){
-      return true;
+  public annoced(id :number ):Boolean{
+    let p :Boolean = false;
+     for(let immob of this.immobilierBatisAnnoced){
+       if(immob?.id===id)
+        {
+          p=true;
+          break;
+        }
      }
-   }
-   return false;
+     return p;
+  }
+
   
-  }
-
-  else{
-    for(let annoced of this.immobilierBatisAnnocedEx){
-      if(annoced.id == id){
-       return true;
-      }
-    }
-    return false;
-  }
-
-  }
 
  public getImmobilierBatisAnnoced(){
-  
-  for(let annonce of this.annonceInternes){
-   for(let immobilierBati of this.immobilierBatis)
-    if(annonce.idImmobilier==immobilierBati.id){
-     this.immobilierBatisAnnocedIn.push(immobilierBati);
-     
-    }
-  }
-
-  for(let annonce of this.annonceExternes){
-    for(let immobilierBati of this.immobilierBatis)
-     if(annonce.idImmobilier==immobilierBati.id){
-      this.immobilierBatisAnnocedEx.push(immobilierBati); 
-      
+   this.immobilierBatiService.getImmobilierBatisAnnonce().subscribe(
+     (response:ImmobilierBati[])=>{
+       this.immobilierBatisAnnoced=response;
+     },(error:HttpErrorResponse)=>{
+       alert(error.message)
      }
-   }
-
+   )
   }
 
 
@@ -195,34 +182,28 @@ public immobilierBatis!: ImmobilierBati[] ;
 
  
  
-  public getproprietaire(id :number,type :string)  {
+ /* public getproprietaire(immob :ImmobilierBati)  {
      
- if(type=="proc1"){
+ if(immob.typeProprietaire=='proc1'){
     for(let pro of this.proC1s){
-       if(pro.id=id){
-         this.proC1 =pro ;
-          this.prom="proC1";
-         break;
+       if(pro.id==immob?.id){
+          this.nomproprietaire=pro.nom+' '+ pro.prenom;
+          break;
        }  }
         
     }
-    if(type=="proc2"){
-       
+    else{
       for(let pro of this.proC2s){
-         if(pro.id=id){
-           this.proC2 =pro ;
-            this.prom="proC2";
+         if(pro.id==immob?.id){
+           this.nomproprietaire=pro.nom +' '+pro.prenom;
            break;
          }  }
           
       }
-    if(this.prom=="proC1")
-    return this.proC1;
-    else
-    return this.proC2;
+    
   } 
 
-
+*/
       onViewImmobilierBati(id: number) {
         this.router.navigate(['/menu','detail',id]);
       }
@@ -255,7 +236,7 @@ public immobilierBatis!: ImmobilierBati[] ;
     this.immobilierBatiService.getImmobilierBatis().subscribe(
       (response: ImmobilierBati[]) => {
         this.immobilierBatis = response;
-        console.log(this.immobilierBatis);
+        
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -268,14 +249,7 @@ public immobilierBatis!: ImmobilierBati[] ;
   
      //   this.selectedFile = event.target.files[0];
       }
-      public getImage(image:any){
-    
-       // const base64Data = image
-        //const retrievedImage = 'data:image/jpeg;base64,' + base64Data;
-        //console.log(retrievedImage);
-        //return retrievedImage;
-    
-      }
+ 
       
 
   public onAddImmobilierBati(addForm: NgForm): void {
@@ -310,6 +284,7 @@ public immobilierBatis!: ImmobilierBati[] ;
           }
         );
         console.log(response);
+        this.getImmobilierBatisAnnoced()
         this.getImmobilierBatis();
         addForm.reset();
       },
@@ -344,6 +319,7 @@ public immobilierBatis!: ImmobilierBati[] ;
   this.immobilierBatiService.updateImmobilierBati(updatimmobilierBati).subscribe(
     (response: ImmobilierBati) => {
       console.log(response);
+      this.getImmobilierBatisAnnoced()
       this.getImmobilierBatis();
     },
     (error: HttpErrorResponse) => {
@@ -356,6 +332,7 @@ public immobilierBatis!: ImmobilierBati[] ;
     this.immobilierBatiService.deleteImmobilierBati(ImmobilierBatiId).subscribe(
       (response: void) => {
         console.log(response);
+        this.getImmobilierBatisAnnoced();
         this.getImmobilierBatis();
       },
       (error: HttpErrorResponse) => {
@@ -369,9 +346,9 @@ public immobilierBatis!: ImmobilierBati[] ;
     console.log(key);
     const results: ImmobilierBati[] = [];
     for (const immobilierBati of this.immobilierBatis) {
-      if (immobilierBati.adresse.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ||immobilierBati.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || immobilierBati.numeroPermie.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      if (immobilierBati?.adresse.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      ||immobilierBati?.nom.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || immobilierBati?.numeroPermie.toLowerCase().indexOf(key.toLowerCase()) !== -1
      
       
       ) {
@@ -389,6 +366,8 @@ public immobilierBatis!: ImmobilierBati[] ;
 
   public onOpenModal(immobilierBati: ImmobilierBati, mode: string): void {
     const container = document.getElementById('main-container');
+    this.getContratLocations();
+    this.getContratVentes();
     const button = document.createElement('button');
     button.type = 'button';
     button.style.display = 'none';

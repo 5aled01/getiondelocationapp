@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
   PasserAuVente(reservation :Reservation){
     this.currentReservation=reservation
     
-    const newVente= new Vente(0,new Date(),this.getannonce(reservation.idAnnonce)?.idContrat,0,this.currentReservation.idClient,this.getannonce(reservation.idAnnonce)?.idImmobilier)
+    const newVente= new Vente(0,new Date(),this.getannonce(reservation.idAnnonce)?.idContrat,0,this.currentReservation.idClient,this.getannonce(reservation.idAnnonce)?.idImmobilier,'batiment')
     this.venteService.addVente(newVente).subscribe(
       (response:Vente)=>{
         this.updateEtasReservation();
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
     document.getElementById('add-Location-form')?.click();
       this.getContratLocation()
       const FormValue=form.value;
-      const newLocation= new Location(0,this.currentReservation?.idClient,FormValue['dateDebut'],FormValue['dateFin'],FormValue['montEncais'], this.getannonce(this.currentReservation.idAnnonce)?.idContrat,this.getannonce(this.currentReservation.idAnnonce)?.idImmobilier)
+      const newLocation= new Location(0,this.currentReservation?.idClient,FormValue['dateDebut'],FormValue['dateFin'],FormValue['montEncais'], this.getannonce(this.currentReservation.idAnnonce)?.idContrat,this.getannonce(this.currentReservation.idAnnonce)?.idImmobilier,'batiment')
       this.locationService.addLocation(newLocation).subscribe(
         (response:Location)=>{
            this.updateEtasReservation()
@@ -212,4 +212,23 @@ public updateEtasReservation(){
     container?.appendChild(button)
     button.click();
  }
+ public searchDemande(key: string): void {
+  console.log(key);
+  const results: Reservation[] = [];
+  for (const reservation of this.reservationinternes) {
+    if (('' +reservation?.idClient+'').toLowerCase().indexOf(key.toLowerCase()) !== -1
+    ||('' +reservation?.idAnnonce+'').toLowerCase().indexOf(key.toLowerCase()) !== -1
+    || reservation?.etats.toLowerCase().indexOf(key.toLowerCase()) !== -1
+    
+    ) {
+      results.push(reservation);
+    }
+  }
+  this.reservationinternes = results;
+  if (!key) {
+    this.getReservation();
+      }
+  }
+
+
 }

@@ -3,44 +3,52 @@
  
   </head>
   <body>
-
+ 
     <nav class="menu" tabindex="0">
         <div class="smartphone-menu-trigger"  class="avatar">
-            <img [src]="getImage(UserConnect?.image)" alt="" style="height: 100px ;" id="ItemPreview" class="img-fluid rounded-circle" />
+            <img [src]="getImage(UserConnect?.image)" alt="" style="height: 95px ;" id="ItemPreview" class="img-fluid rounded-circle" />
            <br><br>
-            <h2><a href="index.html">{{UserConnect?.username}}</a></h2>
+             <h4><a href="/menu">{{UserConnect?.username}} </a> </h4>  
         </div>
      
         <ul>
-            <a routerLink="home" routerLinkActive="active">
+            <a routerLink="home" routerLinkActive="active"   >
                 <li tabindex="0" class="fa fa-home" aria-hidden="true"><span> Home </span></li>
             </a>
-            <a *ngIf="UserConnect?.role=='admin'"  routerLink="users" routerLinkActive="active">
+            <a *ngIf="UserConnect?.role=='Admin'"  routerLink="users" routerLinkActive="active">
                 <li tabindex="0" class="fa fa-user" aria-hidden="true" ><span> Getion utilisateur</span></li>
             </a>
         
          <a  routerLink="proprietaires" routerLinkActive="active">
-            <li tabindex="0" class="fa fa-tasks" aria-hidden="true">  <span> Getion proprietaires</span></li>
+            <li tabindex="0" class="fa fa-tasks" aria-hidden="true">  <span> Gestion proprietaires</span></li>
          </a>
 
          <a routerLink="immobilierBati" routerLinkActive="active">
-            <li tabindex="0" class="fa fa-university" aria-hidden="true">  <span> Getion immobilier-Bati</span></li>
+            <li tabindex="0" class="fa fa-university" aria-hidden="true">  <span> Gestion immobilierBatis</span></li>
          </a>
 
          <a routerLink="annonce" routerLinkActive="active">
-            <li tabindex="0" class="fa fa-map-marker" aria-hidden="true">  <span> Getion annonce</span></li>
+            <li tabindex="0" class="fa fa-map-marker" aria-hidden="true">  <span> Gestion annonces</span></li>
          </a>
 
          <a routerLink="reservation" routerLinkActive="active">
-            <li tabindex="0" class="fa fa-calendar" aria-hidden="true">  <span> Getion reservation</span></li>
+            <li tabindex="0" class="fa fa-calendar" aria-hidden="true">  <span> Gestion reservations</span></li>
          </a>
          <a routerLink="client" routerLinkActive="active">
-            <li tabindex="0" class="fa fa-check-square" aria-hidden="true">  <span> Getion Client</span></li>
+            <li tabindex="0" class="fa fa-check-square" aria-hidden="true">  <span> Gestion Clients</span></li>
          </a>
          
 
          <a  routerLink="contrat" routerLinkActive="active">
-            <li tabindex="0" class="fa fa-folder-open" aria-hidden="true">  <span> Getion contrat</span></li>
+            <li tabindex="0" class="fa fa-folder-open" aria-hidden="true">  <span> Getion contrats</span></li>
+            
+        </a>   
+        <a  routerLink="location" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-folder-open" aria-hidden="true">  <span> Getion Locations</span></li>
+            
+        </a>   
+        <a  routerLink="vente" routerLinkActive="active">
+            <li tabindex="0" class="fa fa-folder-open" aria-hidden="true">  <span> Getion Ventes</span></li>
             
         </a>   
          
@@ -50,12 +58,10 @@
         </ul>
         </nav>
     
-        
+ 
             <router-outlet></router-outlet>
-           
+   
        
-  
-
-       
+   
   </body>
     </html>

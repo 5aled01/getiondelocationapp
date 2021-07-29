@@ -29,6 +29,9 @@ import { AgmCircle, AgmCoreModule } from '@agm/core';
 import { AnnonceListComponent } from './principale/annonce-list/annonce-list.component';
 import { SingleAnnonceComponent } from './principale/single-annonce/single-annonce.component';
 import { MenuGuardService } from './services/menu-guad.service';
+import { LocationComponent } from './menu/location/location.component';
+import { VenteComponent } from './menu/vente/vente.component';
+ 
 
 @NgModule({
   declarations: [
@@ -50,6 +53,8 @@ import { MenuGuardService } from './services/menu-guad.service';
     SignupComponent,
     AnnonceListComponent,
     SingleAnnonceComponent,
+    LocationComponent,
+    VenteComponent,
 
   ],
   imports: [

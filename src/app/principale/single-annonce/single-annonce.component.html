@@ -5,7 +5,7 @@
     <div class="carousel-item active">
       <img class="d-block w-100"    [src]="getImage(imageCurentImmobilier)" alt="First slide">
     </div>
-    <div class="carousel-item" *ngFor="let img of imagesEtage ">
+    <div class="carousel-item" *ngFor="let img of images ">
       <img [src]="getImage(img?.image)"    class="d-block w-100" >
    </div>
  </div>
@@ -87,7 +87,7 @@
   
       <button *ngIf="!isAuth" class="btn btn-success " data-toggle='modal' disabled> Reserve l'immobilier</button>
   
-      <a routerLink="/principale/auth/signin"  *ngIf="!isAuth" style=" color: blue;"><h6> Connecte pour reserve un l'immobilier ?</h6></a>
+      <a routerLink="/principale/auth/signin"  *ngIf="!isAuth" style=" color: blue;"><h6> Connecte pour reserve  l'immobilier ?</h6></a>
   
          </td>
   </tr>
@@ -123,7 +123,7 @@
   <img  [src]="getImage(imagesEtage[2]?.image)"  style=" width:600px;
   height:400px;
   object-fit:cover;
-  object-position:50% 50%" width="600px" height="400px" alt="Third slide">
+  object-position:50% 50%" width="500px" height="300px" alt="Third slide">
 </div>
    
   </div>
@@ -137,11 +137,11 @@
   </a>
 </div> <br><div style="margin-right: 10px; margin-left: 10px;">
   <p style="font-size: 15px;">
-  E tage numero {{etage?.numEtage}} : {{etage?.description}}
+  Etage numero {{etage?.numEtage}} : {{etage?.description}}
   </p>
 </div>
   <br>
-  <table style="width: 100%; ">
+  <table style="width: 100%;  ">
     
     <tr style="vertical-align: bottom; text-align: center;" >
       <td>
@@ -192,7 +192,7 @@
            
          
             <div class="form-group">
-              <label for="telephone">Duree de réservation</label>
+              <label for="telephone">Duree de réservation en joure</label>
               <select type="number" [(ngModel)]="this.dureeDeReservation"  class="form-control"  placeholder="telephone " required>
              <option value="1">1</option>
              <option value="2">2</option>

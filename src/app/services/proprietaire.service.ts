@@ -1,3 +1,4 @@
+ 
 import { Injectable } from '@angular/core';
 import { ProC2 } from 'src/app/models/proc2';
 import { ProC1 } from 'src/app/models/proc1';
@@ -50,7 +51,7 @@ export class ProrietaireService {
 
   
   public addProC2( formdata :any): Observable<ProC2> {
-    return this.http.post<ProC1>(`${this.apiServerUrl}/proc2/add`,formdata);
+    return this.http.post<ProC2>(`${this.apiServerUrl}/proc2/add`,formdata);
   }
 
   public updateProC2Withimg(data : any): Observable<ProC2> {
